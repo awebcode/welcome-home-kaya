@@ -23,7 +23,7 @@ const Profile = () => {
         <div className="mt-6">
           <h3 className="text-lg font-semibold mb-2">About Me</h3>
           <p className="text-gray-700">
-            I'm a passionate frontend developer with experience in building modern web
+            I&apos;m a passionate frontend developer with experience in building modern web
             applications.
           </p>
         </div>
