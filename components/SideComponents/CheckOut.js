@@ -95,6 +95,7 @@ const CheckoutPage = () => {
         </Form.Item>
 
         <Form.Item
+          
           label="ZIP Code"
           name="zip"
           rules={[
@@ -117,8 +118,9 @@ const CheckoutPage = () => {
             },
           ]}
         >
+          
           <Select>
-            <Option value="creditCard">Credit Card</Option>
+            <Option    value="creditCard">Credit Card</Option>
             <Option value="paypal">PayPal</Option>
             <Option value="applePay">Apple Pay</Option>
           </Select>

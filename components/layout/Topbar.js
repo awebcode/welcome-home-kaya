@@ -4,6 +4,7 @@ import { UserOutlined, SettingOutlined, LogoutOutlined } from "@ant-design/icons
 import { FiChevronDown } from "react-icons/fi";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import Image from "next/image";
 const { Header } = Layout;
 
 const Topbar = () => {
@@ -41,17 +42,27 @@ const logout=()=>{
         Profile
       </Menu.Item>
       <Menu.Item
+        onClick={() => Router.push("/user/login")}
+        key="1"
+        icon={<UserOutlined />}
+      >
+        Signin
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => Router.push("/user/register")}
+        key="1"
+        icon={<UserOutlined />}
+      >
+        Singup
+      </Menu.Item>
+      <Menu.Item
         onClick={() => Router.push("/settings")}
         key="2"
         icon={<SettingOutlined />}
       >
         Settings
       </Menu.Item>
-      <Menu.Item
-        key="3"
-        onClick={() => logout()}
-        icon={<LogoutOutlined />}
-      >
+      <Menu.Item key="3" onClick={() => logout()} icon={<LogoutOutlined />}>
         Logout
       </Menu.Item>
     </Menu>
@@ -59,13 +70,13 @@ const logout=()=>{
 
   return (
     <>
-      <Header className="bg-white p-2 md:p-4 flex justify-between items-center">
+      <Header style={{zIndex:"20"}} className="bg-white  p-2 md:p-4 flex justify-between items-center fixed top-0 left-0 right-0 custom-scroll">
         <div
           className="flex items-center cursor-pointer"
           onClick={() => Router.push("/")}
         >
           <span className="text-2xl md:text-5xl font-bold text-gray-900">
-            <span className="text-3xl md:text-6xl text-green-500">K</span>aya
+            <Image src={"/logo.png"} alt="welcome homes logo" height={65} width={65} layout="fixed"/>
           </span>
         </div>
         <div>

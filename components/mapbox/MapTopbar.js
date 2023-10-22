@@ -1,36 +1,35 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Select, Button, Input, Slider, Modal } from "antd";
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { BsChevronBarDown, BsChevronDown, BsSearch } from "react-icons/bs";
-
 const { Option } = Select;
+import { BsChevronBarDown, BsChevronDown, BsSearch } from "react-icons/bs";
+import { useRouter } from "next/router";
+const MapTopbar = ({
+  
+  handleSearch,
+  
+}) => {
+  const [isPriceModalVisible, setIsPriceModalVisible] = useState(false);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(3000000);
+  const Router=useRouter()
+  // Format the min and max prices for display
+  const formattedMinPrice =
+    minPrice < 1000000
+      ? `$${(minPrice / 1000).toFixed(0)}k`
+      : `$${(minPrice / 1000000).toFixed(1)}m`;
 
-const Map = ReactMapboxGl({
-  accessToken:
-    "pk.eyJ1IjoiYXNpa3VyIiwiYSI6ImNsbzBnODZrdTE5dXkya3BicjE2dXdpNG8ifQ.3OoBJGLIdEpS8kCHGS8FEA",
-});
-
-const MapComponent = () => {
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-    // Function to handle opening the modal
-    const [isPriceModalVisible, setIsPriceModalVisible] = useState(false);
+  const formattedMaxPrice =
+    maxPrice < 1000000
+      ? `$${(maxPrice / 1000).toFixed(0)}k`
+      : `$${(maxPrice / 1000000).toFixed(1)}m`;
+  
   const handleOpenPriceModal = () => {
     setIsPriceModalVisible(true);
   };
 
-  // Function to handle closing the modal
   const handleClosePriceModal = () => {
     setIsPriceModalVisible(false);
   };
-  const [viewport, setViewport] = React.useState({
-    width: "100vw",
-    height: "100vh",
-    latitude: 40.7128,
-    longitude: -74.006,
-    zoom: 12,
-  });
 
   const handleFilterChange = (value) => {
     console.log(value);
@@ -40,34 +39,15 @@ const MapComponent = () => {
     console.log(min, max);
   };
 
-  const handleSearch = async (value) => {
-    try {
-      const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}`
-      );
-      const data = await response.json();
-      const [longitude, latitude] = data.features[0].geometry.coordinates;
-
-      setViewport({
-        ...viewport,
-        latitude,
-        longitude,
-        zoom: 12,
-      });
-    } catch (error) {
-      console.error("Error fetching geocoding data:", error);
-    }
-  };
-
-  const handleSliderChange = (values) => {
-    // Use the values array to handle the selected range
-    const [min, max] = values;
-    console.log(`Selected range: ${min} - ${max}`);
-  };
-
+   const handleSliderChange = (values) => {
+     const [min, max] = values;
+     console.log(`Selected range: ${min} - ${max}`);
+   };
+   
   return (
+    // Format the min and max prices for display
+
     <>
-      {" "}
       <div className="flex justify-between flex-wrap  items-center p-2 my-2 mx-2 md:mx-4 rounded-md">
         <div className="mr-4 flex my-2 flex-wrap justify-between items-center">
           <div className="mx-2 my-1">
@@ -100,7 +80,7 @@ const MapComponent = () => {
           </div>
           <div className="mx-2 my-1">
             <Select
-              defaultValue="Builder Type"
+              defaultValue="Builder"
               style={{ width: 120 }}
               onChange={handleFilterChange}
             >
@@ -126,11 +106,10 @@ const MapComponent = () => {
           </div>
 
           <div className="flex items-center mx-2 my-2">
-            <Button
-              showSearch={false} // Set showSearch to false
-              onClick={handleOpenPriceModal}
-              value={"Select Price Range"}
-            >Select Price Range<BsChevronDown className="inline mx-2"/></Button>
+            <Button onClick={handleOpenPriceModal} value={"Select Price Range"}>
+              Select Price Range
+              <BsChevronDown className="inline mx-2" />
+            </Button>
           </div>
           <Modal
             title="Set Price Range"
@@ -141,57 +120,56 @@ const MapComponent = () => {
           >
             <div className="flex justify-between items-center mb-4 ">
               <Input
-                type="number"
-                placeholder="Min Price"
-                value={minPrice}
-                onChange={(e) => setMinPrice(e.target.value)}
-                className="border p-2 w-1/2 mx-2"
+                value={formattedMinPrice}
+                className="border rounded-sm border-gray-900 p-4 w-1/2 mx-2"
               />
               <Input
-                type="number"
-                placeholder="Max Price"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
-                className="border p-2 w-1/2"
+                value={formattedMaxPrice}
+                className="border rounded-sm border-gray-900 p-4 w-1/2 mx-2"
               />
             </div>
             <Slider
               range
-              defaultValue={[0, 1000]}
+              value={[minPrice, maxPrice]} // Set the slider values to minPrice and maxPrice
               min={0}
-              max={1000}
-              step={10}
-              onChange={handleSliderChange}
+              max={3000000} // Adjust the max value to 3 million
+              step={10000} // Adjust the step as needed
+              onChange={(values) => {
+                setMinPrice(values[0]);
+                setMaxPrice(values[1]);
+                handleSliderChange(values); // Pass the updated values to your handleSliderChange function
+              }}
             />
+            <div className="flex justify-between">
+              <span>{formattedMinPrice}</span>
+              <span>{formattedMaxPrice}</span>
+            </div>
           </Modal>
         </div>
-        <div className="mx-2">
+        <div className="mx-2 flex items-center flex-col md:flex-row">
+          <Button
+            type="button"
+            onClick={() => Router.push("/")}
+            className="bg-white text-gray-950 p-2 h-full  border-2 border-gray-950 rounded-md"
+          >
+            Map View
+          </Button>
+          <Button
+            type="button"
+            onClick={() => Router.push("/home/tilt_view")}
+            className="custom-btn mx-2 my-2 md:my-0 h-full"
+          >
+            Tile View
+          </Button>
           <Input.Search
             icon={<BsSearch />}
             onSearch={handleSearch} // Use the handleSearch function here
-            placeholder="Search Place"
+            placeholder="Search: (Address,Builder,Package)"
           />
-        </div>
-      </div>
-      <div className="flex flex-wrap p-4 my-2 mx-2 md:mx-4 rounded-md">
-        <div className="flex-grow">
-          <Map
-            style="mapbox://styles/mapbox/streets-v9"
-            containerStyle={{
-              height: "100vh",
-              width: "100vw",
-            }}
-            center={[viewport.longitude, viewport.latitude]}
-            zoom={[viewport.zoom]}
-          >
-            <Layer type="symbol" id="marker" layout={{ "icon-image": "marker-15" }}>
-              <Feature coordinates={[-74.006, 40.7128]} />
-            </Layer>
-          </Map>
         </div>
       </div>
     </>
   );
 };
 
-export default MapComponent;
+export default MapTopbar;

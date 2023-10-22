@@ -1,7 +1,24 @@
 
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+*{
+  margin:0px;
+  padding: 0px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+}
+body{
+  overflow-x: hidden;
+  font-family: "Poppins";
+}
+/* scrroll display none */
+.custom-scroll::-webkit-scrollbar {
+  display:none !important;
+}
 .custom-btn {
   background-color: #1a202c; /* Equivalent to bg-gray-900 */
  
@@ -14,4 +31,9 @@
 
 .custom-btn:hover {
   background-color: #2d3748; /* Equivalent to hover:bg-gray-800 */
+}
+/* Add this CSS to your styles */
+.swiper-slide img {
+  max-height: 100px; /* Set the desired maximum height */
+  max-width: 100px; /* Set the desired maximum width */
 }
