@@ -10,8 +10,7 @@ import { preBuiltPlaces } from "./data";
 const { Option } = Select;
 
 const Map = ReactMapboxGl({
-  accessToken:
-    "pk.eyJ1IjoiYXNpa3VyIiwiYSI6ImNsbzBnODZrdTE5dXkya3BicjE2dXdpNG8ifQ.3OoBJGLIdEpS8kCHGS8FEA",
+  accessToken: process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN,
 });
 
 const MapComponent = () => {
