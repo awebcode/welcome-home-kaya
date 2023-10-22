@@ -6,7 +6,7 @@ const ForgetPassRoute = () => {
   return (
     <div>
       <Head>
-        <title>"Reset-Password  -Welcome Homes</title>
+        <title>Reset-Password  -Welcome Homes</title>
         <meta name="description" content="Reset-Password -Welcome Homes" />
       </Head>
       <ForgetPasswordForm />
