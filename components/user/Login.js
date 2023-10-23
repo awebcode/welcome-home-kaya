@@ -1,21 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Input, Button, Divider } from "antd";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { clearErrors, loadUser, login } from "@/redux/actions/userActions";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 const LoginForm = () => {
+  const router=useRouter()
+  const dispatch = useDispatch();
+  const { user, loading, isAuthenticated, error, isRegistered } = useSelector(
+    (u) => u.user
+  );
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+  
 
   const onFinish = (values) => {
-    setLoading(true);
+    dispatch(login(values));
 
-    // Simulate API request
-    setTimeout(() => {
-      console.log("Received login values:", values);
-      setLoading(false);
-      form.resetFields();
-    }, 1000);
+    
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/user/profile");
+    }
+    if (isRegistered) {
+      toast.success("Yeah! Login successfull!");
+      dispatch(clearErrors());
+      
+    }
+    
+
+    if (error) {
+      toast.warning(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, router, isAuthenticated, isRegistered, error]);
 
   return (
     <div className="container w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
@@ -36,8 +57,8 @@ const LoginForm = () => {
         </h2>
 
         <Form.Item
-          label="Username"
-          name="username"
+          label="Username || Email"
+          name="email"
           rules={[{ required: true, message: "Please enter your username or email!" }]}
         >
           <Input placeholder="Enter your username or email" />

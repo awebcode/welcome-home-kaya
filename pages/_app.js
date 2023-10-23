@@ -4,7 +4,17 @@ import Topbar from "@/components/layout/Topbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
+import { ContextProvider } from "@/components/context/ContextProvider";
+import { Provider } from "react-redux";
+import store from "@/store";
+import { useEffect } from "react";
+import { loadUser } from "@/redux/actions/userActions";
 export default function App({ Component, pageProps }) {
+
+   useEffect(() => {
+     
+     store.dispatch(loadUser());
+   }, [store.dispatch]);
   return (
     <>
       <Head>
@@ -27,26 +37,33 @@ export default function App({ Component, pageProps }) {
           property="og:image"
           content="https://res.cloudinary.com/asikur/image/upload/v1697922761/Screenshot_510_zagdim.png"
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-      </Head>
-      <Topbar />
-      <Layout>
-        <Component {...pageProps} />
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
         />
-      </Layout>
+      </Head>
+      <Provider store={store}>
+        <ContextProvider>
+          <Topbar />
+          <Layout>
+            <Component {...pageProps} />
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
+          </Layout>
+        </ContextProvider>
+      </Provider>
 
       {/* Same as */}
     </>

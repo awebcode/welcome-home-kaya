@@ -1,0 +1,1 @@
+export const Base_url="http://localhost:8800/api/v1"

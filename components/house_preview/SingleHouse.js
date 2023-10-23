@@ -39,7 +39,7 @@ const SingleHouse = () => {
       thumbnail: image,
     }));
 
-    console.log(thumbnails)
+   
 
   const handleImageClick = (url) => {
     setSelectedImage(url);

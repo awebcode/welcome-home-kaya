@@ -1,22 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Input, Button, Divider } from "antd";
 import Link from "next/link";
-
+import { AvatarGenerator } from "random-avatar-generator";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { clearErrors, loadUser, register } from "@/redux/actions/userActions";
+import { useRouter } from "next/router";
 const RegisterForm = () => {
+  const router=useRouter()
+  const dispatch = useDispatch();
+  const { user, loading, isAuthenticated, error, isRegistered } = useSelector((u) => u.user);
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
 
   const onFinish = (values) => {
-    setLoading(true);
+    const generator = new AvatarGenerator();
 
-    // Simulate API request
-    setTimeout(() => {
-      console.log("Received registration values:", values);
-      setLoading(false);
-      form.resetFields();
-    }, 1000);
+    // Simply get a random avatar
+    const randomAvatarUrl = generator.generateRandomAvatar();
+    // Pass avatar URL in the values object
+    const data = { ...values, avatar: randomAvatarUrl };
+    // Dispatch registration action
+    dispatch(register(data));
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/user/profile");
+    }
+    if (isRegistered) {
+      toast.success("Yeah! Signup successfull!");
+      dispatch(clearErrors());
+    }
+
+    if (error) {
+      toast.warning(error);
+      dispatch(clearErrors())
+    }
+  }, [dispatch, router, isAuthenticated, isRegistered, error]);
   return (
     <div className="container w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
       <Form
@@ -62,7 +82,7 @@ const RegisterForm = () => {
             htmlType="submit"
             loading={loading}
           >
-            Register
+            {loading ? "Account creating..." : "Signup"}
           </Button>
         </Form.Item>
         <Form.Item className="flex justify-between items-center m-2 p-2">

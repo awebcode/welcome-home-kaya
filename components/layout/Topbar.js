@@ -5,9 +5,19 @@ import { FiChevronDown } from "react-icons/fi";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { useValue } from "../context/ContextProvider";
+import { logout } from "@/redux/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { FaJediOrder, FaShoppingCart, FaSignInAlt } from "react-icons/fa";
 const { Header } = Layout;
 
 const Topbar = () => {
+  const dispatch = useDispatch();
+  const { user, isAuthenticated } = useSelector(
+    (u) => u.user
+  );
+  
+  
   const Router = useRouter();
   const menuRef = useRef();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,60 +38,97 @@ const Topbar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    
   };
-const logout=()=>{
-  toast.success("logged out")
-}
+  
+  //logoutHandler
+  const logoutHandler = () => {
+    dispatch(logout())
+    
+    toast.success("Logged out success!")
+  }
+  
+  
   const menu = (
-    <Menu>
-      <Menu.Item
-        onClick={() => Router.push("/user/profile")}
-        key="1"
-        icon={<UserOutlined />}
-      >
-        Profile
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => Router.push("/user/login")}
-        key="1"
-        icon={<UserOutlined />}
-      >
-        Signin
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => Router.push("/user/register")}
-        key="1"
-        icon={<UserOutlined />}
-      >
-        Singup
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => Router.push("/settings")}
-        key="2"
-        icon={<SettingOutlined />}
-      >
-        Settings
-      </Menu.Item>
-      <Menu.Item key="3" onClick={() => logout()} icon={<LogoutOutlined />}>
-        Logout
-      </Menu.Item>
+    <Menu className="p-3">
+      {!user ? (
+        <>
+          <Menu.Item
+            onClick={() => Router.push("/user/login")}
+            key="5"
+            icon={<FaSignInAlt />}
+          >
+            Signin
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => Router.push("/user/register")}
+            key="6"
+            icon={<UserOutlined />}
+          >
+            Singup
+          </Menu.Item>
+        </>
+      ) : (
+        <>
+          <Menu.Item
+            onClick={() => Router.push("/user/profile")}
+            key="1"
+            icon={<UserOutlined />}
+          >
+            Profile
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => Router.push("/my_bag")}
+            key="5"
+            icon={<FaShoppingCart />}
+          >
+            Cart
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => Router.push("/orders")}
+            key="6"
+            icon={<FaJediOrder />}
+          >
+            Orders
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => Router.push("/settings")}
+            key="2"
+            icon={<SettingOutlined />}
+          >
+            Settings
+          </Menu.Item>
+          <Menu.Item key="3" onClick={() => logoutHandler()} icon={<LogoutOutlined />}>
+            Logout
+          </Menu.Item>
+        </>
+      )}
     </Menu>
   );
 
   return (
     <>
-      <Header style={{zIndex:"20"}} className="bg-white  p-2 md:p-4 flex justify-between items-center fixed top-0 left-0 right-0 custom-scroll">
+      <Header
+        style={{ zIndex: "20" }}
+        className="bg-white  p-2 md:p-4 flex justify-between items-center fixed top-0 left-0 right-0 custom-scroll"
+      >
         <div
           className="flex items-center cursor-pointer"
           onClick={() => Router.push("/")}
         >
           <span className="text-2xl md:text-5xl font-bold text-gray-900">
-            <Image src={"/logo.png"} alt="welcome homes logo" height={65} width={65} layout="fixed"/>
+            <Image
+              src={"/logo.png"}
+              alt="welcome homes logo"
+              height={65}
+              width={65}
+              layout="fixed"
+            />
           </span>
         </div>
         <div>
           <Dropdown overlay={menu} placement="bottomRight" arrow>
-            <Avatar size="lg" src="/avatar.png" />
+            <Avatar size="lg" src={`${user?.avatar || "/avatar.png"}`} />
           </Dropdown>
           <span className="text-gray-900 cursor-pointer" onClick={toggleMenu}>
             WelcomeHomes <FiChevronDown className="inline" />
@@ -92,10 +139,11 @@ const logout=()=>{
         <div
           ref={menuRef}
           style={{
-            position: "absolute",
+            position: "fixed",
             top: "8%", // Adjust the position as needed
             right: 35,
-            zIndex: 10, // Adjust the position as needed
+            zIndex: 100,
+           
           }}
         >
           {menu}

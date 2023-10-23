@@ -1,6 +1,9 @@
-import Profile from '@/components/user/ProfileCompoent'
-import React from 'react'
 
+import dynamic from 'next/dynamic';
+import React from 'react'
+const Profile = dynamic(() => import("@/components/user/ProfileCompoent"), {
+  ssr:false
+});
 const profile = () => {
   return (
     <div><Profile/></div>
