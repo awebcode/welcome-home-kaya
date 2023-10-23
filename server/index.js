@@ -18,16 +18,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Middleware for parsing cookies
-app.use(cookieParser());
+
 
 // Middleware for enabling CORS (Cross-Origin Resource Sharing)
 app.use(
   cors({
     origin: ["http://localhost:3000", "https://welcome-home-kaya.vercel.app"],
     credentials: true,
+    
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
   })
 );
-
+app.use(cookieParser());
 // Routes (add your routes here)
 app.get("/", (req, res) => {
   res.send("Hello World! Welcome Homes Server!");
