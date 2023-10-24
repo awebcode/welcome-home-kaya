@@ -54,3 +54,6 @@ button.ant-btn.css-xu9wm8.ant-btn-primary
 
 /*  */
 
+div.ant-modal-content{
+  background-color: #f8f9fadc !important;
+}

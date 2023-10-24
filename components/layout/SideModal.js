@@ -37,13 +37,16 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
           );
         }}
         width={1000}
+        
         bodyStyle={{
           padding: 0,
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#ffffff",
+          backgroundColor: "#0f172a",
           margin: "0px 10px",
+          borderRadius: "10px",
+          padding:"50px"
         }}
       >
         <div
@@ -54,135 +57,135 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
           <div className="flex flex-col items-center justify-center my-6 w-full">
             <Link href="/">
               <div
-                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/"
                 )}`}
               >
-                <HomeOutlined className="mb-2 text-[24px] md:text-[32px] text-center" />
+                <HomeOutlined className="mb-2 text-[32px] text-center" />
 
-                <span className="text-[20px] md:text-[20px]">Home</span>
+                <span className="text-[16px]">Home</span>
               </div>
             </Link>
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
 
             <Link href="/my_bag">
               <div
-                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/my_bag"
                 )}`}
               >
                 <Badge count={6}>
-                  <ShoppingCartOutlined className="mb-2 text-[24px] md:text-[32px] text-center" />
+                  <ShoppingCartOutlined className="mb-2 text-[32px] text-center text-white" />
                 </Badge>
-                <span className="text-[20px] md:text-[20px]">My Bag</span>
+                <span className="text-[16px]">My Bag</span>
               </div>
             </Link>
 
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
             <Link href="/companies">
               <div
-                className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/companies"
                 )}`}
               >
-                <BsFillGridFill className="mb-2 text-[24px] md:text-[32px] text-center " />
-                <span className="text-[20px] md:text-[20px]">Companies</span>
+                <BsFillGridFill className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Companies</span>
               </div>
             </Link>
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
             <Link href="/projects">
               <div
-                className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/projects"
                 )}`}
               >
-                <ProjectOutlined className="mb-2 text-[24px] md:text-[32px] text-center " />
-                <span className="text-[20px] md:text-[20px]">Projects</span>
+                <ProjectOutlined className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Projects</span>
               </div>
             </Link>
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
             <Link href="/pay">
               <div
-                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/pay"
                 )}`}
               >
-                <FaAmazonPay className="mb-2 text-[24px] md:text-[32px] text-center " />
-                <span className="text-[20px] md:text-[20px]">Pay</span>
+                <FaAmazonPay className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Pay</span>
               </div>
             </Link>
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
             <Link href="/vendors">
               <div
-                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/vendors"
                 )}`}
               >
-                <TbHomeDollar className="mb-2 text-[24px] md:text-[32px] text-center " />
-                <span className="text-[20px] md:text-[20px]">Vendors</span>
+                <TbHomeDollar className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Vendors</span>
               </div>
             </Link>
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
             <Link href="/orders">
               <div
-                className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/orders"
                 )}`}
               >
-                <FaJediOrder className="mb-2 text-[24px] md:text-[32px] text-center " />
-                <span className="text-[20px] md:text-[20px]">Orders</span>
+                <FaJediOrder className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Orders</span>
               </div>
             </Link>
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
             <Link href="/get_paid">
               <div
-                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/get_paid"
                 )}`}
               >
-                <MdOutlineMonetizationOn className="mb-2 text-[24px] md:text-[32px] text-center " />
-                <span className="text-[20px] md:text-[20px]">Get Paid</span>
+                <MdOutlineMonetizationOn className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Get Paid</span>
               </div>
             </Link>
 
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
             <Link href="/customers">
               <div
-                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/customers"
                 )}`}
               >
-                <PiUsers className="mb-2 text-[24px] md:text-[32px] text-center " />
-                <span className="text-[20px] md:text-[20px]">Customers</span>
+                <PiUsers className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Customers</span>
               </div>
             </Link>
 
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
             <Link href="/settings">
               <div
-                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/settings"
                 )}`}
               >
-                <FiSettings className="mb-2 text-[24px] md:text-[32px] text-center " />
-                <span className="text-[20px] md:text-[20px]">Settings</span>
+                <FiSettings className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Settings</span>
               </div>
             </Link>
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
             <Link href="/feedbacks">
               <div
-                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/feedbacks"
                 )}`}
               >
-                <PiWechatLogo className="mb-2 text-[24px] md:text-[32px] text-center " />
-                <span className="text-[20px] md:text-[20px]">Feedbacks</span>
+                <PiWechatLogo className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Feedbacks</span>
               </div>
             </Link>
-            <Divider className="bg-gray-300" />
+            <Divider className="bg-[#05c789]" />
             <Link href="/user/profile">
               <div
-                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
                   "/user/profile"
                 )}`}
               >
@@ -196,7 +199,7 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 className={`link flex flex-col justify-center items-center text-red-500 `}
               >
                 <LogoutOutlined className="mb-2 cursor-pointer text-[16px]  md:text-[20px] text-center " />
-                <span className="text-[20px] md:text-[20px]">Logout</span>
+                <span className="text-[16px]">Logout</span>
               </div>
             </a>
           </div>
