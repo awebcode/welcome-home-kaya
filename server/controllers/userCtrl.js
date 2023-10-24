@@ -123,7 +123,7 @@ exports.updateUserByMe = async (req, res, next) => {
   try {
     const { id } = req.user;
     const updateFields = {}; // Create an object to store the fields to update
-    console.log(req.body);
+    
     if (req.body.username !== undefined) {
       const existingUser = await User.findOne({ username: req.body.username });
       if (existingUser && existingUser.id !== id) {
@@ -153,6 +153,9 @@ exports.updateUserByMe = async (req, res, next) => {
 
     if (req.body.bio !== undefined) {
       updateFields.bio = req.body.bio;
+    }
+    if (req.body.avatar !== undefined) {
+      updateFields.avatar = req.body.avatar;
     }
 
     if (req.body.phone !== undefined) {
@@ -257,7 +260,7 @@ exports.deleteAdminUser = async (req, res, next) => {
 //forget password
 
 exports.forgotPasswordToken = async (req, res, next) => {
-  console.log(req.body)
+  
   const { email } = req.body;
   const lowerCaseEmail = email.toLowerCase();
   try {
@@ -285,7 +288,7 @@ exports.forgotPasswordToken = async (req, res, next) => {
 exports.resetPassword = async (req, res, next) => {
   const { newPassword } = req.body;
   const { token } = req.params;
-  console.log(req.body)
+ 
   
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
@@ -304,7 +307,7 @@ exports.resetPassword = async (req, res, next) => {
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined
     const updateUse=await user.save();
-    console.log("upd",updateUse)
+   
     // await Notification.create({
     //   message: `Dear ${user.username} your password has been  updated!`,
     //   onClickPath: "/Me",

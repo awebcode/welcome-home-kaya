@@ -24,7 +24,7 @@ const Profile = () => {
     setAvatarPreview(file);
     setImageUploading(true)
     const uploadedImage = await upload(file);
-    
+    console.log(uploadedImage)
     setImageUploading(false);
     dispatch(updateProfile({...user, avatar: uploadedImage.url }));
     // Optionally, update the user's avatar in local storage

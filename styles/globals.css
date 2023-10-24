@@ -40,7 +40,7 @@ body {
 
 button.ant-btn.css-dev-only-do-not-override-xu9wm8.ant-btn-primary
  {
-  background-color: #1a202c; /* Equivalent to bg-gray-900 */
+  background-color: #1a202c !important; /* Equivalent to bg-gray-900 */
 
   color: #ffffff; /* Equivalent to text-white */
    font-weight: 500;
