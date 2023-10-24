@@ -44,9 +44,9 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
           display: "flex",
           flexDirection: "column",
           backgroundColor: "#0f172a",
-          margin: "0px 10px",
-          borderRadius: "10px",
-          padding:"50px"
+          margin: "0px 5px",
+          borderRadius: "6px",
+          
         }}
       >
         <div
