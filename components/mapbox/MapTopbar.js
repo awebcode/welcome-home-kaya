@@ -248,6 +248,21 @@ const MapTopbar = ({ handleSearch }) => {
             Filter
             <BsChevronDown className="inline mx-2" />
           </Button>
+
+          <Button
+            type="button"
+            onClick={() => Router.push("/")}
+            className="bg-white text-gray-950 p-2 h-full  border-2 border-gray-950 rounded-md"
+          >
+            Map View
+          </Button>
+          <Button
+            type="button"
+            onClick={() => Router.push("/home/tilt_view")}
+            className="custom-btn mx-2 my-2 md:my-0 h-full"
+          >
+            Tile View
+          </Button>
         </div>
 
         {/* Filter Options (Desktop) */}
@@ -312,11 +327,7 @@ const MapTopbar = ({ handleSearch }) => {
           </div>
 
           <div className="flex items-center mx-2 my-2">
-            <Button
-              onClick={handleOpenPriceModal}
-              value={"Select Price Range"}
-              
-            >
+            <Button onClick={handleOpenPriceModal} value={"Select Price Range"}>
               Select Price Range
               <BsChevronDown className="inline mx-2" />
             </Button>
