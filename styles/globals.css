@@ -38,7 +38,8 @@ body {
 }
 /* ant modal footer  ok button */
 
-button.ant-btn.css-dev-only-do-not-override-xu9wm8.ant-btn-primary
+button.ant-btn.css-dev-only-do-not-override-xu9wm8.ant-btn-primary,
+button.ant-btn.css-xu9wm8.ant-btn-primary
  {
   background-color: #1a202c !important; /* Equivalent to bg-gray-900 */
 
