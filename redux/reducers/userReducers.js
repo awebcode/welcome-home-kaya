@@ -15,6 +15,13 @@ import {
   UPDATE_PROFILE_FAIL,
   UPDATE_PROFILE_RESET,
   CLEAR_ERRORS,
+  FORGOT_PASSWORD_REQUEST,
+  RESET_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  RESET_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAIL,
+  RESET_PASSWORD_FAIL,
+  RESET_STATE,
 } from "../constants/userConstants";
 
 // Assuming your initial state looks like this
@@ -36,6 +43,8 @@ export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
     case REGISTER_USER_REQUEST:
+    case FORGOT_PASSWORD_REQUEST:
+    case RESET_PASSWORD_REQUEST:
       return {
         loading: true,
         isAuthenticated: false,
@@ -43,6 +52,15 @@ export const userReducer = (state = initialState, action) => {
     case LOAD_USER_REQUEST:
       return {
         loadUserLoading: true,
+      };
+
+    case FORGOT_PASSWORD_SUCCESS:
+      return {
+        isSentEmail: true,
+      };
+    case RESET_PASSWORD_SUCCESS:
+      return {
+        isResetPassword: true,
       };
     case LOGIN_SUCCESS:
     case REGISTER_USER_SUCCESS:
@@ -80,6 +98,17 @@ export const userReducer = (state = initialState, action) => {
         user: null,
         error: action.payload,
       };
+    //reset user fail
+    case FORGOT_PASSWORD_FAIL:
+      return {
+        isSentEmail: false,
+        error: action.payload,
+      };
+    case RESET_PASSWORD_FAIL:
+      return {
+        isResetPassword: false,
+        error: action.payload,
+      };
 
     case LOAD_USER_FAIL:
       return {
@@ -110,7 +139,7 @@ export const userReducer = (state = initialState, action) => {
         profileUpdateLoading: false,
         user: action.payload,
         isAuthenticated: true,
-        isUpdated:true// Assuming updating the profile will maintain authentication
+        isUpdated: true, // Assuming updating the profile will maintain authentication
       };
 
     case UPDATE_PROFILE_FAIL:
@@ -118,9 +147,15 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         profileUpdateLoading: false,
         error: action.payload,
-       
       };
-
+    
+    case RESET_STATE:
+      return {
+        isRegistered: false,
+        isUpdated: false,
+        isResetPassword: false,
+        isSentEmail: false,
+      };
     case CLEAR_ERRORS:
       return {
         ...state,

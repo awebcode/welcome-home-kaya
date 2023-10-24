@@ -1,6 +1,6 @@
 import React, { useState, useRef,useEffect } from "react";
 import { Layout, Menu, Dropdown, Avatar, Divider } from "antd";
-import { UserOutlined, SettingOutlined, LogoutOutlined } from "@ant-design/icons";
+import { UserOutlined, SettingOutlined, LogoutOutlined, MenuOutlined, CloseOutlined } from "@ant-design/icons";
 import { FiChevronDown } from "react-icons/fi";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
@@ -8,47 +8,43 @@ import Image from "next/image";
 import { useValue } from "../context/ContextProvider";
 import { logout } from "@/redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { FaJediOrder, FaShoppingCart, FaSignInAlt } from "react-icons/fa";
+import { FaHamburger, FaJediOrder, FaShoppingCart, FaSignInAlt } from "react-icons/fa";
+import { BsHammer } from "react-icons/bs";
 const { Header } = Layout;
 
-const Topbar = () => {
+const Topbar = ({ setIsSidebarOpen ,isSidebarOpen}) => {
   const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector(
-    (u) => u.user
-  );
-  
-  
+  const { user, isAuthenticated } = useSelector((u) => u.user);
+
   const Router = useRouter();
   const menuRef = useRef();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
- useEffect(() => {
-   const handleClickOutside = (event) => {
-     if (menuRef.current && !menuRef.current.contains(event.target)) {
-       setIsMenuOpen(false);
-     }
-   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
 
-   document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
-   return () => {
-     document.removeEventListener("mousedown", handleClickOutside);
-   };
- }, []);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    
   };
-  
+
   //logoutHandler
   const logoutHandler = () => {
-    dispatch(logout())
-    
-    toast.success("Logged out success!")
-  }
-  
-  
+    dispatch(logout());
+
+    toast.success("Logged out success!");
+  };
+
   const menu = (
     <Menu className="p-3">
       {!user ? (
@@ -130,11 +126,25 @@ const Topbar = () => {
           <Dropdown overlay={menu} placement="bottomRight" arrow>
             <Avatar size="lg" src={`${user?.avatar || "/avatar.png"}`} />
           </Dropdown>
-          <span className="text-gray-900 cursor-pointer" onClick={toggleMenu}>
+          <span className="hidden md:inline text-gray-900 cursor-pointer" onClick={toggleMenu}>
             WelcomeHomes <FiChevronDown className="inline" />
           </span>
+          <div className="visible md:hidden inline">
+            {isSidebarOpen ? (
+              <CloseOutlined
+                className="inline mx-2 text-xl font-bold"
+                onClick={() => setIsSidebarOpen(false)}
+              />
+            ) : (
+              <MenuOutlined
+                className="inline mx-2 text-xl font-bold"
+                onClick={() => setIsSidebarOpen(true)}
+              />
+            )}
+          </div>
         </div>
       </Header>
+
       {isMenuOpen && (
         <div
           ref={menuRef}
@@ -143,7 +153,6 @@ const Topbar = () => {
             top: "8%", // Adjust the position as needed
             right: 35,
             zIndex: 100,
-           
           }}
         >
           {menu}

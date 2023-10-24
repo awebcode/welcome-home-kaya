@@ -1,7 +1,9 @@
 const { User } = require("../models/userSchema");
 const ErrorHandler = require("../utils/ErrorHandler");
+const sendEmail = require("../utils/sendEmail");
 const sendToken = require("../utils/sendToken");
-const bcrypt=require("bcrypt")
+const bcrypt = require("bcrypt")
+const crypto = require("crypto");
 // Middleware to convert username and email to lowercase
 
 // Register a User
@@ -252,3 +254,67 @@ exports.deleteAdminUser = async (req, res, next) => {
     next(error);
   }
 };
+//forget password
+
+exports.forgotPasswordToken = async (req, res, next) => {
+  console.log(req.body)
+  const { email } = req.body;
+  const lowerCaseEmail = email.toLowerCase();
+  try {
+    const user = await User.findOne({ email: lowerCaseEmail });
+    if (!user) {
+      return next(new ErrorHandler("User not found with this email", 404));
+    }
+
+    const token = await user.createPasswordResetToken();
+    await user.save({ validateBeforeSave: false });
+    const resetURL = `
+      Hi,Dear ${email} Please follow this link to reset your password. This link is valid for the next 10 minutes:
+      <a style="color:red;font-weight:600;" href="${process.env.CLIENT_URL}/user/reset-password/${token}">Click Here To Reset  Password</a>
+    `;
+
+    sendEmail(email, "Your WelcomeHomes Password Reset Link", resetURL);
+
+    res.status(200).json({ success: true, token, message: `Email sent to ${email}` });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+//RESET PASSWORD
+exports.resetPassword = async (req, res, next) => {
+  const { newPassword } = req.body;
+  const { token } = req.params;
+  console.log(req.body)
+  
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+  try {
+    const user = await User.findOne({
+      passwordResetToken: hashedToken,
+      passwordResetExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return next(new ErrorHandler("Token Expired, Please try again later", 400));
+    }
+
+    
+    user.password = newPassword;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined
+    const updateUse=await user.save();
+    console.log("upd",updateUse)
+    // await Notification.create({
+    //   message: `Dear ${user.username} your password has been  updated!`,
+    //   onClickPath: "/Me",
+    //   userRef: user._id,
+    // });
+    const Link = `${process.env.CLIENT_URL}/login`;
+    sendEmail(user.email, `Dear ${user.username} your password has been updated!`, Link);
+    res.json({ success: true, user, message: "Password Updated Successfully" });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}

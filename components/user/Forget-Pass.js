@@ -1,22 +1,33 @@
-import { useState } from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Divider } from "antd";
 import Link from "next/link";
+import { forgetPassword, resetUserState } from "@/redux/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const ForgetPasswordForm = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+  const { loading, isSentEmail, error } = useSelector((state) => state.user);
 
   const onFinish = (values) => {
-    setLoading(true);
-
-    // Simulate API request
-    setTimeout(() => {
-      console.log("Requested password reset for:", values.email);
-      setLoading(false);
-      form.resetFields();
-    }, 1000);
+    dispatch(forgetPassword(values.email))
   };
+useEffect(() => {
+  if (isSentEmail) {
+    toast.success("Email  sent successfully! Plese check your email");
 
+    
+  }
+  if (error) {
+    toast.error(error);
+
+    dispatch(resetUserState());
+  }
+}, [dispatch, router, error, isSentEmail]);
   return (
     <div className="container w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
       <Form
@@ -28,8 +39,9 @@ const ForgetPasswordForm = () => {
         size="large"
       >
         <h2 className="text-2xl md:text-5xl text-center font-bold mb-4 my-4">
-          Reset Password 
+          Sent a email to reset
         </h2>
+        <Divider/>
         <Form.Item
           label="Email"
           name="email"
@@ -47,7 +59,7 @@ const ForgetPasswordForm = () => {
             htmlType="submit"
             loading={loading}
           >
-            Send Reset Link
+            Sent reset email
           </Button>
         </Form.Item>
         <Form.Item className="flex justify-between items-center m-2 p-2">

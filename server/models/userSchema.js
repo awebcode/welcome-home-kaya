@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const crypto = require("crypto");
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -21,10 +21,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: [6, "Password must be at least 6 characters long!"],
     },
-    
+
     bio: String,
-    phone:String,
-    
+    phone: String,
+
     role: {
       type: String,
       default: "user",
@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema(
       default:
         "https://res.cloudinary.com/asikur/image/upload/v1697815502/Lovepik_com-401205594-cartoon-avatar_fmvsfi.png",
     },
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   { timestamps: true }
 );
@@ -58,5 +61,12 @@ userSchema.methods.generateToken = function () {
     expiresIn: process.env.JWT_EXPIRE, // You can set the expiration time as needed
   });
   return token;
+};
+//gemerate random crypto token
+userSchema.methods.createPasswordResetToken = async function () {
+  const resettoken = crypto.randomBytes(32).toString("hex");
+  this.passwordResetToken = crypto.createHash("sha256").update(resettoken).digest("hex");
+  this.passwordResetExpires = Date.now() + 30 * 60 * 1000; // 10 minutes
+  return resettoken;
 };
 exports.User = mongoose.model("User", userSchema);

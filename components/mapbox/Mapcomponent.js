@@ -15,19 +15,16 @@ const Map = ReactMapboxGl({
 
 const MapComponent = () => {
   const [isCardModalVisible, setCardIsModalVisible] = useState(false);
- 
+
   const [viewport, setViewport] = React.useState({
     width: "100vw",
     height: "100vh",
+
     latitude: 40.7128,
     longitude: -74.006,
     zoom: 12,
   });
   const [hoveredPlace, setHoveredPlace] = useState(null);
-
-  
-
- 
 
   const handleSearch = async (value) => {
     try {
@@ -48,15 +45,17 @@ const MapComponent = () => {
     }
   };
 
-  
+  //ismobile
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      setIsMobile(true);
+    }
+  }, []);
 
   return (
     <>
-      <MapTopbar
-       
-        handleSearch={handleSearch}
-        
-      />
+      <MapTopbar handleSearch={handleSearch} />
       {hoveredPlace && (
         <PlaceCard
           placeName={hoveredPlace.name}
@@ -69,7 +68,7 @@ const MapComponent = () => {
           name={hoveredPlace.name}
         />
       )}
-      <div className="flex flex-wrap p-4 my-2 mx-2 md:mx-4 rounded-md">
+      <div className="flex flex-wrap  my-2 mx-2 rounded-md">
         <div className="flex-grow">
           <Map
             style="mapbox://styles/mapbox/streets-v9"

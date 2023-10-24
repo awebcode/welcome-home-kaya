@@ -46,7 +46,7 @@ export default function App({ Component, pageProps }) {
       </Head>
       <Provider store={store}>
         <ContextProvider>
-          <Topbar />
+          {/* <Topbar /> */}
           <Layout>
             <Component {...pageProps} />
             <ToastContainer

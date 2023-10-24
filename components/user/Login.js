@@ -26,7 +26,7 @@ const LoginForm = () => {
       router.push("/user/profile");
     }
     if (isRegistered) {
-      toast.success("Yeah! Login successfull!");
+      toast.success("Yea! Login successfull!");
       dispatch(clearErrors());
       
     }

@@ -11,8 +11,9 @@
   outline: none;
 }
 body {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   font-family: "Poppins";
+  
 }
 /* scrroll display none */
 .custom-scroll::-webkit-scrollbar {
@@ -37,8 +38,8 @@ body {
 }
 /* ant modal footer  ok button */
 
-button.ant-btn.css-dev-only-do-not-override-xu9wm8.ant-btn-primary,
-button.ant-btn.css-dev-only-do-not-override-xu9wm8.ant-btn-default {
+button.ant-btn.css-dev-only-do-not-override-xu9wm8.ant-btn-primary
+ {
   background-color: #1a202c; /* Equivalent to bg-gray-900 */
 
   color: #ffffff; /* Equivalent to text-white */
@@ -48,4 +49,7 @@ button.ant-btn.css-dev-only-do-not-override-xu9wm8.ant-btn-default {
   height: 100%;
 }
 /* ant modal footer  cancel button */
- 
+ /* Add this CSS to your stylesheets */
+
+/*  */
+

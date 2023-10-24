@@ -8,6 +8,8 @@ const {
   deleteAdminUser,
   updateUserByMe,
   updateUserByAdmin,
+  forgotPasswordToken,
+  resetPassword,
 
 } = require("../controllers/userCtrl");
 const { isAuthenticatedUser } = require("../utils/auth");
@@ -19,6 +21,11 @@ router.post("/register",convertToLowerCase, registerUser);
 router.post("/login",convertToLowerCase, loginUser);
 router.get("/logout", logout);
 router.get("/me", isAuthenticatedUser, getUserDetails);
+//forget password reverify email
+router.post("/forget-password", forgotPasswordToken);
+//reset forget password
+router.put("/reset-password/:token",  resetPassword);
+//get all users for admin
 router.get("/users", isAuthenticatedUser, getUsers);
 router.delete("/delete-my-account", isAuthenticatedUser, deleteOwnUser);
 router.delete("/delete-user/:id", isAuthenticatedUser, deleteAdminUser);
