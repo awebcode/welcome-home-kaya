@@ -1,4 +1,4 @@
-import { GroupOutlined, HomeOutlined, LogoutOutlined, ProjectOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import {  HomeOutlined, LogoutOutlined, ProjectOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Avatar, Badge, Divider, Modal } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,7 +9,6 @@ import { PiWechatLogo } from "react-icons/pi";
 import { FiSettings } from "react-icons/fi";
 import { PiUsers } from "react-icons/pi";
 import { MdOutlineMonetizationOn } from "react-icons/md";
-import { useState } from "react";
 
 const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
   const router = useRouter();
@@ -28,7 +27,7 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
           return (
             <>
               <button onClick={() => setSidebarOpen(false)} className="custom-btn mx-2">
-                Cancel
+                Close
               </button>
               <button onClick={() => setSidebarOpen(false)} className="custom-btn mx-2">
                 Ok

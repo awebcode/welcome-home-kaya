@@ -9,7 +9,10 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: [{ url: String, public_id: String }],
+  images: {
+    type: [String],
+    validate: (v) => Array.isArray(v) && v.length > 0,
+  },
   ratings: {
     type: Number,
     default: 0,
@@ -55,8 +58,8 @@ const projectSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  lng: Number,
-  lut: Number,
+  lng: { type: Number, required: true },
+  lat: { type: Number, required: true },
   completationDate: Date,
   createdAt: {
     type: Date,

@@ -1,3 +1,4 @@
+
 import MapComponent from '@/components/mapbox/Mapcomponent'
 import Head from 'next/head'
 
@@ -42,6 +43,7 @@ export default function Home() {
       <div className="container">
         <MapComponent />
       </div>
+      
     </>
   );
 }

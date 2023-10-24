@@ -1,18 +1,24 @@
-import React, { useState, useRef,useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Layout, Menu, Dropdown, Avatar, Divider } from "antd";
-import { UserOutlined, SettingOutlined, LogoutOutlined, MenuOutlined, CloseOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  SettingOutlined,
+  LogoutOutlined,
+  MenuOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import { FiChevronDown } from "react-icons/fi";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import Image from "next/image";
-import { useValue } from "../context/ContextProvider";
+import { useValue } from "../../context/ContextProvider";
 import { logout } from "@/redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { FaHamburger, FaJediOrder, FaShoppingCart, FaSignInAlt } from "react-icons/fa";
 import { BsHammer } from "react-icons/bs";
 const { Header } = Layout;
 
-const Topbar = ({ setIsSidebarOpen ,isSidebarOpen}) => {
+const Topbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((u) => u.user);
 
@@ -126,7 +132,10 @@ const Topbar = ({ setIsSidebarOpen ,isSidebarOpen}) => {
           <Dropdown overlay={menu} placement="bottomRight" arrow>
             <Avatar size="lg" src={`${user?.avatar || "/avatar.png"}`} />
           </Dropdown>
-          <span className="hidden md:inline text-gray-900 cursor-pointer" onClick={toggleMenu}>
+          <span
+            className="hidden md:inline text-gray-900 cursor-pointer"
+            onClick={toggleMenu}
+          >
             WelcomeHomes <FiChevronDown className="inline" />
           </span>
           <div className="visible md:hidden inline">

@@ -1,20 +1,17 @@
 import Layout from "@/components/layout/Layout";
 import "../styles/globals.css";
-import Topbar from "@/components/layout/Topbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
-import { ContextProvider } from "@/components/context/ContextProvider";
 import { Provider } from "react-redux";
 import store from "@/store";
 import { useEffect } from "react";
 import { loadUser } from "@/redux/actions/userActions";
+import ContextProvider from "@/context/ContextProvider";
 export default function App({ Component, pageProps }) {
-
-   useEffect(() => {
-     
-     store.dispatch(loadUser());
-   }, [store.dispatch]);
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, [store.dispatch]);
   return (
     <>
       <Head>
