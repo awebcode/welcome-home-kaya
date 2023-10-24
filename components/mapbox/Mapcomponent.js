@@ -68,7 +68,7 @@ const MapComponent = () => {
           name={hoveredPlace.name}
         />
       )}
-      <div className="flex flex-wrap  my-2 mx-2 rounded-md">
+      <div className="flex flex-wrap  my-2  rounded-md">
         <div className="flex-grow">
           <Map
             style="mapbox://styles/mapbox/streets-v9"
