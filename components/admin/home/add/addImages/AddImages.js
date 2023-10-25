@@ -31,7 +31,7 @@ const AddImages = () => {
           {isDragActive ? (
             <p style={{ color: "green" }}>Drop the files here...</p>
           ) : (
-            <p>Drag 'n' Drop some files here, or click to select files</p>
+            <p>Drag and Drop some files here, or click to select files</p>
           )}
           <em>(images with *.jpeg, *.png, *.jpg extension will be accepted)</em>
         </div>
