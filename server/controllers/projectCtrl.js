@@ -1,14 +1,18 @@
 // controllers/ProjectsController.js
 
+const { default: mongoose } = require("mongoose");
 const Project = require("../models/projecSchema");
 const ErrorHandler = require("../utils/ErrorHandler");
 
 // Create a new Projects
 exports.createProjects = async (req, res, next) => {
   try {
-    const { title, content } = req.body;
-    const projects = await Project.create({ title, content });
-    res.status(201).json({ success: true, projects });
+    // const { title, content } = req.body;
+    console.log(req.body)
+    const project = await Project.create(req.body);
+
+    
+    res.status(201).json({ success: true, project });
   } catch (error) {
     next(error);
   }
@@ -23,19 +27,28 @@ exports.getAllProjectss = async (req, res, next) => {
     next(error);
   }
 };
-
-// Get a single Projects by ID
+//get single project
 exports.getProjectsById = async (req, res, next) => {
   try {
-    const projects = await Project.findById(req.params.id);
-    if (!projects) {
-      return next(new ErrorHandler("Projects not found", 404));
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(new ErrorHandler("Invalid project ID", 400));
     }
-    res.status(200).json({ success: true, projects });
+
+    const project = await Project.findById(id);
+
+    if (!project) {
+      return next(new ErrorHandler("Project not found", 404));
+    }
+
+    res.status(200).json({ success: true, project });
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
+
 
 // Update a Projects by ID
 exports.updateProjects = async (req, res, next) => {

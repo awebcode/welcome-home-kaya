@@ -19,7 +19,7 @@ const BottomNav = () => {
         {
           0: <ClusterMap />,
           1: <GetHomes />,
-          2: <AddHome />,
+          2: <AddHome setPage={setValue} />,
         }[value]
       }
       <Paper

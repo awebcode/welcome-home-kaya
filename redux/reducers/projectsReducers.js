@@ -12,6 +12,7 @@ import {
   GET_SINGLE_PROJECT_FAIL,
   GET_SINGLE_PROJECT_REQUEST,
   GET_SINGLE_PROJECT_SUCCESS,
+  RESET_PROJECT_STATE,
   UPDATE_SINGLE_PROJECT_FAIL,
   UPDATE_SINGLE_PROJECT_REQUEST,
   UPDATE_SINGLE_PROJECT_SUCCESS,
@@ -92,6 +93,12 @@ const projectReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case RESET_PROJECT_STATE:
+      return {
+        isCreated: false,
+        isUpdated: false,
+        isDeleted: false,
       };
     case CREATE_PROJECT_CLEAR_ERROR:
       return {

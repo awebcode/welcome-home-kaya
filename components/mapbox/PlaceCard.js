@@ -1,7 +1,7 @@
 import React from "react";
-import { Modal, Divider, Button } from "antd";
-import Image from "next/image";
+import { Modal, Divider, Button, Image } from "antd";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const PlaceCard = ({
   placeName,
@@ -11,11 +11,12 @@ const PlaceCard = ({
   isVisible,
   onClose,
   name,
+  desc,id,acress
 }) => {
   const router = useRouter();
 
   const handleButtonClick = () => {
-    router.push(`/house/single/${name}`);
+    router.push(`/house/single/${id}`);
   };
 
   return (
@@ -24,27 +25,37 @@ const PlaceCard = ({
       onCancel={onClose}
       footer={null}
       centered
-      width={400} // Set an appropriate width for the modal
+      width={350}
+      style={{ background: "black", margin: "10px" }} // Set an appropriate width for the modal
     >
       <div className="flex flex-col" onMouseLeave={onClose}>
-        <div className="mb-4">
+        <div className="mb-2">
           <Image
             src={images[0]}
-            width={150}
+            width="100%"
             height={150}
-            layout="responsive"
+            className="object-cover object-center"
+            layout="fixed"
             alt={placeName}
           />
         </div>
-        <h2 className="text-xl font-bold mb-2">{placeName}</h2>
-        <p className="text-gray-700 mb-2">Price: {price}</p>
-        <p className="text-gray-700 mb-4">Location: {location}</p>
-        <Divider style={{ width: "80%" }} /> {/* Ant Design Divider */}
-        <p className="text-center text-gray-700">
-          Additional information or description can go here.
+        {/* <h2 className="text-sm font-semibold mb-2">{placeName?.slice(0, 60) + " ..."}</h2> */}
+        <p className="text-gray-900 mb-2 font-bold text-2xl">{price}$</p>
+        <h3>all-in price</h3>
+        <p className="text-gray-700 mb-2">
+          {/* <b>Location:</b>*/} {location}{" "}
         </p>
+        <p className="text-gray-600 cursor-pointer my-1">
+          Oasis 3 Flex + fits 8 more models
+        </p>
+        {/* <Divider style={{ width: "80%" }} className="bg-gray-400" />{" "} */}
+        {/* Ant Design Divider */}
+        {/* <Link href={`/house/single/${id}`} className=" text-gray-600 cursor-pointer">
+          {desc?.slice(0, 100) + "..."}
+        </Link> */}
+        <p className=" text-gray-600 cursor-pointer my-1">acress {acress }</p>
         <Button onClick={handleButtonClick} className="mt-4 custom-btn w-full h-full">
-          Go to {placeName}
+          View Place & Homes
         </Button>
       </div>
     </Modal>

@@ -8,9 +8,13 @@ import store from "@/store";
 import { useEffect } from "react";
 import { loadUser } from "@/redux/actions/userActions";
 import ContextProvider from "@/context/ContextProvider";
+import { getProjects } from "@/redux/actions/projectsActions";
+import "mapbox-gl/dist/mapbox-gl.css";
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     store.dispatch(loadUser());
+    store.dispatch(getProjects());
+    
   }, [store.dispatch]);
   return (
     <>

@@ -57,3 +57,16 @@ button.ant-btn.css-xu9wm8.ant-btn-primary
 div.ant-modal-content{
   background-color: #f8f9fadc !important;
 }
+
+/* material ui tooltip */
+
+.custom-tooltip {
+  background-color: #1a202c !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  opacity: 1  !important; /* Override default opacity */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+
+}

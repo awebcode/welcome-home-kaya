@@ -13,6 +13,7 @@ import {
   GET_SINGLE_PROJECT_FAIL,
   GET_SINGLE_PROJECT_REQUEST,
   GET_SINGLE_PROJECT_SUCCESS,
+  RESET_PROJECT_STATE,
   UPDATE_SINGLE_PROJECT_FAIL,
   UPDATE_SINGLE_PROJECT_REQUEST,
   UPDATE_SINGLE_PROJECT_SUCCESS,
@@ -31,6 +32,7 @@ export const createNewProject = (datax) => async (dispatch) => {
     const { data } = await axios.post(`${Base_url}/project`, datax, config);
 
     dispatch({ type: CREATE_PROJECT_SUCCESS, payload: data.project });
+    console.log("created project",data.project)
   } catch (error) {
     console.log(error);
     dispatch({ type: CREATE_PROJECT_FAIL, payload: error.response?.data?.message });
@@ -38,7 +40,7 @@ export const createNewProject = (datax) => async (dispatch) => {
 };
 
 //getAllProjects
-export const getProjects = () => async (dispatch) => {
+export const getProjects = (dispatchContext) => async (dispatch) => {
   try {
     dispatch({ type: GET_PROJECTS_REQUEST });
 
@@ -50,6 +52,8 @@ export const getProjects = () => async (dispatch) => {
     const { data } = await axios.get(`${Base_url}/projects`, config);
 
     dispatch({ type: GET_PROJECTS_SUCCESS, payload: data.projects });
+
+    // dispatchContext({type:"UPDATE_ROOMS",payload:data.projects})
   } catch (error) {
     console.log(error);
     dispatch({ type: GET_PROJECTS_FAIL, payload: error.response?.data?.message });
@@ -67,7 +71,6 @@ export const getOneProject = (id) => async (dispatch) => {
     };
 
     const { data } = await axios.get(`${Base_url}/project/${id}`, config);
-
     dispatch({ type: GET_SINGLE_PROJECT_SUCCESS, payload: data.project });
   } catch (error) {
     dispatch({ type: GET_SINGLE_PROJECT_FAIL, payload: error.response?.data?.message });
@@ -106,7 +109,7 @@ export const deleteProject = (id) => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.delete(`${Base_url}/project/${id}`, config);
+    const { data } = await axios.delete(`${Base_url}/projects/${id}`, config);
 
     dispatch({ type: DELETE_SINGLE_PROJECT_SUCCESS, payload: data.project });
   } catch (error) {
@@ -117,7 +120,10 @@ export const deleteProject = (id) => async (dispatch) => {
     });
   }
 };
-
+// REEST STATE
+export const resetProjectState = () => async (dispatch) => {
+  dispatch({ type: RESET_PROJECT_STATE });
+};
 //clear errors
 export const clearProjectErrors = () => async (dispatch) => {
   dispatch({ type: CREATE_PROJECT_CLEAR_ERROR });

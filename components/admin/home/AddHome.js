@@ -5,10 +5,23 @@ import AddLocation from "./add/addLocation/AddLocation";
 import AddDetails from "./add/addDetails/AddDetails";
 import AddImages from "./add/addImages/AddImages";
 import { useValue } from "@/context/ContextProvider";
+import { clearProjectErrors, createNewProject, getProjects, resetProjectState } from "@/redux/actions/projectsActions";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const AddRoom = ({ setPage }) => {
+  const dispatchRedux = useDispatch();
+  const {loading,error,isCreated}=useSelector((s)=>s.project)
   const {
-    state: { images, details, location, currentUser },
+    state: {
+      images,
+      details,
+      location,
+      currentUser,
+      keyFeatures,
+      underHomeFeatures,
+      address
+    },
     dispatch,
   } = useValue();
 
@@ -71,18 +84,50 @@ const AddRoom = ({ setPage }) => {
       if (showSubmit) setShowSubmit(false);
     }
   }, [steps]);
-  const createRoom = () => {};
   const handleSubmit = () => {
     const room = {
       lng: location.lng,
       lat: location.lat,
+      address: location.address,
       price: details.price,
       title: details.title,
       description: details.description,
       images,
+      keyFeatures: details.keyFeatures,
+      // homeFeatures: details.underHomeFeatures,
+      bed: details.bed,
+      bath: details.bath,
+      so_ft: details.soft,
+      acress: details.acress,
+      targetCompletationDate: details.targetCompletation,
+      cost: details.cost,
+      budget: details.budget,
+      propertyListingPrice: details.propertyListingPrice,
+      constructionEstimate: details.constructionEstimate,
+
+      homeType: details.homeType,
+      builder: details.builder,
+      status: details.status,
     };
-    createRoom(room, currentUser, dispatch, setPage);
+    console.log("addroom",room)
+    dispatchRedux(createNewProject(room))
+    
   };
+
+  useEffect(() => {
+    if (isCreated) {
+      toast.success("Project added successfully.")
+      dispatchRedux(resetProjectState());
+      dispatchRedux(getProjects())
+      dispatch({ type: "RESET_ROOM" })
+      setPage(0)
+    }
+     if (error) {
+       toast.error(error);
+       dispatchRedux(clearProjectErrors());
+     }
+},[dispatchRedux,error,isCreated])
+
   return (
     <Container sx={{ my: 4 }}>
       <Stepper alternativeLabel nonLinear activeStep={activeStep} sx={{ mb: 3 }}>
@@ -113,13 +158,17 @@ const AddRoom = ({ setPage }) => {
             Next
           </Button>
         </Stack>
-        {showSubmit && (
-          <Stack sx={{ alignItems: "center" }}>
-            <Button variant="contained" endIcon={<Send />} onClick={handleSubmit}>
-              Submit
-            </Button>
-          </Stack>
-        )}
+
+        <Stack sx={{ alignItems: "center" }}>
+          <Button
+            disabled={!showSubmit}
+            variant="contained"
+            endIcon={<Send />}
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+        </Stack>
       </Box>
     </Container>
   );

@@ -161,7 +161,7 @@ export const updateProfile = (userData) => async (dispatch) => {
     });
   }
 };
-// Clearing Errors
+// REEST STATE
 export const resetUserState = () => async (dispatch) => {
   dispatch({ type: RESET_STATE });
 };

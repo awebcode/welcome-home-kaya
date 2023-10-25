@@ -6,6 +6,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import MapTopbar from "./MapTopbar";
 import PlaceCard from "./PlaceCard";
 import { preBuiltPlaces } from "./data";
+import ClusterMap from "../admin/home/map/ClusterMap";
 
 const { Option } = Select;
 
@@ -69,7 +70,7 @@ const MapComponent = () => {
         />
       )}
       <div className="flex flex-wrap  my-2  rounded-md">
-        <div className="flex-grow">
+        {/* <div className="flex-grow">
           <Map
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
@@ -109,8 +110,9 @@ const MapComponent = () => {
               </Layer>
             ))}
           </Map>
-        </div>
+        </div> */}
       </div>
+      <ClusterMap />
     </>
   );
 };

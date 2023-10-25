@@ -6,9 +6,11 @@ import ImagesList from "./ImageList";
 
 const AddImages = () => {
   const [files, setFiles] = useState([]);
-  const onDrop = useCallback((acceptedFiles) => {
-    setFiles(acceptedFiles);
+    const onDrop = useCallback((acceptedFiles) => {
+     
+    setFiles(acceptedFiles); // Verify that this is only being called once per drop.
   }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { "image/*": [] },

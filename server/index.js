@@ -1,7 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const {db} = require("./config/db");
+const { db } = require("./config/db");
 const notFoundError = require("./utils/notFound");
 const UserRoutes = require("./routes/userRoutes");
 const projectRoutes = require("./routes/projectRoutes");
@@ -19,13 +19,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Middleware for parsing cookies
 
-
 // Middleware for enabling CORS (Cross-Origin Resource Sharing)
 app.use(
   cors({
     origin: ["http://localhost:3000", "https://welcome-home-kaya.vercel.app"],
     credentials: true,
-    
+
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: "Content-Type,Authorization",
   })
@@ -59,7 +58,7 @@ process.on("uncaughtException", (err) => {
 });
 
 // Global Error Handler (for unhandled promise rejections)
-process.on("unhandledRejection", (err,next) => {
+process.on("unhandledRejection", (err, next) => {
   console.error("Unhandled Rejection:", err);
   process.exit(1);
   // Exit the process with a non-zero status code

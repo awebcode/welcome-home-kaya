@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  domains: ["res.cloudinary.com", "picsum.photos"],
+  images: {
+    domains: ["res.cloudinary.com", "picsum.photos", "firebasestorage.googleapis.com"],
+  },
   unoptimized: true,
 };
 

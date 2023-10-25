@@ -7,9 +7,16 @@ import Supercluster from "supercluster";
 import { Avatar, Paper, Tooltip } from "@mui/material";
 import GeocoderInput from "../sidebar/GeoCoderInput";
 import PopupHome from "./PopupHome";
+
+
 import { getProjects } from "@/redux/actions/projectsActions";
 import { useValue } from "@/context/ContextProvider";
-
+import { useDispatch, useSelector } from "react-redux";
+import "mapbox-gl/dist/mapbox-gl.css";
+import PlaceCard from "@/components/mapbox/PlaceCard";
+import { getAllProjects} from "@/firebase/function";
+import Geocoder from "../add/addLocation/GeoCoder";
+import { useRouter } from "next/router";
 
 const supercluster = new Supercluster({
   radius: 75,
@@ -17,6 +24,8 @@ const supercluster = new Supercluster({
 });
 
 const ClusterMap = () => {
+  const router=useRouter()
+   const [isCardModalVisible, setCardIsModalVisible] = useState(false);
   const {
     state: { filteredRooms },
     dispatch,
@@ -25,36 +34,39 @@ const ClusterMap = () => {
   const [points, setPoints] = useState([]);
   const [clusters, setClusters] = useState([]);
   const [bounds, setBounds] = useState([-180, -85, 180, 85]);
-  const [zoom, setZoom] = useState(0);
+  const [zoom, setZoom] = useState(12);
   const [popupInfo, setPopupInfo] = useState(null);
-
   useEffect(() => {
-     getProjects(dispatch);
+    // dispatchRedux(getProjects(dispatch))
+    getAllProjects(dispatch);
   }, []);
 
   useEffect(() => {
-    const points = filteredRooms.map((room) => ({
+    const points = filteredRooms?.map((project) => ({
       type: "Feature",
       properties: {
         cluster: false,
-        roomId: room._id,
-        price: room.price,
-        title: room.title,
-        description: room.description,
-        lng: room.lng,
-        lat: room.lat,
-        images: room.images,
-        uPhoto: room.uPhoto,
-        uName: room.uName,
+        projectId: project._id,
+        price: project.price,
+        title: project.title,
+        description: project.description,
+        lng: project.lng,
+        lat: project.lat,
+        images: project.images,
+        uPhoto: project.uPhoto,
+        uName: project.uName,
+        address: project.address,
+        acress: project.acress,
       },
       geometry: {
         type: "Point",
-        coordinates: [parseFloat(room.lng), parseFloat(room.lat)],
+        coordinates: [parseFloat(project.lng), parseFloat(project.lat)],
       },
     }));
     setPoints(points);
+   
   }, [filteredRooms]);
-
+  
   useEffect(() => {
     supercluster.load(points);
     setClusters(supercluster.getClusters(bounds, zoom));
@@ -65,13 +77,32 @@ const ClusterMap = () => {
       setBounds(mapRef.current.getMap().getBounds().toArray().flat());
     }
   }, [mapRef?.current]);
+
+  //converted price
+function formatPrice(price) {
+  if (price >= 1000000) {
+    return `${(price / 1000000).toFixed(1)} M`;
+  } else if (price >= 1000) {
+    return `${(price / 1000).toFixed(1)} K`;
+  } else {
+    return `${price}`;
+  }
+}
+
+   
   return (
     <ReactMapGL
-      initialViewState={{ latitude: 51.5072, longitude: 0.1276 }}
+      initialViewState={{ latitude: 40.7128, longitude: -74.006, zoom: 5 }}
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-      mapStyle="mapbox://styles/mapbox/streets-v9" //mapbox://styles/mapbox/streets-v11
+      mapStyle="mapbox://styles/mapbox/streets-v11"
+      //mapbox://styles/mapbox/streets-v11
       ref={mapRef}
       onZoomEnd={(e) => setZoom(Math.round(e.viewState.zoom))}
+      style={{ height: "100vh", width: router?.pathname?.includes("admin")? "92vw" : "100vw" }}
+      containerStyle={{
+        height: "100vh",
+        width: "100vw",
+      }}
     >
       {clusters.map((cluster) => {
         const { cluster: isCluster, point_count } = cluster.properties;
@@ -109,33 +140,66 @@ const ClusterMap = () => {
 
         return (
           <Marker
-            key={`room-${cluster.properties.roomId}`}
+            key={`room-${cluster.properties?.projectId}`}
             longitude={longitude}
             latitude={latitude}
           >
-            <Tooltip title={cluster.properties.uName}>
+            <Tooltip
+              title={cluster.properties?.address}
+              placement="top"
+              classes={{ tooltip: "custom-tooltip" }}
+            >
               <Avatar
-                src={cluster.properties.uPhoto}
+                src={formatPrice(cluster.properties?.price)}
                 component={Paper}
                 elevation={2}
                 onClick={() => setPopupInfo(cluster.properties)}
-              />
+                onMouseOver={() => {
+                  setCardIsModalVisible(true);
+                  setPopupInfo(cluster.properties);
+                }}
+                // onMouseDown={() => {
+                //   setCardIsModalVisible(false);
+                //   setPopupInfo({});
+                // }}
+                style={{
+                  backgroundColor: "black",
+                  fontSize: "10px",
+                  padding: "2px",
+                  marginTop: zoom === 12 || zoom > 12 ? "-50px" : "0px",
+                  position: "relative",
+                }}
+              >
+                {formatPrice(cluster.properties?.price)}
+              </Avatar>
             </Tooltip>
           </Marker>
         );
       })}
       <GeocoderInput />
+      <Geocoder />
       {popupInfo && (
-        <PopupHome
-          longitude={popupInfo.lng}
-          latitude={popupInfo.lat}
-          maxWidth="auto"
-          closeOnClick={false}
-          focusAfterOpen={false}
-          onClose={() => setPopupInfo(null)}
-        >
-          <PopupHome {...{ popupInfo }} />
-        </PopupHome>
+        // <PopupHome
+        //   longitude={popupInfo.lng}
+        //   latitude={popupInfo.lat}
+        //   maxWidth="auto"
+        //   closeOnClick={false}
+        //   focusAfterOpen={false}
+        //   onClose={() => setPopupInfo(null)}
+        //   popupInfo={popupInfo}
+        // />
+        <PlaceCard
+          id={popupInfo.projectId}
+          placeName={popupInfo.title}
+          price={popupInfo.price}
+          location={popupInfo.address}
+          isVisible={isCardModalVisible}
+          onClose={() => setCardIsModalVisible(false)}
+          coordinates={popupInfo?.coordinates}
+          images={popupInfo.images}
+          desc={popupInfo.description}
+          acress={popupInfo.acress}
+        />
       )}
     </ReactMapGL>
   );

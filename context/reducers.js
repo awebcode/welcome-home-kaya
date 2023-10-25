@@ -1,22 +1,16 @@
 const reducer = (state, action) => {
   switch (action.type) {
-   
-
     case "START_LOADING":
       return { ...state, loading: true };
     case "END_LOADING":
       return { ...state, loading: false };
-
     case "UPDATE_ALERT":
       return { ...state, alert: action.payload };
-
     case "UPDATE_PROFILE":
       return { ...state, profile: action.payload };
-
     case "UPDATE_USER":
-      localStorage.setItem("user", JSON.stringify(action.payload));
+      localStorage.setItem("currentUser", JSON.stringify(action.payload));
       return { ...state, currentUser: action.payload };
-
     case "UPDATE_IMAGES":
       return { ...state, images: [...state.images, action.payload] };
     case "DELETE_IMAGE":
@@ -35,7 +29,6 @@ const reducer = (state, action) => {
         details: { title: "", description: "", price: 0 },
         location: { lng: 0, lat: 0 },
       };
-
     case "UPDATE_ROOMS":
       return {
         ...state,
@@ -44,18 +37,35 @@ const reducer = (state, action) => {
         priceFilter: 50,
         filteredRooms: action.payload,
       };
-    case "FILTER_PRICE":
-      return {
-        ...state,
-        priceFilter: action.payload,
-        filteredRooms: applyFilter(state.rooms, state.addressFilter, action.payload),
-      };
+    // case "FILTER_PRICE":
+    //   return {
+    //     ...state,
+    //     priceFilter: action.payload,
+    //     filteredRooms: applyFilter(state),
+    //   };
     case "FILTER_ADDRESS":
       return {
         ...state,
         addressFilter: action.payload,
-        filteredRooms: applyFilter(state.rooms, action.payload, state.priceFilter),
+        filteredRooms: applyFilter(state),
       };
+    case "UPDATE_FILTER":
+      const { filterType, value } = action.payload;
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [filterType]: value,
+        },
+        filteredRooms: applyFilter({
+          ...state,
+          filters: {
+            ...state.filters,
+            [filterType]: value,
+          },
+        }),
+      };
+
     case "CLEAR_ADDRESS":
       return {
         ...state,
@@ -63,31 +73,57 @@ const reducer = (state, action) => {
         priceFilter: 50,
         filteredRooms: state.rooms,
       };
-
     case "UPDATE_ROOM":
       return { ...state, room: action.payload };
-
     default:
       throw new Error("No matched action!");
   }
 };
 
-export default reducer;
+const applyFilter = (state) => {
+  const {
+    rooms,
+    addressFilter,
+    // priceFilter,
+    filters: { price: priceFilter, status, builder, phase, homeType },
+  } = state;
 
-const applyFilter = (rooms, address, price) => {
-  let filteredRooms = rooms;
-  if (address) {
-    const { lng, lat } = address;
+  let filteredRooms = [...rooms];
+
+  if (addressFilter && addressFilter.lng && addressFilter.lat) {
+    const { lng, lat } = addressFilter;
     filteredRooms = filteredRooms.filter((room) => {
       const lngDifference = Math.abs(lng - room.lng);
       const latDifference = Math.abs(lat - room.lat);
       return lngDifference <= 1 && latDifference <= 1;
     });
   }
+console.log("price",priceFilter)
+  if (priceFilter && priceFilter.length === 2) {
+    const [minPrice, maxPrice] = priceFilter;
+    filteredRooms = filteredRooms.filter(
+      (room) => room.price >= minPrice && room.price <= maxPrice
+    );
+  }
 
-  if (price < 50) {
-    filteredRooms = filteredRooms.filter((room) => room.price <= price);
+  if (status) {
+    filteredRooms = filteredRooms.filter((room) => room.status === status);
+  }
+
+  if (builder) {
+    filteredRooms = filteredRooms.filter((room) => room.builder === builder);
+  }
+
+  if (phase) {
+    filteredRooms = filteredRooms.filter((room) => room.phase === phase);
+  }
+
+  if (homeType) {
+    filteredRooms = filteredRooms.filter((room) => room.homeType === homeType);
   }
 
   return filteredRooms;
 };
+
+
+export default reducer;
