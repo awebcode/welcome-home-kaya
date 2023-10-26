@@ -12,7 +12,7 @@ const reducer = (state, action) => {
       localStorage.setItem("currentUser", JSON.stringify(action.payload));
       return { ...state, currentUser: action.payload };
     case "UPDATE_IMAGES":
-      return { ...state, images: [...state.images, action.payload] };
+      return { ...state, images: [...state.images, ...action.payload] };
     case "DELETE_IMAGE":
       return {
         ...state,
@@ -22,12 +22,29 @@ const reducer = (state, action) => {
       return { ...state, details: { ...state.details, ...action.payload } };
     case "UPDATE_LOCATION":
       return { ...state, location: action.payload };
+
+    case "UPDATE_UPDATED_ROOM":
+      return { ...state, updatedRoom: action.payload };
+    case "UPDATE_DELETED_IMAGES":
+      return {
+        ...state,
+        deletedImages: [...state.deletedImages, ...action.payload],
+      };
+    case "UPDATE_ADDED_IMAGES":
+      return {
+        ...state,
+        addedImages: [...state.addedImages, ...action.payload],
+      };
     case "RESET_ROOM":
       return {
         ...state,
         images: [],
         details: { title: "", description: "", price: 0 },
         location: { lng: 0, lat: 0 },
+        location: { lng: 0, lat: 0 },
+        updatedRoom: null,
+        deletedImages: [],
+        addedImages: [],
       };
     case "UPDATE_ROOMS":
       return {
@@ -75,6 +92,17 @@ const reducer = (state, action) => {
       };
     case "UPDATE_ROOM":
       return { ...state, room: action.payload };
+
+    case "UPDATE_USERS":
+      return { ...state, users: action.payload };
+    case "DELETE_ROOM":
+      return {
+        ...state,
+        rooms: state.rooms.filter((room) => room._id !== action.payload),
+      };
+
+    case "UPDATE_SECTION":
+      return { ...state, section: action.payload };
     default:
       throw new Error("No matched action!");
   }
@@ -85,7 +113,7 @@ const applyFilter = (state) => {
     rooms,
     addressFilter,
     // priceFilter,
-    filters: { price: priceFilter, status, builder, phase, homeType },
+    filters: { price: priceFilter, status, builder, phase, homeType,search },
   } = state;
 
   let filteredRooms = [...rooms];
@@ -98,14 +126,20 @@ const applyFilter = (state) => {
       return lngDifference <= 1 && latDifference <= 1;
     });
   }
-console.log("price",priceFilter)
   if (priceFilter && priceFilter.length === 2) {
     const [minPrice, maxPrice] = priceFilter;
     filteredRooms = filteredRooms.filter(
       (room) => room.price >= minPrice && room.price <= maxPrice
     );
   }
-
+  if (search) {
+    filteredRooms = filteredRooms.filter(
+      (room) =>
+        room.title?.toLowerCase().includes(search?.toLowerCase()) || // Corrected this line
+        room.address?.toLowerCase().includes(search?.toLowerCase()) ||
+        room.description?.toLowerCase().includes(search?.toLowerCase()) // Corrected this line
+    );
+  }
   if (status) {
     filteredRooms = filteredRooms.filter((room) => room.status === status);
   }
@@ -124,6 +158,5 @@ console.log("price",priceFilter)
 
   return filteredRooms;
 };
-
 
 export default reducer;

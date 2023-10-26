@@ -12,12 +12,18 @@ import {
   resetProjectState,
 } from "@/redux/actions/projectsActions";
 import moment from "moment/moment";
-import { Button, FormControl, Input, TextField } from "@mui/material";
+import { Button, FormControl, Input, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import Loader from "../Loader";
+import { useValue } from "@/context/ContextProvider";
+import { clearProject } from "@/context/function";
 
 const ProjectsComponent = () => {
   const dispatch = useDispatch();
   const { projects, isDeleted, error, loading } = useSelector((s) => s.project);
-
+  const {
+    dispatch:dispatchContext,
+    state: { currentUser, updatedRoom, addedImages, images: newImages },
+  } = useValue();
   useEffect(() => {
     dispatch(getProjects());
   }, [dispatch]);
@@ -70,6 +76,66 @@ const ProjectsComponent = () => {
       }
       return 0;
     });
+  
+  //edit func
+
+  const handleEditProject = (record) => {
+    if (updatedRoom) {
+      clearProject(dispatchContext, currentUser, addedImages, updatedRoom);
+    } else {
+      clearProject(dispatchContext, currentUser, newImages);
+    }
+    const {
+      _id,
+      lng,
+      lat,
+      price,
+      title,
+      description,
+      images,
+      keyFeatures,
+      underHomeFeatures,
+      bed,
+      bath,
+      so_ft: soft,
+      acress,
+      targetCompletationDate: targetCompletation,
+      cost,
+      budget,
+      propertyListingPrice,
+      constructionEstimate,
+      homeType,
+      builder,
+      status,
+    } = record; //uid
+    dispatchContext({ type: "UPDATE_LOCATION", payload: { lng, lat } });
+    dispatchContext({
+      type: "UPDATE_DETAILS",
+      payload: {
+        price,
+        title,
+        description,
+        keyFeatures,
+        underHomeFeatures,
+        bed,
+        bath,
+        soft,
+        acress,
+        targetCompletation,
+        cost,
+        budget,
+        propertyListingPrice,
+        constructionEstimate,
+        homeType,
+        builder,
+        status,
+      },
+    });
+    dispatchContext({ type: "UPDATE_IMAGES", payload: images });
+    dispatchContext({ type: "UPDATE_UPDATED_ROOM", payload: { _id } });
+    dispatchContext({ type: "UPDATE_SECTION", payload: 2 });
+     Router.push("/admin/home");
+  };
 
   const columns = [
     {
@@ -110,7 +176,7 @@ const ProjectsComponent = () => {
       },
     },
     {
-      title: "Budget",
+      title: "Price",
       dataIndex: "price",
       key: "price",
     },
@@ -126,7 +192,7 @@ const ProjectsComponent = () => {
       render: (text, record) => (
         <div className=" w-full flex">
           <EditOutlined
-            onClick={() => Router.push(`/projects/edit/${record._id}`)}
+            onClick={() => handleEditProject(record)}
             className="cursor-pointer text-green-500"
           />
           <DeleteOutlined
@@ -143,18 +209,20 @@ const ProjectsComponent = () => {
       ),
     },
   ];
-
+ if (loading) {
+   return <Loader />;
+ }
   return (
     <div className="flex w-[100%] p-4">
       {/* Left Side: Projects Table */}
       <div className="w-full p-3 md:p-6 overflow-x-auto" style={{ overflowX: "scroll" }}>
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl md:text-5xl font-bold mb-4 my-4">
+          <h2 className="text-2xl md:text-5xl font-thin mb-4 my-4">
             Projects({searchedProjects?.length})
           </h2>
           <h2
             onClick={() => Router.push("/admin/home")}
-            className="text-2xl md:text-5xl font-bold mb-4 my-4 cursor-pointer"
+            className="text-2xl md:text-5xl font-thin mb-4 my-4 cursor-pointer"
           >
             +New
           </h2>
@@ -169,28 +237,32 @@ const ProjectsComponent = () => {
             onChange={(e) => setFilter(e.target.value)}
             style={{ marginRight: 16 }}
           /> */}
-          <div className="flex justify-between items-center gap-1">
+          <div className="flex justify-between items-center gap-1 w-full">
             <TextField
               label="Search by project title or address"
               variant="outlined"
+              color="secondary"
+              focused
               size="small"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <div>
-              <Button variant="contained" onClick={() => setSortByPrice("asc")}>
-                Asc
-              </Button>
-              <Button
-                variant="outlined"
-                className="mx-2"
-                style={{ margin: "0px 4px" }}
-                onClick={() => setSortByPrice("desc")}
-              >
-                Desc
-              </Button>
-            </div>
           </div>
+          <FormControl
+            variant="outlined"
+            size="small"
+            style={{ margin: "10px", width: "150px" }}
+          >
+            <InputLabel>Sort by Price</InputLabel>
+            <Select
+              value={sortByPrice}
+              onChange={(e) => setSortByPrice(e.target.value)}
+              label="Sort by Price"
+            >
+              <MenuItem value="asc">Asc</MenuItem>
+              <MenuItem value="desc">Desc</MenuItem>
+            </Select>
+          </FormControl>
         </div>
 
         <Table

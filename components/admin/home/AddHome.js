@@ -1,26 +1,35 @@
-import { Send } from "@mui/icons-material";
+import { Cancel, Send } from "@mui/icons-material";
 import { Box, Button, Container, Stack, Step, StepButton, Stepper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import AddLocation from "./add/addLocation/AddLocation";
 import AddDetails from "./add/addDetails/AddDetails";
 import AddImages from "./add/addImages/AddImages";
 import { useValue } from "@/context/ContextProvider";
-import { clearProjectErrors, createNewProject, getProjects, resetProjectState } from "@/redux/actions/projectsActions";
+import {
+  clearProjectErrors,
+  createNewProject,
+  getProjects,
+  resetProjectState,
+} from "@/redux/actions/projectsActions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { clearProject, updateRoom } from "@/context/function";
+import { useRouter } from "next/router";
 
 const AddRoom = ({ setPage }) => {
+  const Router = useRouter();
   const dispatchRedux = useDispatch();
-  const {loading,error,isCreated}=useSelector((s)=>s.project)
+  const { loading, error, isCreated } = useSelector((s) => s.project);
   const {
     state: {
       images,
       details,
       location,
       currentUser,
-      keyFeatures,
-      underHomeFeatures,
-      address
+
+      updatedRoom,
+      deletedImages,
+      addedImages,
     },
     dispatch,
   } = useValue();
@@ -109,24 +118,61 @@ const AddRoom = ({ setPage }) => {
       builder: details.builder,
       status: details.status,
     };
-    console.log("addroom",room)
-    dispatchRedux(createNewProject(room))
-    
+
+    if (updatedRoom) {
+      const handleUpdate = async () => {
+        if (updatedRoom) {
+          try {
+            const { data } = await updateRoom(
+              room,
+              currentUser,
+              dispatch,
+              updatedRoom,
+              deletedImages
+            );
+
+            if (data?.success) {
+              toast.success("The Project has been updated successfully");
+              Router.push(`/house/single/${data?.result?._id}`);
+            }
+          } catch (error) {
+            console.error("Error updating project:", error);
+          }
+        }
+      };
+
+      handleUpdate();
+
+      return;
+    }
+
+    dispatchRedux(createNewProject(room));
+  };
+  //cancel update
+
+  const handleCancel = () => {
+    if (updatedRoom) {
+      Router.push("/projects");
+      clearProject(dispatch, currentUser, addedImages, updatedRoom);
+    } else {
+      //  dispatch({ type: "UPDATE_SECTION", payload: 0 });
+      clearProject(dispatch, currentUser, images);
+    }
   };
 
   useEffect(() => {
     if (isCreated) {
-      toast.success("Project added successfully.")
+      toast.success("Project added successfully.");
       dispatchRedux(resetProjectState());
-      dispatchRedux(getProjects())
-      dispatch({ type: "RESET_ROOM" })
-      setPage(0)
+      dispatchRedux(getProjects());
+      dispatch({ type: "RESET_ROOM" });
+      setPage(0);
     }
-     if (error) {
-       toast.error(error);
-       dispatchRedux(clearProjectErrors());
-     }
-},[dispatchRedux,error,isCreated])
+    if (error) {
+      toast.error(error);
+      dispatchRedux(clearProjectErrors());
+    }
+  }, [dispatchRedux, error, isCreated]);
 
   return (
     <Container sx={{ my: 4 }}>
@@ -159,14 +205,30 @@ const AddRoom = ({ setPage }) => {
           </Button>
         </Stack>
 
-        <Stack sx={{ alignItems: "center" }}>
+        <Stack
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+            gap: "6px",
+          }}
+        >
           <Button
             disabled={!showSubmit}
             variant="contained"
             endIcon={<Send />}
             onClick={handleSubmit}
           >
-            Submit
+            {updatedRoom ? "Update" : "Submit"}
+          </Button>
+          <Button
+            style={{ margin: "10px 0px" }}
+            variant="outlined"
+            endIcon={<Cancel />}
+            onClick={handleCancel}
+          >
+            Cancel
           </Button>
         </Stack>
       </Box>

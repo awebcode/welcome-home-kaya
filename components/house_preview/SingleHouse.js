@@ -6,7 +6,7 @@ import ImageGallery from "react-image-gallery";
 import Image from "next/image";
 import { preBuiltPlaces } from "@/components/mapbox/data";
 import { FaBath, FaBed, FaTree } from "react-icons/fa";
-import { Divider } from "antd";
+import { Divider, Skeleton } from "antd";
 import { BsArrowRight, BsChat } from "react-icons/bs";
 import { CheckCircleOutlined, ScheduleOutlined } from "@ant-design/icons";
 
@@ -112,6 +112,9 @@ const SingleHouse = () => {
           thumbnailWidth={700}
           items={thumbnails}
           slideOnThumbnailOver={true}
+          lazyLoad={true}
+          
+          // onImageLoad={<Skeleton/>}
         />
         {/*House Details  */}
         <div className="my-6">

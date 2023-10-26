@@ -15,7 +15,7 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
   const router = useRouter();
 
   const isActive = (route) => {
-    return router.pathname === route ? "text-blue-500" : "";
+    return router.pathname === route ? "text-green-600" : "";
   };
 
   return (
@@ -62,6 +62,17 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
             </div>
           </Link>
           <Divider />
+          <Link href="/admin/customers">
+            <div
+              className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                "/admin/customers"
+              )}`}
+            >
+              <PiUsers className="mb-2 text-[16px] md:text-[20px] text-center " />
+              <span className="text-[12px] md:text-[13px]">Customers</span>
+            </div>
+          </Link>
+          <Divider />
           <Link href="/pay">
             <div
               className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
@@ -103,18 +114,6 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
             >
               <MdOutlineMonetizationOn className="mb-2 text-[16px] md:text-[20px] text-center " />
               <span className="text-[12px] md:text-[13px]">Get Paid</span>
-            </div>
-          </Link>
-
-          <Divider />
-          <Link href="/customers">
-            <div
-              className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                "/customers"
-              )}`}
-            >
-              <PiUsers className="mb-2 text-[16px] md:text-[20px] text-center " />
-              <span className="text-[12px] md:text-[13px]">Customers</span>
             </div>
           </Link>
 

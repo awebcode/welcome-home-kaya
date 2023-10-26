@@ -46,49 +46,46 @@ const MapTopbar = ({ handleSearch }) => {
     });
   };
 
-  // const handleSliderChange = (values) => {
-  //   const [min, max] = values;
-
-  //   dispatch({ type: "FILTER_PRICE", payload: values });
-  //   console.log(`Selected range: ${min} - ${max}`);
-  // };
-
+  
   return (
     <>
       <div className="flex justify-between flex-wrap items-center p-2 my-2 mx-2 md:mx-4 rounded-md">
         <div className="mb-1 md:hidden m-[8px] p-2 w-full h-full">
           <Input.Search
             icon={<BsSearch className="p-3 w-full h-full" />}
-            onSearch={handleSearch}
+            onSearch={(value) => handleFilterChange(value, "search")}
+            onChange={(e) => handleFilterChange(e.target.value, "search")}
             placeholder="Search: (Address,Builder,Package)"
             size="large"
             allowClear
           />
         </div>
 
-        <div className="flex justify-between items-center md:hidden m-2 p-2 w-[40vw]">
-          <Button
-            type="button"
-            onClick={toggleFilters}
-            className="bg-white w-[80vw] flex justify-between items-center text-gray-950 m-2 p-[6px] h-full border-2 border-gray-950 rounded-md"
-          >
-            Filter
-            <BsChevronDown className="inline mx-2" />
-          </Button>
+        <div className="flex justify-between items-center flex-wrap md:flex-nowrap md:hidden m-2 p-2 w-full md:w-[40vw]">
+          <div className="flex justify-between w-full my-2">
+            <Button
+              type="button"
+              onClick={() => Router.push("/")}
+              className="bg-white text-gray-950 ml-[8px] p-2  w-full h-full  border-2 border-gray-950 rounded-md"
+            >
+              Map View
+            </Button>
+            <Button
+              type="button"
+              onClick={() => Router.push("/home/tilt_view")}
+              className="custom-btn mx-2   h-full w-full"
+            >
+              Tile View
+            </Button>
+          </div>
 
           <Button
             type="button"
-            onClick={() => Router.push("/")}
-            className="bg-white text-gray-950 p-2 h-full  border-2 border-gray-950 rounded-md"
+            onClick={toggleFilters}
+            className="bg-white w-full flex justify-between items-center text-gray-950 m-2 p-2 h-full border-2 border-gray-950 rounded-md"
           >
-            Map View
-          </Button>
-          <Button
-            type="button"
-            onClick={() => Router.push("/home/tilt_view")}
-            className="custom-btn mx-2 my-2 md:my-0 h-full"
-          >
-            Tile View
+            Filter
+            <BsChevronDown className="inline mx-2" />
           </Button>
         </div>
 
@@ -213,7 +210,8 @@ const MapTopbar = ({ handleSearch }) => {
             </Button>
             <Input.Search
               icon={<BsSearch className="p-4 w-full h-full" />}
-              onSearch={handleSearch}
+              onSearch={(value) => handleFilterChange(value, "search")}
+              onChange={(e) => handleFilterChange(e.target.value, "search")}
               placeholder="Search: (Address,Builder,Package)"
               size="large"
             />
@@ -221,8 +219,8 @@ const MapTopbar = ({ handleSearch }) => {
         </div>
 
         <CSSTransition in={showFilters} timeout={300} classNames="filters" unmountOnExit>
-          <div className="w-full flex my-2 flex-wrap mx-5 justify-between items-center md:hidden">
-            <div className="mx-2 my-1">
+          <div className="w-full flex my-2 flex-wrap mx-1 justify-between items-center md:hidden">
+            <div className="mx-1 my-1">
               <Select
                 defaultValue="Home Type"
                 className="w-[80vw] md:w-32  m-2"

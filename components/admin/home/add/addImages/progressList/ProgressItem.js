@@ -10,7 +10,7 @@ const ProgressItem = ({ file }) => {
  const [progress, setProgress] = useState(0);
  const [imageURL, setImageURL] = useState(null);
  const {
-   state: { currentUser },
+   state: { currentUser,updatedRoom },
    dispatch,
  } = useValue();
  const isInitialRender = useRef(true);
@@ -21,12 +21,13 @@ const ProgressItem = ({ file }) => {
      try {
        const url = await uploadFileProgress(
          file,
-         `rooms/${currentUser?._id}`,
+         `rooms/${updatedRoom ? updatedRoom._id : currentUser?._id}`,
          imageName,
          setProgress
        );
-
-       dispatch({ type: "UPDATE_IMAGES", payload: url });
+ dispatch({ type: "UPDATE_IMAGES", payload: [url] });
+ if (updatedRoom) dispatch({ type: "UPDATE_ADDED_IMAGES", payload: [url] });
+      //  dispatch({ type: "UPDATE_IMAGES", payload: url });
        if (isInitialRender.current) {
          setImageURL(URL.createObjectURL(file));
          isInitialRender.current = false;

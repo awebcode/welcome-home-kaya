@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Divider, Button, Image } from "antd";
+import { Modal, Divider, Button, Image, Skeleton } from "antd";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -30,14 +30,18 @@ const PlaceCard = ({
     >
       <div className="flex flex-col" onMouseLeave={onClose}>
         <div className="mb-2">
-          <Image
-            src={images[0]}
-            width="100%"
-            height={150}
-            className="object-cover object-center"
-            layout="fixed"
-            alt={placeName}
-          />
+          <div className="mb-2">
+            <Image
+              src={images[0]}
+              alt={placeName}
+              width={300}
+              height={150}
+              objectFit="cover"
+              className="object-cover object-center"
+              loading="eager"
+              placeholder={<Skeleton width={300} height={150} />}
+            />
+          </div>
         </div>
         {/* <h2 className="text-sm font-semibold mb-2">{placeName?.slice(0, 60) + " ..."}</h2> */}
         <p className="text-gray-900 mb-2 font-bold text-2xl">{price}$</p>
@@ -53,7 +57,7 @@ const PlaceCard = ({
         {/* <Link href={`/house/single/${id}`} className=" text-gray-600 cursor-pointer">
           {desc?.slice(0, 100) + "..."}
         </Link> */}
-        <p className=" text-gray-600 cursor-pointer my-1">acress {acress }</p>
+        <p className=" text-gray-600 cursor-pointer my-1">acress {acress}</p>
         <Button onClick={handleButtonClick} className="mt-4 custom-btn w-full h-full">
           View Place & Homes
         </Button>

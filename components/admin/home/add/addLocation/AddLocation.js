@@ -5,8 +5,6 @@ import { useEffect, useRef } from "react";
 import Geocoder from "./GeoCoder";
 import { useValue } from "@/context/ContextProvider";
 
-
-
 const AddLocation = () => {
   const {
     state: {
@@ -46,15 +44,13 @@ const AddLocation = () => {
       const data = await response.json();
       const placeName = data.features[0].place_name;
       dispatch({
-      type: "UPDATE_LOCATION",
-      payload: { lng: lng, lat: lat,address:placeName },
-    });
+        type: "UPDATE_LOCATION",
+        payload: { lng: lng, lat: lat, address: placeName },
+      });
       console.log("Place Name:", placeName);
     } catch (error) {
       console.error("Error:", error);
     }
-
-    
   };
 
   return (

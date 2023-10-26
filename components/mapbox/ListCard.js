@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { Divider } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 
-const ListCard = ({ placeName, price, images, location, name }) => {
+const ListCard = ({ address, price, images, location, title, _id, homeType,acress }) => {
   const router = useRouter();
-  const cardId = `card_${name}`;
+  const cardId = `card_${title}`;
 
   const isLocalStorageAvailable = typeof window !== "undefined" && window.localStorage;
 
@@ -34,7 +34,7 @@ const ListCard = ({ placeName, price, images, location, name }) => {
   };
 
   const handleButtonClick = () => {
-    router.push(`/house/single/${name}`);
+    router.push(`/house/single/${_id}`);
   };
 
   return (
@@ -46,14 +46,14 @@ const ListCard = ({ placeName, price, images, location, name }) => {
           width={1000}
           height={1000}
           objectFit="cover"
-          alt={placeName}
+          alt={address}
         />
       </div>
       <Divider className="bg-gray-300" />
       <div className="p-6">
-        <h2 className="text-xl font-bold mb-2">{placeName}</h2>
+        <h4 className="text-sm  mb-2">{address}</h4>
         <div className="flex justify-between items-center">
-          <p className="text-gray-700 mb-2">Price: {price}</p>
+          <h3 className="text-gray-900 text-xl mb-2">Price: {price} $</h3>
           {isFavorite ? (
             <HeartFilled
               className="cursor-pointer text-xl md:text-2xl text-red-500"
@@ -66,7 +66,11 @@ const ListCard = ({ placeName, price, images, location, name }) => {
             />
           )}
         </div>
-        <p className="text-gray-700 mb-4">Location: {location}</p>
+        <Divider className="bg-gray-300" />
+        <div className="flex justify-between items-center">
+          <p className="text-gray-700 mb-2">type: {homeType}</p>
+          <p className=" text-gray-700 mb-2">acress: {acress}</p>
+        </div>
         <Divider className="bg-gray-300" />
         <div className="flex justify-center">
           <button

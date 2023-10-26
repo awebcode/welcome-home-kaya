@@ -1,8 +1,9 @@
+const { default: mongoose } = require("mongoose");
 const { User } = require("../models/userSchema");
 const ErrorHandler = require("../utils/ErrorHandler");
 const sendEmail = require("../utils/sendEmail");
 const sendToken = require("../utils/sendToken");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 // Middleware to convert username and email to lowercase
 
@@ -43,6 +44,12 @@ exports.loginUser = async (req, res, next) => {
     if (!user) {
       return next(new ErrorHandler("User Not Found", 401));
     }
+    if (user.role === "banned") {
+      return next(new ErrorHandler("An admin banned your account!", 401));
+    }
+    if (user.role === "disabled") {
+      return next(new ErrorHandler("An admin disabled your account!", 401));
+    }
 
     const isPasswordMatched = await user.comparePassword(password);
 
@@ -74,6 +81,25 @@ exports.getUserDetails = async (req, res, next) => {
   }
 };
 
+exports.getSingleUser = async (req, res, next) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return next(new ErrorHandler("Invalid User ID", 400));
+    }
+    // console.log(req.user.id)    //req.user.id and req.user._id both are same id are virtual id for _id
+    const user = await User.findById(req.params.id).select("-password");
+
+    if (!user) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 // Logout User
 exports.logout = async (req, res, next) => {
   try {
@@ -97,16 +123,16 @@ exports.logout = async (req, res, next) => {
 exports.getUsers = async (req, res, next) => {
   try {
     // console.log(req.user.id)    //req.user.id and req.user._id both are same id are virtual id for _id
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user.id).sort({ createdAt: -1 });
 
     const users = await User.find();
     const usersCount = await User.find().countDocuments();
     if (!user) {
       return next(new ErrorHandler("User not found", 404));
     }
-    if (user.role !== "admin") {
-      return next(new ErrorHandler("You are not an admin", 401));
-    }
+    // if (user.role !== "admin") {
+    //   return next(new ErrorHandler("You are not an admin", 401));
+    // }
     res.status(200).json({
       success: true,
       count: usersCount,
@@ -123,7 +149,7 @@ exports.updateUserByMe = async (req, res, next) => {
   try {
     const { id } = req.user;
     const updateFields = {}; // Create an object to store the fields to update
-    
+
     if (req.body.username !== undefined) {
       const existingUser = await User.findOne({ username: req.body.username });
       if (existingUser && existingUser.id !== id) {
@@ -139,7 +165,7 @@ exports.updateUserByMe = async (req, res, next) => {
       }
       updateFields.email = req.body.email;
     }
-    
+
     if (req.body.password !== undefined && req.body.password !== "") {
       console.log(363);
       if (req.body.password?.length <= 5) {
@@ -185,17 +211,55 @@ exports.updateUserByMe = async (req, res, next) => {
 exports.updateUserByAdmin = async (req, res, next) => {
   try {
     const { id } = req.params;
-
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(new ErrorHandler("User id not valid", 500));
+    }
+    const findUser = await User.findById(id);
+    if (!findUser) {
+      return next(new ErrorHandler("User not found", 404));
+    }
     // Ensure the user performing the update is an admin
     if (req.user.role !== "admin") {
       return next(new ErrorHandler("Only admins can update users", 403));
     }
 
-    const user = await User.findByIdAndUpdate(id, req.body, { new: true, upsert: true });
+    const updateFields = {}; // Create an object to store the fields to update
 
-    if (!user) {
-      return next(new ErrorHandler("User not found", 404));
+    if (req.body.username !== undefined) {
+      const existingUser = await User.findOne({ username: req.body.username });
+      if (existingUser && existingUser.id !== id) {
+        return next(new ErrorHandler("Username already exists", 400));
+      }
+      updateFields.username = req.body.username;
     }
+
+    if (req.body.email !== undefined) {
+      const existingUser = await User.findOne({ email: req.body.email });
+      if (existingUser && existingUser.id !== id) {
+        return next(new ErrorHandler("Email already exists", 400));
+      }
+      updateFields.email = req.body.email;
+    }
+
+    if (req.body.password !== undefined && req.body.password !== "") {
+      console.log(363);
+      if (req.body.password?.length <= 5) {
+        return next(
+          new ErrorHandler("Password must be at least 6 characters long!", 400)
+        );
+      }
+
+      updateFields.password = await bcrypt.hash(req.body.password, 10);
+    }
+
+    if (req.body.role !== undefined) {
+      updateFields.role = req.body.role;
+    }
+
+    const user = await User.findByIdAndUpdate(id, updateFields, {
+      new: true,
+      upsert: true,
+    });
 
     res.status(200).json({
       success: true,
@@ -216,7 +280,7 @@ exports.deleteOwnUser = async (req, res, next) => {
       return next(new ErrorHandler("User not found", 404));
     }
 
-    await user.remove();
+    await user.deleteOne();
 
     res.cookie("token", "", {
       expires: new Date(Date.now(0)),
@@ -235,7 +299,9 @@ exports.deleteOwnUser = async (req, res, next) => {
 exports.deleteAdminUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(new ErrorHandler("Invalid User ID", 400));
+    }
     // Ensure the user performing the deletion is an admin
     if (req.user.role !== "admin") {
       return next(new ErrorHandler("Only admins can delete users", 403));
@@ -247,7 +313,7 @@ exports.deleteAdminUser = async (req, res, next) => {
       return next(new ErrorHandler("User not found", 404));
     }
 
-    await user.remove();
+    await user.deleteOne();
 
     res.status(200).json({
       success: true,
@@ -260,7 +326,6 @@ exports.deleteAdminUser = async (req, res, next) => {
 //forget password
 
 exports.forgotPasswordToken = async (req, res, next) => {
-  
   const { email } = req.body;
   const lowerCaseEmail = email.toLowerCase();
   try {
@@ -283,13 +348,12 @@ exports.forgotPasswordToken = async (req, res, next) => {
     console.error(error);
     next(error);
   }
-}
+};
 //RESET PASSWORD
 exports.resetPassword = async (req, res, next) => {
   const { newPassword } = req.body;
   const { token } = req.params;
- 
-  
+
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
   try {
@@ -302,12 +366,11 @@ exports.resetPassword = async (req, res, next) => {
       return next(new ErrorHandler("Token Expired, Please try again later", 400));
     }
 
-    
     user.password = newPassword;
     user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined
-    const updateUse=await user.save();
-   
+    user.passwordResetExpires = undefined;
+    const updateUse = await user.save();
+
     // await Notification.create({
     //   message: `Dear ${user.username} your password has been  updated!`,
     //   onClickPath: "/Me",
@@ -320,4 +383,4 @@ exports.resetPassword = async (req, res, next) => {
     console.error(error);
     next(error);
   }
-}
+};

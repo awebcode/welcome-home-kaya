@@ -10,6 +10,7 @@ const {
   updateUserByAdmin,
   forgotPasswordToken,
   resetPassword,
+  getSingleUser,
 } = require("../controllers/userCtrl");
 const { isAuthenticatedUser } = require("../utils/auth");
 const { convertToLowerCase } = require("../utils/convertToLowercase");
@@ -25,6 +26,7 @@ router.post("/forget-password", forgotPasswordToken);
 //reset forget password
 router.put("/reset-password/:token", resetPassword);
 //get all users for admin
+router.get("/user/:id", isAuthenticatedUser, getSingleUser);
 router.get("/users", isAuthenticatedUser, getUsers);
 router.delete("/delete-my-account", isAuthenticatedUser, deleteOwnUser);
 router.delete("/delete-user/:id", isAuthenticatedUser, deleteAdminUser);
@@ -35,7 +37,7 @@ router.patch(
   updateUserByMe
 );
 router.patch(
-  "/update-user/:id",
+  "/update-user-details/:id",
   convertToLowerCase,
   isAuthenticatedUser,
   updateUserByAdmin

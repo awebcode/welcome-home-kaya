@@ -8,13 +8,12 @@ import { Avatar, Paper, Tooltip } from "@mui/material";
 import GeocoderInput from "../sidebar/GeoCoderInput";
 import PopupHome from "./PopupHome";
 
-
 import { getProjects } from "@/redux/actions/projectsActions";
 import { useValue } from "@/context/ContextProvider";
 import { useDispatch, useSelector } from "react-redux";
 import "mapbox-gl/dist/mapbox-gl.css";
 import PlaceCard from "@/components/mapbox/PlaceCard";
-import { getAllProjects} from "@/firebase/function";
+import { getAllProjects } from "@/context/function";
 import Geocoder from "../add/addLocation/GeoCoder";
 import { useRouter } from "next/router";
 
@@ -24,8 +23,8 @@ const supercluster = new Supercluster({
 });
 
 const ClusterMap = () => {
-  const router=useRouter()
-   const [isCardModalVisible, setCardIsModalVisible] = useState(false);
+  const router = useRouter();
+  const [isCardModalVisible, setCardIsModalVisible] = useState(false);
   const {
     state: { filteredRooms },
     dispatch,
@@ -64,9 +63,8 @@ const ClusterMap = () => {
       },
     }));
     setPoints(points);
-   
   }, [filteredRooms]);
-  
+
   useEffect(() => {
     supercluster.load(points);
     setClusters(supercluster.getClusters(bounds, zoom));
@@ -79,17 +77,16 @@ const ClusterMap = () => {
   }, [mapRef?.current]);
 
   //converted price
-function formatPrice(price) {
-  if (price >= 1000000) {
-    return `${(price / 1000000).toFixed(1)} M`;
-  } else if (price >= 1000) {
-    return `${(price / 1000).toFixed(1)} K`;
-  } else {
-    return `${price}`;
+  function formatPrice(price) {
+    if (price >= 1000000) {
+      return `${(price / 1000000).toFixed(1)} M`;
+    } else if (price >= 1000) {
+      return `${(price / 1000).toFixed(1)} K`;
+    } else {
+      return `${price}`;
+    }
   }
-}
 
-   
   return (
     <ReactMapGL
       initialViewState={{ latitude: 40.7128, longitude: -74.006, zoom: 5 }}
@@ -98,7 +95,10 @@ function formatPrice(price) {
       //mapbox://styles/mapbox/streets-v11
       ref={mapRef}
       onZoomEnd={(e) => setZoom(Math.round(e.viewState.zoom))}
-      style={{ height: "100vh", width: router?.pathname?.includes("admin")? "92vw" : "100vw" }}
+      style={{
+        height: "100vh",
+        width: router?.pathname?.includes("admin") ? "92vw" : "100vw",
+      }}
       containerStyle={{
         height: "100vh",
         width: "100vw",

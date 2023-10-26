@@ -14,9 +14,14 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
   const router = useRouter();
 
   const isActive = (route) => {
-    return router.pathname === route ? "text-blue-500" : "";
+    
+    return router.pathname === route ? "text-green-600" : "";
   };
-
+  const clickHandler = () => {
+    
+    setSidebarOpen(false)
+  }
+  
   return (
     <>
       <Modal
@@ -36,16 +41,14 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
           );
         }}
         width={1000}
-        
         bodyStyle={{
           padding: 0,
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#0f172a",
+          backgroundColor: "#f9fafb",
           margin: "0px 5px",
           borderRadius: "6px",
-          
         }}
       >
         <div
@@ -54,9 +57,9 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
            shadow-sm   w-full py-14  flex items-center`}
         >
           <div className="flex flex-col items-center justify-center my-6 w-full">
-            <Link href="/">
+            <Link href="/" onClick={clickHandler}>
               <div
-                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/"
                 )}`}
               >
@@ -65,11 +68,11 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Home</span>
               </div>
             </Link>
-            <Divider className="bg-[#05c789]" />
+            <Divider className="bg-[#cbd5e1]" />
 
-            <Link href="/my_bag">
+            <Link href="/my_bag" onClick={clickHandler}>
               <div
-                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/my_bag"
                 )}`}
               >
@@ -80,10 +83,10 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
               </div>
             </Link>
 
-            <Divider className="bg-[#05c789]" />
-            <Link href="/companies">
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/companies" onClick={clickHandler}>
               <div
-                className={`link link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/companies"
                 )}`}
               >
@@ -91,10 +94,10 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Companies</span>
               </div>
             </Link>
-            <Divider className="bg-[#05c789]" />
-            <Link href="/projects">
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/projects" onClick={clickHandler}>
               <div
-                className={`link link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/projects"
                 )}`}
               >
@@ -102,10 +105,21 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Projects</span>
               </div>
             </Link>
-            <Divider className="bg-[#05c789]" />
-            <Link href="/pay">
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/admin/customers" onClick={clickHandler}>
               <div
-                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                  "/admin/customers"
+                )}`}
+              >
+                <PiUsers className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Customers</span>
+              </div>
+            </Link>
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/pay" onClick={clickHandler}>
+              <div
+                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/pay"
                 )}`}
               >
@@ -113,10 +127,10 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Pay</span>
               </div>
             </Link>
-            <Divider className="bg-[#05c789]" />
-            <Link href="/vendors">
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/vendors" onClick={clickHandler}>
               <div
-                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/vendors"
                 )}`}
               >
@@ -124,10 +138,10 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Vendors</span>
               </div>
             </Link>
-            <Divider className="bg-[#05c789]" />
-            <Link href="/orders">
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/orders" onClick={clickHandler}>
               <div
-                className={`link link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/orders"
                 )}`}
               >
@@ -135,10 +149,10 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Orders</span>
               </div>
             </Link>
-            <Divider className="bg-[#05c789]" />
-            <Link href="/get_paid">
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/get_paid" onClick={clickHandler}>
               <div
-                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/get_paid"
                 )}`}
               >
@@ -147,22 +161,10 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
               </div>
             </Link>
 
-            <Divider className="bg-[#05c789]" />
-            <Link href="/customers">
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/settings" onClick={clickHandler}>
               <div
-                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
-                  "/customers"
-                )}`}
-              >
-                <PiUsers className="mb-2 text-[32px] text-center " />
-                <span className="text-[16px]">Customers</span>
-              </div>
-            </Link>
-
-            <Divider className="bg-[#05c789]" />
-            <Link href="/settings">
-              <div
-                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/settings"
                 )}`}
               >
@@ -170,10 +172,10 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Settings</span>
               </div>
             </Link>
-            <Divider className="bg-[#05c789]" />
-            <Link href="/feedbacks">
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/feedbacks" onClick={clickHandler}>
               <div
-                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/feedbacks"
                 )}`}
               >
@@ -181,10 +183,10 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Feedbacks</span>
               </div>
             </Link>
-            <Divider className="bg-[#05c789]" />
-            <Link href="/user/profile">
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/user/profile" onClick={clickHandler}>
               <div
-                className={`link flex flex-col justify-center items-center text-gray-200 ${isActive(
+                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
                   "/user/profile"
                 )}`}
               >

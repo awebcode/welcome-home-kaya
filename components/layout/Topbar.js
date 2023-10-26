@@ -49,10 +49,11 @@ const Topbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
     dispatch(logout());
 
     toast.success("Logged out success!");
+    Router.push("/")
   };
 
   const menu = (
-    <Menu className="p-3">
+    <Menu className="p-3 shadow-md">
       {!user ? (
         <>
           <Menu.Item
@@ -162,6 +163,7 @@ const Topbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
             top: "8%", // Adjust the position as needed
             right: 35,
             zIndex: 100,
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)",
           }}
         >
           {menu}

@@ -8,10 +8,9 @@ const ErrorHandler = require("../utils/ErrorHandler");
 exports.createProjects = async (req, res, next) => {
   try {
     // const { title, content } = req.body;
-    console.log(req.body)
+    console.log(req.body);
     const project = await Project.create(req.body);
 
-    
     res.status(201).json({ success: true, project });
   } catch (error) {
     next(error);
@@ -49,20 +48,24 @@ exports.getProjectsById = async (req, res, next) => {
   }
 };
 
-
 // Update a Projects by ID
 exports.updateProjects = async (req, res, next) => {
   try {
-    const { title, content } = req.body;
-    const projects = await Project.findByIdAndUpdate(
-      req.params.id,
-      { title, content },
-      { new: true }
-    );
-    if (!projects) {
-      return next(new ErrorHandler("projects not found", 404));
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(new ErrorHandler("Invalid project ID", 400));
     }
-    res.status(200).json({ success: true, projects });
+
+    const project = await Project.findById(id);
+
+    if (!project) {
+      return next(new ErrorHandler("Project not found", 404));
+    }
+    const updatedProject = await Project.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.status(200).json({ success: true, result: updatedProject });
   } catch (error) {
     next(error);
   }

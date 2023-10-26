@@ -7,15 +7,16 @@ import React from "react";
 
 const ImagesList = () => {
   const {
-    state: { images, currentUser },
+    state: { images, currentUser, updatedRoom },
     dispatch,
   } = useValue();
 
   const handleDelete = async (image) => {
     dispatch({ type: "DELETE_IMAGE", payload: image });
+    if (updatedRoom) return dispatch({ type: "UPDATE_DELETED_IMAGES", payload: [image] });
     const imageName = image?.split(`${currentUser?._id}%2F`)[1]?.split("?")[0];
     try {
-       await deleteFile(`rooms/${currentUser?._id}/${imageName}`);
+      await deleteFile(`rooms/${currentUser?._id}/${imageName}`);
     } catch (error) {
       console.log(error);
     }

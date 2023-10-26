@@ -111,9 +111,9 @@ export const deleteProject = (id) => async (dispatch) => {
 
     const { data } = await axios.delete(`${Base_url}/projects/${id}`, config);
 
-    dispatch({ type: DELETE_SINGLE_PROJECT_SUCCESS, payload: data.project });
+    dispatch({ type: DELETE_SINGLE_PROJECT_SUCCESS, payload: id });
   } catch (error) {
-    console.log(error);
+    
     dispatch({
       type: DELETE_SINGLE_PROJECT_FAIL,
       payload: error.response?.data?.message,

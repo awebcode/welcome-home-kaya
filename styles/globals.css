@@ -55,7 +55,7 @@ button.ant-btn.css-xu9wm8.ant-btn-primary
 /*  */
 /* ant modal -full modal bg */
 div.ant-modal-content{
-  background-color: #f8f9fadc !important;
+  background-color: #f9fafb !important;
 }
 
 /* material ui tooltip */
@@ -69,4 +69,13 @@ div.ant-modal-content{
   opacity: 1  !important; /* Override default opacity */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
 
+}
+/*  */
+
+/* Add this CSS to your styles file */
+
+
+.ant-select-item.ant-select-item-option.ant-select-item-option-active.ant-select-item-option-selected {
+  background-color: #22c55e;
+   /* Set the background color for the active option */
 }
