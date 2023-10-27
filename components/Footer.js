@@ -32,22 +32,33 @@ const Footer = () => {
           <Divider className="bg-green-400 md:hidden" />
           <ul>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/user/login">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/user/login"
+              >
                 Login
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/user/register">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/user/register"
+              >
                 Register
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/user/profile">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/user/profile"
+              >
                 Profile
               </Link>
             </li>
             <li>
-              <p className="cursor-pointer" onClick={logoutHandler}>Sign Out</p>
+              <p className="cursor-pointer" onClick={logoutHandler}>
+                Sign Out
+              </p>
             </li>
           </ul>
         </div>
@@ -56,17 +67,26 @@ const Footer = () => {
           <Divider className="bg-green-400 md:hidden" />
           <ul>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/design">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/building/design"
+              >
                 Design
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/construction">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/building/construction"
+              >
                 Construction
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/decorate">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/building/decorate"
+              >
                 Decorate
               </Link>
             </li>
@@ -77,27 +97,42 @@ const Footer = () => {
           <Divider className="bg-green-400 md:hidden" />
           <ul>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/company/how_its_work">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/company/how_its_work"
+              >
                 HOW IT WORKS
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/welcome_difference">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/company/welcome_difference"
+              >
                 WELCOME DIFFERENCE
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/design_philosophy">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/company/desing_philoshpy"
+              >
                 DESIGN PHILOSOPHY
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/about_us">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/company/about_us"
+              >
                 ABOUT US
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/careers">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/company/careers"
+              >
                 Careers
               </Link>
             </li>
@@ -108,27 +143,42 @@ const Footer = () => {
           <Divider className="bg-green-400 md:hidden" />
           <ul>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/partners/agents">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/partners/agents"
+              >
                 AGENTS
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/partners/builders">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/partners/builders"
+              >
                 Builders
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/partners/investors">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/partners/investors"
+              >
                 INVESTORS
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/partners/developers">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/partners/developers"
+              >
                 Developer
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/partners">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/partners/partners"
+              >
                 Partners
               </Link>
             </li>
@@ -140,17 +190,26 @@ const Footer = () => {
           <Divider className="bg-green-400 md:hidden" />
           <ul>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/accessibility">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/footer/accessbility"
+              >
                 ACCESSIBILITY
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/terms">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/footer/terms"
+              >
                 TERMS OF SERVICE
               </Link>
             </li>
             <li>
-              <Link className="font-thin cursor-pointer hover:border-b-2 duration-300" href="/footer/privacy_policy">
+              <Link
+                className="font-thin cursor-pointer hover:border-b-2 duration-300"
+                href="/footer/privacy_policy"
+              >
                 Privacy Policy
               </Link>
             </li>
