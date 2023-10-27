@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 const Profile = () => {
   const Router = useRouter();
   const [imageUploading, setImageUploading] = useState(false);
-  const { isAuthenticated, user } = useSelector((u) => u.user);
+  const { isAuthenticated, user,isUpdated } = useSelector((u) => u.user);
   const dispatch = useDispatch();
   const [avatarPreview, setAvatarPreview] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -24,7 +24,7 @@ const Profile = () => {
     setAvatarPreview(file);
     setImageUploading(true)
     const uploadedImage = await upload(file);
-    console.log(uploadedImage)
+    
     setImageUploading(false);
     dispatch(updateProfile({ ...user, avatar: uploadedImage.url }));
     
