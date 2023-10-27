@@ -14,12 +14,12 @@ const PrivacyPolicy = () => {
       <h3 className="text-xl font-bold mt-4">1. Introduction</h3>
       <Divider className="bg-gray-400" />
       <p>
-        This privacy policy (“Privacy Policy”) describes how Welcome Building Corporation
-        and its related companies (“Welcome Homes,” “we,” and “us”) collect, use and share
-        information when a person or business (“you,” “your”) accesses the Website at
-        welcomehomes.com (the “Website”) or uses in any manner any Welcome Homes mobile
+        This privacy policy (&quot;Privacy Policy&ldquo;) describes how Welcome Building Corporation
+        and its related companies (&quot;Welcome Homes,&ldquo; &quot;we,&ldquo; and &quot;us&ldquo;) collect, use and share
+        information when a person or business (&quot;you,&ldquo; &quot;your&ldquo;) accesses the Website at
+        welcomehomes.com (the &quot;Website&ldquo;) or uses in any manner any Welcome Homes mobile
         application, product, service, feature, technology, content, or Website as
-        applicable (collectively, the “Services”).
+        applicable (collectively, the &quot;Services&ldquo;).
       </p>
       <Divider className="bg-gray-400" />
       <h3 className="text-xl font-bold">2. Information Collection</h3>
@@ -30,7 +30,7 @@ const PrivacyPolicy = () => {
         We collect your‎ name, postal address, email address, phone number, username,
         password, demographic information (such as your gender and occupation) as well as
         other information you directly give us when you register for the Services
-        (“Account Information”).
+        (&quot;Account Information&ldquo;).
       </p>
       <Divider className="bg-gray-400" />
       <h4 className="text-lg font-bold mt-2 my-4">
@@ -39,7 +39,7 @@ const PrivacyPolicy = () => {
       <Divider className="bg-gray-400" />
       <p>
         We automatically log information about you, your computer or your mobile device
-        when you visit the Website or access the Services (“Non-Personal Information”).
+        when you visit the Website or access the Services (&quot;Non-Personal Information&ldquo;).
         For example, when visiting the Website, we log your computer operating system
         type, browser type, browser language, pages you viewed, how long you spent on a
         page, access times and information about your use of and actions on the Website.
@@ -52,11 +52,11 @@ const PrivacyPolicy = () => {
         collect your‎ name, postal address, email address, phone number, username,
         password, demographic information (such as your gender and occupation) as well as
         other information you directly give us when you register for the Services
-        (“Account Information”). We also process financial information such as your credit
+        (&quot;Account Information&ldquo;). We also process financial information such as your credit
         card when you order Services in order to facilitate the processing of payments
-        (“Payment Information”). Information Automatically Collected. We automatically log
+        (&quot;Payment Information&ldquo;). Information Automatically Collected. We automatically log
         information about you, your computer or your mobile device when you visit the
-        Website or access the Services (“Non-Personal Information”). For example, when
+        Website or access the Services (&quot;Non-Personal Information&ldquo;). For example, when
         visiting the Website, we log your computer operating system type, browser type,
         browser language, pages you viewed, how long you spent on a page, access times and
         information about your use of and actions on the Website. If you use a mobile
@@ -122,7 +122,7 @@ const PrivacyPolicy = () => {
         Information for the purposes of analyzing use of the Services and for internal
         business purposes. We also aggregate any information we receive in anonymized form
         (meaning after having stripped this information of personally identifying
-        characteristics) (“Anonymized Data”) to compile analytics, understand trends and
+        characteristics) (&quot;Anonymized Data&ldquo;) to compile analytics, understand trends and
         customer needs.
       </p>
       <Divider className="bg-gray-400" />
@@ -134,7 +134,7 @@ const PrivacyPolicy = () => {
         Website. You may close or request that we delete your Welcome Homes account at any
         time by emailing us at hello@welcomehomes.com. You may also request that we limit
         use or limit the disclosure of personal information by emailing us at
-        hello@welcomehomes.com. Our marketing emails tell you how to “opt-out.” If you opt
+        hello@welcomehomes.com. Our marketing emails tell you how to &quot;opt-out.&ldquo; If you opt
         out, we may still send you non-marketing emails Non-marketing emails include
         emails about your accounts and our business dealings with you. You can typically
         remove and reject cookies from the Website with your browser settings. Many
@@ -152,7 +152,7 @@ const PrivacyPolicy = () => {
       <h1>CONTROLS FOR DO-NOT-TRACK FEATURES</h1>
       <Divider className="bg-gray-400" />
       <p>
-        Most web browsers and some mobile operating systems include a Do-Not-Track (“DNT”)
+        Most web browsers and some mobile operating systems include a Do-Not-Track (&quot;DNT&ldquo;)
         feature or setting you can activate to signal your privacy preference not to have
         data about your online browsing activities monitored and collected. No uniform
         technology standard for recognizing and implementing DNT signals has been
@@ -175,8 +175,8 @@ const PrivacyPolicy = () => {
       not imply any endorsement by us of such websites or resources or the content,
       products, or services available from such websites or resources, or its owners,
       sponsors or operators. This Privacy Policy applies only to the Services The Services
-      may contain links to other websites not operated or controlled by us (“Third Party
-      Sites”). The Privacy Policy does not apply to Third Party Sites. You acknowledge
+      may contain links to other websites not operated or controlled by us (&quot;Third Party
+      Sites&ldquo;). The Privacy Policy does not apply to Third Party Sites. You acknowledge
       sole responsibility for and assume all risk arising from your use of any such
       websites or resources or the content, products or services on or available from such
       websites or resources, privacy policies or terms of service of any other third

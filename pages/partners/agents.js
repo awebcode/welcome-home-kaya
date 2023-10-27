@@ -36,7 +36,7 @@ const PartnerAgents = () => {
             <h3 className="text-xl font-bold mb-4">Negotiation Expertise</h3>
             <p className="text-gray-700">
               Our partner agents are skilled negotiators. They strive to get you the best
-              deal, whether you're buying or selling a property.
+              deal, whether you&apos;re buying or selling a property.
             </p>
           </div>
         </div>
