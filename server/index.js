@@ -5,6 +5,7 @@ const { db } = require("./config/db");
 const notFoundError = require("./utils/notFound");
 const UserRoutes = require("./routes/userRoutes");
 const projectRoutes = require("./routes/projectRoutes");
+const getCustomHomeRoutes = require("./routes/customHRoutes/getcustomDataRoutes");
 // const commentRoutes = require("./routes/commentRoutes");
 // const followRoutes = require("./routes/followRoutes");
 // const likeRoutes = require("./routes/likeRoutes");
@@ -37,6 +38,8 @@ app.get("/", (req, res) => {
 //routes
 app.use("/api/v1", UserRoutes);
 app.use("/api/v1", projectRoutes);
+//custome house
+app.use("/api/v1", getCustomHomeRoutes);
 
 // app.use("/api/v1", commentRoutes);
 // app.use("/api/v1", replyRoutes);

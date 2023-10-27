@@ -4,7 +4,6 @@ const nextConfig = {
   images: {
     domains: ["res.cloudinary.com", "picsum.photos", "firebasestorage.googleapis.com"],
   },
-  unoptimized: true,
 };
 
 module.exports = nextConfig

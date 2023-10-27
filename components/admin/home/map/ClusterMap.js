@@ -26,7 +26,7 @@ const ClusterMap = () => {
   const router = useRouter();
   const [isCardModalVisible, setCardIsModalVisible] = useState(false);
   const {
-    state: { filteredRooms },
+    state: { filteredRooms,location },
     dispatch,
     mapRef,
   } = useValue();
@@ -126,7 +126,10 @@ const ClusterMap = () => {
                     20
                   );
                   mapRef.current.flyTo({
-                    center: [longitude, latitude],
+                    center: [
+                      longitude,
+                       latitude,
+                    ],
                     zoom,
                     speed: 1,
                   });

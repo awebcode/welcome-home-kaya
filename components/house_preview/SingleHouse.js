@@ -10,17 +10,17 @@ import { Divider, Skeleton } from "antd";
 import { BsArrowRight, BsChat } from "react-icons/bs";
 import { CheckCircleOutlined, ScheduleOutlined } from "@ant-design/icons";
 
-
 import "react-image-gallery/styles/css/image-gallery.css";
 import { useDispatch, useSelector } from "react-redux";
 import { clearProjectErrors, getOneProject } from "@/redux/actions/projectsActions";
 import { toast } from "react-toastify";
 import { BeatLoader } from "react-spinners";
 import moment from "moment/moment";
+import Loader from "../Loader";
 
 const SingleHouse = () => {
-  const { project,error,loading } = useSelector((s) => s.project);
-  const dispatch=useDispatch()
+  const { project, error, loading } = useSelector((s) => s.project);
+  const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
 
@@ -30,77 +30,37 @@ const SingleHouse = () => {
     if (id) {
       dispatch(getOneProject(id));
     }
-    
-},[dispatch,id])
-  
- 
+  }, [dispatch, id]);
 
+  // generate thubnail
 
-    
-    
+  const [thumbnails, setThumbnails] = useState([]);
 
-    // generate thubnail
+  useEffect(() => {
+    if (project) {
+      const thumbnails = project?.images?.map((image) => ({
+        thumbnailTitle: "House Builder",
+        original: image,
+        thumbnail: image,
+      }));
 
-    const [thumbnails, setThumbnails] = useState([]);
-
-    useEffect(() => {
-      if (project) {
-        const thumbnails = project?.images?.map((image) => ({
-          thumbnailTitle: "House Builder",
-          original: image,
-          thumbnail: image,
-        }));
-
-        if (thumbnails && thumbnails.length > 0) {
-          setThumbnails(thumbnails);
-        }
+      if (thumbnails && thumbnails.length > 0) {
+        setThumbnails(thumbnails);
       }
-    }, [project]);
-
-   
+    }
+  }, [project]);
 
   const handleImageClick = (url) => {
     setSelectedImage(url);
   };
   if (loading) {
-    return  <BeatLoader/>
+    return <Loader />;
   }
 
   return (
     <div className="flex justify-center p-3 md:p-8 flex-wrap gap-4">
       {/* Left Side */}
-      <div className="max-w-full md:max-w-[60%]">
-        {/* <Image
-          src={selectedImage || galleryImages[0]}
-          alt={name}
-          width={800}
-          height={500}
-          className="mb-8 max-h-[500px]"
-          objectFit="cover"
-          layout="reponsive"
-        /> */}
-        {/* Image Gallery */}
-        {/* Image Gallery */}
-        {/* <SlideshowLightbox
-          style={{ overflowX: "scroll" }}
-          lightboxIdentifier="lightbox1"
-          images={galleryImages}
-          slideshowInterval={true}
-          className="container flex justify-center items-center gap-2 "
-          imgAnimation="fade"
-          showThumbnails={true}
-          thumbnailBorder="silver"
-        >
-          {galleryImages.map((img, index) => (
-            <img
-              data-lightboxjs="lightbox1"
-              src={img}
-              alt={name}
-              onClick={() => handleImageClick(img)}
-              className="w-12 h-12 md:w-24 md:h-24 rounded-md cursor-pointer border border-gray-300"
-            />
-          ))}
-        </SlideshowLightbox> */}
+      <div className="max-w-[90vw] md:max-w-[84%]">
         <ImageGallery
           thumbnailTitle={true}
           showBullets
@@ -113,13 +73,13 @@ const SingleHouse = () => {
           items={thumbnails}
           slideOnThumbnailOver={true}
           lazyLoad={true}
-          
+
           // onImageLoad={<Skeleton/>}
         />
         {/*House Details  */}
         <div className="my-6">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900">
-            House Details
+            Project Details
           </h2>
           <Divider className="bg-gray-300" />
           <h2 className="text-3xl font-bold mb-4 text-gray-800">{project?.title}</h2>
@@ -129,21 +89,21 @@ const SingleHouse = () => {
           </div>
           {/* Col */}
           <Divider className="bg-gray-300" />
-          <div className="flex flex-wrap justify-between items-center gap-1">
-            <div className="shadow-md p-4 rounded-md">
+          <div className="flex flex-wrap justify-around items-center gap-1">
+            <div className="shadow-md p-4 rounded-md w-[45%] text-center">
               <h2>Bed</h2>
               <FaBed className="inline mx-2" /> {project?.bed || 0}
             </div>
-            <div className="shadow-md p-4 rounded-md">
+            <div className="shadow-md p-4 rounded-md w-[45%] text-center">
               <h2>Bath</h2>
               <FaBath className="inline mx-2" /> {project?.bath || 0}
             </div>
 
-            <div className="shadow-md p-4 rounded-md">
+            <div className="shadow-md p-4 rounded-md w-[45%] text-center">
               <h2>Acress</h2>
               <FaTree className="inline mx-2" /> {project?.acress || "0.50%"}
             </div>
-            <div className="shadow-md p-4 rounded-md">
+            <div className="shadow-md p-4 rounded-md w-[45%] text-center">
               <h2>SO.FT</h2>
               <FaBed className="inline mx-2" /> {project?.so_ft || "0.30%"}
             </div>
@@ -155,21 +115,70 @@ const SingleHouse = () => {
         <div className="my-2 p-2 flex flex-col">
           <h1 className="p-1 py-2 text-gray-900 font-bold text-2xl">Key Features</h1>
 
-          {project?.keyFeatures?.map((v, i) => {
-            return (
-              <div className="flex mx-2" key={i}>
+          {project?.keyFeatures?.length > 0 ? (
+            project?.keyFeatures?.map((v, i) => {
+              return (
+                <div className="flex mx-2" key={i}>
+                  <CheckCircleOutlined className="mx-2" />
+                  <p>{v}</p>
+                </div>
+              );
+            })
+          ) : (
+            <>
+              {" "}
+              <div className="flex mx-2">
                 <CheckCircleOutlined className="mx-2" />
-                <p>{v}</p>
+                <p>key 1 </p>
               </div>
-            );
-          })}
+              <div className="flex mx-2">
+                <CheckCircleOutlined className="mx-2" />
+                <p>key 2</p>
+              </div>
+              <div className="flex mx-2">
+                <CheckCircleOutlined className="mx-2" />
+                <p>key 3</p>
+              </div>
+            </>
+          )}
+        </div>
+        <Divider className="bg-gray-300" />
+        <div className="my-2 p-2 flex flex-col">
+          <h1 className="p-1 py-2 text-gray-900 font-bold text-2xl">Key Project Notes</h1>
+
+          {project?.keyProjectNotes?.length > 0 ? (
+            project?.keyProjectNotes?.map((v, i) => {
+              return (
+                <div className="flex mx-2" key={i}>
+                  <CheckCircleOutlined className="mx-2" />
+                  <p>{v}</p>
+                </div>
+              );
+            })
+          ) : (
+            <>
+              {" "}
+              <div className="flex mx-2">
+                <CheckCircleOutlined className="mx-2" />
+                <p>key 1 </p>
+              </div>
+              <div className="flex mx-2">
+                <CheckCircleOutlined className="mx-2" />
+                <p>key 2</p>
+              </div>
+              <div className="flex mx-2">
+                <CheckCircleOutlined className="mx-2" />
+                <p>key 3</p>
+              </div>
+            </>
+          )}
         </div>
         {/* Customization */}
         <Divider className="bg-gray-300" />
         <div>
           <h1 className="p-1 py-2 text-gray-900 font-bold text-2xl">Price Breakdown</h1>
           <button
-            onClick={() => router.push("/house/customization")}
+            onClick={() => router.push(`/house/customization/${project?._id}`)}
             className="custom-btn w-full h-full"
           >
             Customize & Start offer
@@ -189,71 +198,6 @@ const SingleHouse = () => {
 
       {/* Right Side */}
       <div className="w-full md:w-1/3 p-4 my-4  border border-gray-300">
-        <h2 className="text-2xl font-bold mb-4">{project?.title}</h2>
-        <div className="flex justify-between items-center p-2">
-          <p className="text-gray-700 mb-2">{project?.address}</p>
-          <p className="text-lg mb-2 px-3">${project?.price}</p>
-        </div>
-        {/* Col */}
-        <Divider className="bg-gray-300" />
-        <div className="flex flex-wrap justify-between items-center gap-1">
-          <div className="shadow-md p-4 rounded-md">
-            <h2>Bed</h2>
-            <FaBed className="inline mx-2" /> {project?.bed || 0}
-          </div>
-          <div className="shadow-md p-4 rounded-md">
-            <h2>Bath</h2>
-            <FaBath className="inline mx-2" /> {project?.bath || 0}
-          </div>
-
-          <div className="shadow-md p-4 rounded-md">
-            <h2>Acress</h2>
-            <FaTree className="inline mx-2" /> {project?.acress || "0.50%"}
-          </div>
-          <div className="shadow-md p-4 rounded-md">
-            <h2>SO.FT</h2>
-            <FaBed className="inline mx-1" /> {project?.so_ft || "0.10%"}
-          </div>
-        </div>
-        <Divider className="bg-gray-300" />
-        {/* col 2 start */}
-
-        <div className="flex flex-wrap justify-between items-center gap-1">
-          <div className="shadow-md p-4 rounded-md flex-[36%]">
-            <h3 className="text-sm">Project Phase</h3>
-            <span className="text-xs">Phase: {project?.currentPhase}</span>
-          </div>
-          <div className="shadow-md p-4 rounded-md flex-[36%]">
-            <h3 className="text-sm">Target Completation Date</h3>
-            <span className="text-xs"> {project?.targetCompletationDate}</span>
-          </div>
-          <div className="shadow-md p-4 rounded-md flex-[36%]">
-            <h3 className="text-sm">Costs vs Budget</h3>
-            <span className="text-xs">
-              $ {project?.cost} / $ {project?.budget}
-            </span>
-          </div>
-          <div
-            onClick={() => router.push("/house/documents")}
-            className="shadow-md cursor-pointer p-4 rounded-md flex-[36%]"
-          >
-            <h3 className="text-sm">View Project Documents:</h3>
-            <BsArrowRight className="float-right   rounded-full " />
-            <span className="text-xs">Floor Plan, Drawings </span>
-          </div>
-        </div>
-        <Divider className="bg-gray-300" />
-        {/* col 2 end */}
-        <p className="mb-6">{project?.description}</p>
-        {/* buttons */}
-        <div className="flex mx-1">
-          <button className="custom-btn mx-1 text-[14px] font-thin  p-1">
-            Project approval workflow
-          </button>{" "}
-          <button className="custom-btn mx-1 text-[14px] font-thin  p-1">
-            Procure Materials
-          </button>
-        </div>
         {/* help/contact */}
         <Divider className="bg-gray-300" />
         <div className="p-2 m-3">

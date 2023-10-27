@@ -9,7 +9,23 @@ import { useEffect } from "react";
 import { loadUser } from "@/redux/actions/userActions";
 import ContextProvider from "@/context/ContextProvider";
 import { getProjects } from "@/redux/actions/projectsActions";
+//mapbox
 import "mapbox-gl/dist/mapbox-gl.css";
+//react image gallery
+import "react-image-gallery/styles/css/image-gallery.css";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "swiper/css/autoplay";
+import "swiper/css/scrollbar";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import "swiper/css/zoom";
+import Footer from "@/components/Footer";
+
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     store.dispatch(loadUser());
@@ -64,6 +80,7 @@ export default function App({ Component, pageProps }) {
             />
           </Layout>
         </ContextProvider>
+        <Footer/>
       </Provider>
 
       {/* Same as */}

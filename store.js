@@ -5,9 +5,11 @@ import { userReducer } from "./redux/reducers/userReducers";
 import projectReducer from "./redux/reducers/projectsReducers";
 import cartReducer from "./redux/reducers/cartReducers";
 import orderReducer from "./redux/reducers/orderReducer";
+import menuCustomizeHReducer from "./redux/reducers/customHReducers";
 
 
 const reducer = combineReducers({
+  menu:menuCustomizeHReducer,
   user: userReducer,
   project: projectReducer,
   cart: cartReducer,

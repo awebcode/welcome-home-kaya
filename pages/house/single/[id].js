@@ -1,12 +1,16 @@
+
 // import SingleHouse from '@/components/house_preview/SingleHouse'
+
 import dynamic from 'next/dynamic'
- const SingleHouse = dynamic(() => import("@/components/house_preview/SingleHouse"));
+const SingleMain = dynamic(() => import("@/components/house_preview/Single_main"), {
+   ssr:false
+ });
 import React from 'react'
 
 
 const Home = () => {
   return (
-    <div><SingleHouse/></div>
+    <div><SingleMain/></div>
   )
 }
 

@@ -13,6 +13,7 @@ const initialState = {
     description: "",
     price: 0,
     keyFeatures: [],
+    keyProjectNotes:[],
     underHomeFeatures: [],
     bed: "",
     bath: "",
@@ -26,6 +27,12 @@ const initialState = {
     homeType: "",
     builder: "",
     status: "",
+    //project stack holders
+    generalContractor: "",
+    constractionManager: "",
+    projectManager: "",
+    client: "",
+    documents: "",
   },
   location: {
     lng: -74.006,
@@ -36,16 +43,13 @@ const initialState = {
   priceFilter: [0, 3000000],
   addressFilter: null,
   filteredRooms: [],
-  
 
   // update part
 
   updatedRoom: null,
   deletedImages: [],
   addedImages: [],
-  
-  
-  
+
   room: null,
   users: [],
   section: 0,

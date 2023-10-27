@@ -193,7 +193,7 @@ const MapTopbar = ({ handleSearch }) => {
               <span>{formattedMaxPrice}</span>
             </div>
           </Modal>
-          <div className="mx-2 mt-[2px] flex items-center flex-col md:flex-row">
+          <div className="mx-0 mt-[2px] flex items-center flex-col md:flex-row">
             <Button
               type="button"
               onClick={() => Router.push("/")}

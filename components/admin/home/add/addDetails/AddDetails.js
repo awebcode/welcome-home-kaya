@@ -12,6 +12,7 @@ const AddDetails = () => {
         description,
         price,
         keyFeatures,
+        keyProjectNotes,
         underHomeFeatures,
         bed,
         bath,
@@ -25,13 +26,19 @@ const AddDetails = () => {
         homeType,
         builder,
         status,
+        
+        generalContractor,
+        constractionManager,
+        projectManager,
+        client,
+        documents,
       },
     },
     dispatch,
   } = useValue();
 
   const [newKeyFeature, setNewKeyFeature] = useState("");
-  const [newUnderHomeFeature, setNewUnderHomeFeature] = useState("");
+  const [newKeyProjectNotes, setNewkeyProjectNotes] = useState("");
 
   const handlePriceChange = (e) => {
     dispatch({ type: "UPDATE_DETAILS", payload: { price: e.target.value } });
@@ -49,7 +56,7 @@ const AddDetails = () => {
       dispatch({
         type: "UPDATE_DETAILS",
         payload: {
-          [featureType]: [...underHomeFeatures, feature],
+          [featureType]: [...keyProjectNotes, feature],
         },
       });
     }
@@ -59,7 +66,7 @@ const AddDetails = () => {
     const updatedFeatures =
       featureType === "keyFeatures"
         ? keyFeatures.filter((_, i) => i !== index)
-        : underHomeFeatures.filter((_, i) => i !== index);
+        : keyProjectNotes.filter((_, i) => i !== index);
 
     dispatch({
       type: "UPDATE_DETAILS",
@@ -73,7 +80,7 @@ const AddDetails = () => {
     const updatedFeatures =
       featureType === "keyFeatures"
         ? keyFeatures.map((item, i) => (i === index ? updatedFeature : item))
-        : underHomeFeatures.map((item, i) => (i === index ? updatedFeature : item));
+        : keyProjectNotes.map((item, i) => (i === index ? updatedFeature : item));
 
     dispatch({
       type: "UPDATE_DETAILS",
@@ -93,10 +100,10 @@ const AddDetails = () => {
       setNewKeyFeature("");
     }
   };
-  const handleHomeFeatureKeyUp = (e) => {
+  const handleKeyProjectNotes = (e) => {
     if (e.key === "Enter") {
-      addFeature(newUnderHomeFeature, "underHomeFeatures");
-      setNewUnderHomeFeature("");
+      addFeature(newKeyProjectNotes, "keyProjectNotes");
+      setNewkeyProjectNotes("");
     }
   };
 
@@ -262,6 +269,52 @@ const AddDetails = () => {
         }}
         optionalProps={{ rows: 4 }}
       />
+      {/* generalContractor */}
+      <InfoField
+        mainProps={{
+          name: "generalContractor",
+          label: "General Contractor Name *",
+          value: generalContractor,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* constractionManager */}
+      <InfoField
+        mainProps={{
+          name: "constractionManager",
+          label: "Constraction Manager Name *",
+          value: constractionManager,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* projectManager */}
+      <InfoField
+        mainProps={{
+          name: "projectManager",
+          label: "Project Manager Name *",
+          value: projectManager,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* client */}
+      <InfoField
+        mainProps={{
+          name: "client",
+          label: "Client Name *",
+          value: client,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* documents */}
+      <InfoField
+        mainProps={{
+          name: "documents",
+          label: "Project Documents (URL) *",
+          value: documents,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* key features */}
       <div className="flex items-center">
         <TextField
           required={true}
@@ -304,29 +357,34 @@ const AddDetails = () => {
           </li>
         ))}
       </ul>
-      {/* <div className="flex items-center">
+      {/* key project notes features */}
+      <div className="flex items-center">
         <TextField
-          label="Home Features"
+          label="Key Project Notes*"
           variant="outlined"
           className="flex-grow mr-2"
-          value={newUnderHomeFeature}
-          onChange={(e) => handleFeatureInput(e, setNewUnderHomeFeature)}
-          onKeyUp={(e) => handleHomeFeatureKeyUp(e)}
+          value={newKeyProjectNotes}
+          onChange={(e) => handleFeatureInput(e, setNewkeyProjectNotes)}
+          onKeyUp={(e) => handleKeyProjectNotes(e)}
         />
         <Button
-          onClick={() => handleHomeFeatureKeyUp({ key: "Enter" }, "underHomeFeatures")}
+          onClick={() => handleKeyProjectNotes({ key: "Enter" }, "keyProjectNotes")}
           className="h-full bg-blue-600 p-3 mx-4 text-white"
         >
           + Add
         </Button>
       </div>
       <ul>
-        {underHomeFeatures?.map((feature, index) => (
+        {keyProjectNotes?.map((feature, index) => (
           <li key={index} className="flex items-center mb-2">
             <span className="mr-2">{index + 1}.</span>
             <span
               onClick={() =>
-                editFeature(index, "underHomeFeatures", prompt("Edit Feature", feature))
+                editFeature(
+                  index,
+                  "keyProjectNotes",
+                  prompt("Edit Key Project Notes Feature", feature)
+                )
               }
               style={{ cursor: "pointer" }}
             >
@@ -336,7 +394,7 @@ const AddDetails = () => {
               </Button>
             </span>
             <Button
-              onClick={() => removeFeature(index, "underHomeFeatures")}
+              onClick={() => removeFeature(index, "keyProjectNotes")}
               variant="outlined"
               className="ml-2 text-red-400"
             >
@@ -344,7 +402,7 @@ const AddDetails = () => {
             </Button>
           </li>
         ))}
-      </ul> */}
+      </ul>
     </Stack>
   );
 };

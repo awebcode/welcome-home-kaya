@@ -46,6 +46,11 @@ const projectSchema = new mongoose.Schema(
         type: String,
       },
     ],
+    keyProjectNotes: [
+      {
+        type: String,
+      },
+    ],
 
     // homeFeatures: [
     //   {
@@ -85,6 +90,13 @@ const projectSchema = new mongoose.Schema(
     acress: String,
     so_ft: String,
 
+    //project stack holders
+    generalContractor: String,
+    constractionManager: String,
+    projectManager: String,
+    client: String,
+    documents:String,
+    //project stack holders
     targetCompletationDate: String,
     completedAt: Date,
   },

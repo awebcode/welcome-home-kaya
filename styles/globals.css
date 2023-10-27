@@ -7,8 +7,7 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  border: none;
-  outline: none;
+  
 }
 body {
   overflow-x: hidden !important;
@@ -32,10 +31,7 @@ body {
   background-color: #2d3748; /* Equivalent to hover:bg-gray-800 */
 }
 /* Add this CSS to your styles */
-.swiper-slide img {
-  max-height: 100px; /* Set the desired maximum height */
-  max-width: 100px; /* Set the desired maximum width */
-}
+
 /* ant modal footer  ok button */
 
 button.ant-btn.css-dev-only-do-not-override-xu9wm8.ant-btn-primary,
@@ -79,3 +75,67 @@ div.ant-modal-content{
   background-color: #22c55e;
    /* Set the background color for the active option */
 }
+/* swiper */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1px 0px 0px 0px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+
+
+.swiper {
+  width: 100%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+.mySwiper2 {
+  height: 80%;
+  width: 100%;
+}
+
+.mySwiper {
+  height: 20%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.mySwiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.9;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
+ 
+}
+

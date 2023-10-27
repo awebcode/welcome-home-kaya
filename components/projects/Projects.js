@@ -94,6 +94,7 @@ const ProjectsComponent = () => {
       description,
       images,
       keyFeatures,
+      keyProjectNotes,
       underHomeFeatures,
       bed,
       bath,
@@ -107,6 +108,12 @@ const ProjectsComponent = () => {
       homeType,
       builder,
       status,
+
+      generalContractor,
+      constractionManager,
+      projectManager,
+      client,
+      documents,
     } = record; //uid
     dispatchContext({ type: "UPDATE_LOCATION", payload: { lng, lat } });
     dispatchContext({
@@ -116,6 +123,7 @@ const ProjectsComponent = () => {
         title,
         description,
         keyFeatures,
+        keyProjectNotes,
         underHomeFeatures,
         bed,
         bath,
@@ -129,6 +137,11 @@ const ProjectsComponent = () => {
         homeType,
         builder,
         status,
+        generalContractor,
+        constractionManager,
+        projectManager,
+        client,
+        documents,
       },
     });
     dispatchContext({ type: "UPDATE_IMAGES", payload: images });

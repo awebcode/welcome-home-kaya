@@ -26,13 +26,17 @@ const Profile = () => {
     const uploadedImage = await upload(file);
     console.log(uploadedImage)
     setImageUploading(false);
-    dispatch(updateProfile({...user, avatar: uploadedImage.url }));
+    dispatch(updateProfile({ ...user, avatar: uploadedImage.url }));
+    
+
     // Optionally, update the user's avatar in local storage
     localStorage.setItem("user", JSON.stringify({ ...user, avatar: file }));
     setIsModalVisible(false);
   };
 
-  
+  if (isUpdated) {
+    dispatch(resetUserState());
+  }
   useEffect(() => {
     const isLoggedIn = JSON.parse(localStorage.getItem("user"));
     if (!isAuthenticated && isLoggedIn === null) {

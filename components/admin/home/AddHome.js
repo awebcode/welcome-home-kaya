@@ -103,6 +103,7 @@ const AddRoom = ({ setPage }) => {
       description: details.description,
       images,
       keyFeatures: details.keyFeatures,
+      keyProjectNotes: details.keyProjectNotes,
       // homeFeatures: details.underHomeFeatures,
       bed: details.bed,
       bath: details.bath,
@@ -117,6 +118,13 @@ const AddRoom = ({ setPage }) => {
       homeType: details.homeType,
       builder: details.builder,
       status: details.status,
+
+      //project stack holder
+      generalContractor: details.generalContractor,
+      constractionManager: details.constractionManager,
+      projectManager: details.projectManager,
+      client: details.client,
+      documents: details.documents,
     };
 
     if (updatedRoom) {
