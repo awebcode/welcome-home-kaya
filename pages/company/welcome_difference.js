@@ -12,7 +12,7 @@ const WelcomeDifference = () => {
         <h2 className="text-3xl font-bold mb-4">Welcome Difference</h2>
         <p className="text-lg mb-8">
           At Welcome Homes, we pride ourselves on delivering exceptional quality and
-          craftsmanship in every project. Here's what sets us apart:
+          craftsmanship in every project. Here&apos;s what sets us apart:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="p-6 bg-white shadow-md rounded-lg">
@@ -26,7 +26,8 @@ const WelcomeDifference = () => {
             <h3 className="text-xl font-bold mb-4">Customization</h3>
             <p className="text-gray-700">
               We understand that your home should be a reflection of your unique style and
-              needs. That's why we offer a high level of customization in every project.
+              needs. That&apos;s why we offer a high level of customization in every
+              project.
             </p>
           </div>
           <div className="p-6 bg-white shadow-md rounded-lg">

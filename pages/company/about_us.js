@@ -25,8 +25,8 @@ const AboutUs = () => {
         <p className="text-gray-700 mb-8">
           We believe in creating homes that not only meet the functional needs of our
           clients but also inspire a sense of belonging and comfort. Every project is a
-          unique collaboration, and we take pride in bringing our client's visions to
-          life.
+          unique collaboration, and we take pride in bringing our client&apos;s visions
+          to life.
         </p>
         <p className="text-gray-700">
           Explore our portfolio to see the transformative power of thoughtful design and

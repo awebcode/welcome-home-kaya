@@ -4,7 +4,7 @@ import { Divider } from "antd";
 const PrivacyPolicy = () => {
   return (
       <div className="bg-white container mx-auto p-6">
-          
+         
       <Divider className="bg-gray-400" />
       <h1 className="text-3xl font-bold mb-4">WELCOME BUILDING CORPORATION</h1>
       <Divider className="bg-gray-400" />

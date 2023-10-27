@@ -13,7 +13,7 @@ const Decorate = () => {
         <h2 className="text-3xl font-bold mb-4">Decorate</h2>
         <Divider className="bg-green-400" />
         <p className="text-lg mb-8">
-          Elevate your living space with Welcome Homes' expert decorating services.
+          Elevate your living space with Welcome Homes&apos; expert decorating services.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="p-6 bg-white shadow-md rounded-lg">
