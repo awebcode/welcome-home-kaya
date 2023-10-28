@@ -97,11 +97,11 @@ const ClusterMap = () => {
       onZoomEnd={(e) => setZoom(Math.round(e.viewState.zoom))}
       style={{
         height: "100vh",
-        width: router?.pathname?.includes("admin") ? "92vw" : "100vw",
+        width: router?.pathname?.includes("admin") ? "92vw" : "92vw",
       }}
       containerStyle={{
         height: "100vh",
-        width: "100vw",
+        width: "92vw",
       }}
     >
       {clusters.map((cluster) => {

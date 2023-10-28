@@ -25,20 +25,20 @@ const projectSchema = new mongoose.Schema(
 
     currentPhase: {
       type: String,
-      default: "Foundation",
+      default: "",
     },
 
     homeType: {
       type: String,
-      default: "apartment",
+      default: "",
     },
     builder: {
       type: String,
-      default: "individual",
+      default: "",
     },
     status: {
       type: String,
-      default: "available",
+      default: "",
     },
 
     keyFeatures: [
@@ -62,6 +62,10 @@ const projectSchema = new mongoose.Schema(
       default: 0,
     },
     budget: {
+      type: Number,
+      default: 0,
+    },
+    spend: {
       type: Number,
       default: 0,
     },
@@ -91,8 +95,23 @@ const projectSchema = new mongoose.Schema(
     so_ft: String,
     zip: String,
     project_size: String,
-    city:"",
-        state:"",
+    city: "",
+    state: "",
+    site_contract: "",
+    site_phone: "",
+    customer_contract: "",
+    customer_phone: "",
+    order_trigger: "",
+    order_trigger_stage: "",
+    drawings: "",
+    takeOfCompleted: "",
+    bucket: "",
+    Count_of_Products_by_project: [],
+    Order_Tracker: [],
+    related_to_order: [],
+    b_vs_a: "",
+    spent_to_date:"",
+
     //project stack holders
     generalContractor: String,
     constractionManager: String,
@@ -101,6 +120,7 @@ const projectSchema = new mongoose.Schema(
     documents: String,
     //project stack holders
     targetCompletationDate: String,
+    actualCoDate: String,
     completedAt: Date,
   },
   { timestamps: true }

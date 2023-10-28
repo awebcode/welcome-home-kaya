@@ -1,4 +1,11 @@
-import { FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+} from "@mui/material";
 import { useState } from "react";
 import InfoField from "./InfoField";
 import { useValue } from "@/context/ContextProvider";
@@ -23,9 +30,6 @@ const AddDetails = () => {
         budget,
         propertyListingPrice,
         constructionEstimate,
-        homeType,
-        builder,
-        status,
 
         generalContractor,
         constractionManager,
@@ -35,25 +39,67 @@ const AddDetails = () => {
         project_size,
         zip,
         city,
-        state
+        state,
+
+        site_contract,
+        site_phone,
+        customer_contract,
+        customer_phone,
+        order_trigger,
+        order_trigger_stage,
+        drawings,
+        takeOfCompleted,
+        bucket,
+        Count_of_Products_by_project,
+        Order_Tracker,
+        related_to_order,
+        b_vs_a,
+        spent_to_date,
+        actualCoDate,
+        spend,
+        homeType,
+        builder,
+        status,
       },
     },
     dispatch,
   } = useValue();
-
+  console.log("x",keyFeatures,Count_of_Products_by_project)
   const [newKeyFeature, setNewKeyFeature] = useState("");
   const [newKeyProjectNotes, setNewkeyProjectNotes] = useState("");
-
-  const handlePriceChange = (e) => {
-    dispatch({ type: "UPDATE_DETAILS", payload: { price: e.target.value } });
-  };
+  const [newCountOfProductsByProject, setNewCountOfProductsByProject] = useState("");
+  const [newOrderTracker, setNewOrderTracker] = useState("");
+  const [newRelatedToOrder, setNewRelatedToOrder] = useState("");
+  
 
   const addFeature = (feature, featureType) => {
+    
     if (featureType === "keyFeatures") {
       dispatch({
         type: "UPDATE_DETAILS",
         payload: {
           [featureType]: [...keyFeatures, feature],
+        },
+      });
+    } else if (featureType === "Count_of_Products_by_project") {
+      dispatch({
+        type: "UPDATE_DETAILS",
+        payload: {
+          [featureType]: [...Count_of_Products_by_project, feature],
+        },
+      });
+    } else if (featureType === "Order_Tracker") {
+      dispatch({
+        type: "UPDATE_DETAILS",
+        payload: {
+          [featureType]: [...Order_Tracker, feature],
+        },
+      });
+    } else if (featureType === "related_to_order") {
+      dispatch({
+        type: "UPDATE_DETAILS",
+        payload: {
+          [featureType]: [...related_to_order, feature],
         },
       });
     } else {
@@ -70,6 +116,12 @@ const AddDetails = () => {
     const updatedFeatures =
       featureType === "keyFeatures"
         ? keyFeatures.filter((_, i) => i !== index)
+        : featureType === "Count_of_Products_by_project"
+        ? Count_of_Products_by_project.filter((_, i) => i !== index)
+        : featureType === "Order_Tracker"
+        ? Order_Tracker.filter((_, i) => i !== index)
+        : featureType === "related_to_order"
+        ? related_to_order.filter((_, i) => i !== index)
         : keyProjectNotes.filter((_, i) => i !== index);
 
     dispatch({
@@ -84,6 +136,14 @@ const AddDetails = () => {
     const updatedFeatures =
       featureType === "keyFeatures"
         ? keyFeatures.map((item, i) => (i === index ? updatedFeature : item))
+        : featureType === "Count_of_Products_by_project"
+        ? Count_of_Products_by_project.map((item, i) =>
+            i === index ? updatedFeature : item
+          )
+        : featureType === "Order_Tracker"
+        ? Order_Tracker.map((item, i) => (i === index ? updatedFeature : item))
+        : featureType === "related_to_order"
+        ? related_to_order.map((item, i) => (i === index ? updatedFeature : item))
         : keyProjectNotes.map((item, i) => (i === index ? updatedFeature : item));
 
     dispatch({
@@ -111,6 +171,34 @@ const AddDetails = () => {
     }
   };
 
+  // count of products
+
+  const handleCountOfProductsByProject = (e) => {
+    
+    if (e.key === "Enter") {
+      addFeature(newCountOfProductsByProject, "Count_of_Products_by_project");
+      setNewCountOfProductsByProject("");
+
+      
+    }
+  };
+
+  // OrderTracker
+
+  const handleOrderTracker = (e) => {
+    if (e.key === "Enter") {
+      addFeature(newOrderTracker, "Order_Tracker");
+      setNewOrderTracker("");
+    }
+  };
+  // RelatedToOrder
+
+  const handleRelatedToOrder = (e) => {
+    if (e.key === "Enter") {
+      addFeature(newRelatedToOrder, "related_to_order");
+      setNewRelatedToOrder("");
+    }
+  };
   return (
     <Stack className="max-w-2xl mx-auto p-4" spacing={4}>
       <InfoField
@@ -194,72 +282,151 @@ const AddDetails = () => {
         optionalProps={{ rows: 4 }}
       />
       {/* home type */}
-      <FormControl variant="outlined" fullWidth>
-        <InputLabel>Select Home Type</InputLabel>
-        <Select
-          label="Select Home Type"
-          value={homeType} // Make sure you have 'homeType' in your state
-          onChange={(e) =>
-            dispatch({
-              type: "UPDATE_DETAILS",
-              payload: { homeType: e.target.value },
-            })
-          }
-        >
-          <MenuItem value="apartment">Apartment</MenuItem>
-          <MenuItem value="house">House</MenuItem>
-          <MenuItem value="duplex">Duplex</MenuItem>
-          <MenuItem value="condo">Condo</MenuItem>
-          <MenuItem value="townHouse">TownHouse</MenuItem>
-          <MenuItem value="villa">Villa</MenuItem>
-          <MenuItem value="cottage">Cottage</MenuItem>
-          {/* Add more options as needed */}
-        </Select>
-      </FormControl>
+      <InfoField
+        mainProps={{
+          name: "homeType",
+          label: "Home Type *",
+          value: homeType,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
       {/* Builder */}
-      <FormControl variant="outlined" fullWidth>
-        <InputLabel>Select Builder Type</InputLabel>
-        <Select
-          label="Select Builder Type"
-          value={builder} // Make sure you have 'builderType' in your state
-          onChange={(e) =>
-            dispatch({
-              type: "UPDATE_DETAILS",
-              payload: { builder: e.target.value },
-            })
-          }
-        >
-          <MenuItem value="individual">Individual</MenuItem>
-          <MenuItem value="company">Company</MenuItem>
-          <MenuItem value="contractor">Contractor</MenuItem>
-          <MenuItem value="developer">Developer</MenuItem>
-          <MenuItem value="architect">Architect</MenuItem>
-
-          {/* Add more options as needed */}
-        </Select>
-      </FormControl>
+      <InfoField
+        mainProps={{
+          name: "builder",
+          label: "Builder *",
+          value: builder,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
       {/* Status */}
-      <FormControl variant="outlined" fullWidth>
-        <InputLabel>Select Status</InputLabel>
-        <Select
-          label="Select Status"
-          value={status} // Make sure you have 'statusType' in your state
-          onChange={(e) =>
-            dispatch({
-              type: "UPDATE_DETAILS",
-              payload: { status: e.target.value },
-            })
-          }
-        >
-          <MenuItem value="Available">Available</MenuItem>
-          <MenuItem value="booked">Booked</MenuItem>
-          <MenuItem value="sold">Sold Out</MenuItem>
-          <MenuItem value="underConstruction">underConstruction</MenuItem>
-          <MenuItem value="completed">Completed</MenuItem>
+      <InfoField
+        mainProps={{
+          name: "status",
+          label: "Status *",
+          value: status,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* site_contract */}
+      <InfoField
+        mainProps={{
+          name: "site_contract",
+          label: "Site Contract *",
+          value: site_contract,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* site_phone */}
+      <InfoField
+        mainProps={{
+          name: "site_phone",
+          label: "Site Phone *",
+          value: site_phone,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* customer_contract */}
+      <InfoField
+        mainProps={{
+          name: "customer_contract",
+          label: "Customer Contract *",
+          value: customer_contract,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* customer_phone */}
+      <InfoField
+        mainProps={{
+          name: "customer_phone",
+          label: "Customer Phone *",
+          value: customer_phone,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
 
-          {/* Add more options as needed */}
-        </Select>
-      </FormControl>
+      {/* order_trigger */}
+      <InfoField
+        mainProps={{
+          name: "order_trigger",
+          label: "Order  Trigger *",
+          value: order_trigger,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* order_trigger_stage */}
+      <InfoField
+        mainProps={{
+          name: "order_trigger_stage",
+          label: "Order  Trigger Stage *",
+          value: order_trigger_stage,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/*  drawings */}
+      <InfoField
+        mainProps={{
+          name: " drawings",
+          label: "Drawings *",
+          value: drawings,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/*  takeOfCompleted */}
+      <InfoField
+        mainProps={{
+          name: "takeOfCompleted",
+          label: "takeOfCompleted *",
+          value: takeOfCompleted,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/*  bucket */}
+      <InfoField
+        mainProps={{
+          name: "bucket",
+          label: "Bucket *",
+          value: bucket,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+
+      {/*  b_vs_a */}
+      <InfoField
+        mainProps={{
+          name: "b_vs_a",
+          label: "B v A *",
+          value: b_vs_a,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/*  spent_to_date */}
+      <InfoField
+        mainProps={{
+          name: "spent_to_date",
+          label: "Spend To Date *",
+          value: spent_to_date,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/*  spend */}
+      <InfoField
+        mainProps={{
+          name: "spend",
+          label: "Spend *",
+          value: spend,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/*  actualCoDate */}
+      <InfoField
+        mainProps={{
+          name: "actualCoDate",
+          label: "actualCoDate *",
+          value: actualCoDate,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
       <InfoField
         mainProps={{
           name: "bed",
@@ -434,6 +601,151 @@ const AddDetails = () => {
             </span>
             <Button
               onClick={() => removeFeature(index, "keyProjectNotes")}
+              variant="outlined"
+              className="ml-2 text-red-400"
+            >
+              Remove
+            </Button>
+          </li>
+        ))}
+      </ul>
+
+      {/* Count of products by project */}
+      <div className="flex items-center">
+        <TextField
+          label="Count of products by project*"
+          variant="outlined"
+          className="flex-grow mr-2"
+          value={newCountOfProductsByProject}
+          onChange={(e) => handleFeatureInput(e, setNewCountOfProductsByProject)}
+          onKeyUp={(e) => handleCountOfProductsByProject(e)}
+        />
+
+        <Button
+          onClick={() =>
+            handleCountOfProductsByProject(
+              { key: "Enter" },
+              "Count_of_Products_by_project"
+            )
+          }
+          className="h-full bg-blue-600 p-3 mx-4 text-white"
+        >
+          + Add
+        </Button>
+      </div>
+      <ul>
+        {console.log("cc", Count_of_Products_by_project)}
+        {Count_of_Products_by_project?.map((feature, index) => (
+          <li key={index} className="flex items-center mb-2">
+            <span className="mr-2">{index + 1}.</span>
+            <span
+              onClick={() =>
+                editFeature(
+                  index,
+                  "Count_of_Products_by_project",
+                  prompt("Edit Count Of Products By Project", feature)
+                )
+              }
+              style={{ cursor: "pointer" }}
+            >
+              {feature}{" "}
+              <Button variant="outlined" className="ml-2 mx-2 text-green-400">
+                Edit
+              </Button>
+            </span>
+            <Button
+              onClick={() => removeFeature(index, "Count_of_Products_by_project")}
+              variant="outlined"
+              className="ml-2 text-red-400"
+            >
+              Remove
+            </Button>
+          </li>
+        ))}
+      </ul>
+
+      {/* Order Tracker */}
+      <div className="flex items-center">
+        <TextField
+          label="Order Tracker*"
+          variant="outlined"
+          className="flex-grow mr-2"
+          value={newOrderTracker}
+          onChange={(e) => handleFeatureInput(e, setNewOrderTracker)}
+          onKeyUp={(e) => handleOrderTracker(e)}
+        />
+
+        <Button
+          onClick={() => handleOrderTracker({ key: "Enter" }, "Order_Tracker")}
+          className="h-full bg-blue-600 p-3 mx-4 text-white"
+        >
+          + Add
+        </Button>
+      </div>
+      <ul>
+        {Order_Tracker?.map((feature, index) => (
+          <li key={index} className="flex items-center mb-2">
+            <span className="mr-2">{index + 1}.</span>
+            <span
+              onClick={() =>
+                editFeature(index, "Order_Tracker", prompt("Edit Order Tracker", feature))
+              }
+              style={{ cursor: "pointer" }}
+            >
+              {feature}{" "}
+              <Button variant="outlined" className="ml-2 mx-2 text-green-400">
+                Edit
+              </Button>
+            </span>
+            <Button
+              onClick={() => removeFeature(index, "Order_Tracker")}
+              variant="outlined"
+              className="ml-2 text-red-400"
+            >
+              Remove
+            </Button>
+          </li>
+        ))}
+      </ul>
+      {/* Related to order */}
+      <div className="flex items-center">
+        <TextField
+          label="Related to Order *"
+          variant="outlined"
+          className="flex-grow mr-2"
+          value={newRelatedToOrder}
+          onChange={(e) => handleFeatureInput(e, setNewRelatedToOrder)}
+          onKeyUp={(e) => handleRelatedToOrder(e)}
+        />
+       
+        <Button
+          onClick={() => handleRelatedToOrder({ key: "Enter" }, "related_to_order")}
+          className="h-full bg-blue-600 p-3 mx-4 text-white"
+        >
+          + Add
+        </Button>
+      </div>
+      <ul>
+        {related_to_order?.map((feature, index) => (
+          <li key={index} className="flex items-center mb-2">
+            <span className="mr-2">{index + 1}.</span>
+            <span
+              onClick={() =>
+                editFeature(
+                  index,
+                  "related_to_order",
+                  prompt("Edit Related to Order", feature)
+                )
+              }
+              style={{ cursor: "pointer" }}
+            >
+              {feature}{" "}
+              <Button variant="outlined" className="ml-2 mx-2 text-green-400">
+                Edit
+              </Button>
+            </span>
+            <Button
+              onClick={() => removeFeature(index, "related_to_order")}
               variant="outlined"
               className="ml-2 text-red-400"
             >
