@@ -108,6 +108,7 @@ const ProjectsComponent = () => {
       homeType,
       builder,
       status,
+      zip,
 
       generalContractor,
       constractionManager,
@@ -128,6 +129,7 @@ const ProjectsComponent = () => {
         bed,
         bath,
         soft,
+        zip,
         acress,
         targetCompletation,
         cost,

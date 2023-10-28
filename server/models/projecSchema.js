@@ -89,7 +89,7 @@ const projectSchema = new mongoose.Schema(
     bath: String,
     acress: String,
     so_ft: String,
-
+    zip:String,
     //project stack holders
     generalContractor: String,
     constractionManager: String,

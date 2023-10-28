@@ -118,7 +118,7 @@ const AddRoom = ({ setPage }) => {
       homeType: details.homeType,
       builder: details.builder,
       status: details.status,
-
+      zip: details.zip,
       //project stack holder
       generalContractor: details.generalContractor,
       constractionManager: details.constractionManager,

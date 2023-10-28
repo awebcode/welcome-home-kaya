@@ -27,6 +27,7 @@ const initialState = {
     homeType: "",
     builder: "",
     status: "",
+    zip:"",
     //project stack holders
     generalContractor: "",
     constractionManager: "",

@@ -148,6 +148,14 @@ const AddDetails = () => {
       />
       <InfoField
         mainProps={{
+          name: "zip",
+          label: "Zip Code ($)*",
+          value: zip,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      <InfoField
+        mainProps={{
           name: "propertyListingPrice",
           label: "PropertyListingPrice ($)*",
           value: propertyListingPrice,
