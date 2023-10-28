@@ -51,10 +51,10 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
             </div>
           </Link>
           <Divider />
-          <Link href="/projects">
+          <Link href="/dashboard/projects">
             <div
               className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                "/projects"
+                "/dashboard/projects"
               )}`}
             >
               <ProjectOutlined className="mb-2 text-[16px] md:text-[20px] text-center " />
@@ -62,14 +62,25 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
             </div>
           </Link>
           <Divider />
-          <Link href="/admin/customers">
+          <Link href="/dashboard/customers">
             <div
               className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                "/admin/customers"
+                "/dashboard/customers"
               )}`}
             >
               <PiUsers className="mb-2 text-[16px] md:text-[20px] text-center " />
               <span className="text-[12px] md:text-[13px]">Customers</span>
+            </div>
+          </Link>
+          <Divider />
+          <Link href="/dashboard/orders">
+            <div
+              className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                "/dashboard/orders"
+              )}`}
+            >
+              <FaJediOrder className="mb-2 text-[16px] md:text-[20px] text-center " />
+              <span className="text-[12px] md:text-[13px]">Orders</span>
             </div>
           </Link>
           <Divider />
@@ -94,17 +105,7 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
               <span className="text-[12px] md:text-[13px]">Vendors</span>
             </div>
           </Link>
-          <Divider />
-          <Link href="/orders">
-            <div
-              className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                "/orders"
-              )}`}
-            >
-              <FaJediOrder className="mb-2 text-[16px] md:text-[20px] text-center " />
-              <span className="text-[12px] md:text-[13px]">Orders</span>
-            </div>
-          </Link>
+
           <Divider />
           <Link href="/get_paid">
             <div

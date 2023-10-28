@@ -1,3 +1,4 @@
+import DashboardLayout from '@/components/admin/dashboard/DashLayout';
 import MapTopbar from '@/components/mapbox/MapTopbar';
 import dynamic from 'next/dynamic';
 import React from 'react'
@@ -7,10 +8,10 @@ const Projects = dynamic(() => import("@/components/projects/Projects"), {
 })
 const App = () => {
   return (
-    <div>
+    <DashboardLayout>
       {/* <MapTopbar /> */}
       <Projects />
-    </div>
+    </DashboardLayout>
   );
 }
 

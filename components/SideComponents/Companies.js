@@ -31,7 +31,7 @@ const CompaniesComponent = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 min-h-screen">
-      {companies.map((company, index) => (
+      {/* {companies.map((company, index) => (
         <div key={index} className="p-4 bg-gray-100 rounded-md shadow-md text-center h-56">
           <div className="mx-auto mb-4" style={{ maxWidth: "40%" }}>
             {company.logo}
@@ -41,7 +41,8 @@ const CompaniesComponent = () => {
             <button className="custom-btn">Visit {company.name}</button>
           </a>
         </div>
-      ))}
+      ))} */}
+      <h1>Companies</h1>
     </div>
   );
 };

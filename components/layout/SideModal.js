@@ -95,10 +95,10 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
               </div>
             </Link>
             <Divider className="bg-[#cbd5e1]" />
-            <Link href="/projects" onClick={clickHandler}>
+            <Link href="/dashboard/projects" onClick={clickHandler}>
               <div
                 className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                  "/projects"
+                  "/dashboard/projects"
                 )}`}
               >
                 <ProjectOutlined className="mb-2 text-[32px] text-center " />
@@ -106,14 +106,26 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
               </div>
             </Link>
             <Divider className="bg-[#cbd5e1]" />
-            <Link href="/admin/customers" onClick={clickHandler}>
+            <Link href="/dashboard/customers" onClick={clickHandler}>
               <div
                 className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                  "/admin/customers"
+                  "/dashboard/customers"
                 )}`}
               >
                 <PiUsers className="mb-2 text-[32px] text-center " />
                 <span className="text-[16px]">Customers</span>
+              </div>
+            </Link>
+
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/dashboard/orders" onClick={clickHandler}>
+              <div
+                className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                  "/dashboard/orders"
+                )}`}
+              >
+                <FaJediOrder className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Orders</span>
               </div>
             </Link>
             <Divider className="bg-[#cbd5e1]" />
@@ -138,17 +150,7 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Vendors</span>
               </div>
             </Link>
-            <Divider className="bg-[#cbd5e1]" />
-            <Link href="/orders" onClick={clickHandler}>
-              <div
-                className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                  "/orders"
-                )}`}
-              >
-                <FaJediOrder className="mb-2 text-[32px] text-center " />
-                <span className="text-[16px]">Orders</span>
-              </div>
-            </Link>
+
             <Divider className="bg-[#cbd5e1]" />
             <Link href="/get_paid" onClick={clickHandler}>
               <div

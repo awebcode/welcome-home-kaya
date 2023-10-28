@@ -6,7 +6,7 @@ import Head from "next/head";
 import { Provider } from "react-redux";
 import store from "@/store";
 import { useEffect, useState } from "react";
-import { loadUser } from "@/redux/actions/userActions";
+import { getUsers, loadUser } from "@/redux/actions/userActions";
 import ContextProvider from "@/context/ContextProvider";
 import { getProjects } from "@/redux/actions/projectsActions";
 //mapbox
@@ -27,6 +27,7 @@ import "swiper/css/zoom";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
 import Loader from "@/components/Loader";
+import DashboardSidebar from "@/components/admin/dashboard/DashLayout";
 
 export default function App({ Component, pageProps }) {
  const router = useRouter();
@@ -56,9 +57,12 @@ const [showFooter, setShowFooter] = useState(false);
   useEffect(() => {
     store.dispatch(loadUser());
     store.dispatch(getProjects());
-    
+    store.dispatch(getUsers());
   }, [store.dispatch]);
-
+  //for dashboard layout
+ const isDashboardRoute =
+   router.pathname.includes("/admin")||
+   router.pathname.includes("/dashboard");
   return (
     <>
       <Head>
@@ -91,23 +95,33 @@ const [showFooter, setShowFooter] = useState(false);
       <Provider store={store}>
         <ContextProvider>
           {/* <Topbar /> */}
-          <Layout>
-            {loading ? <Loader /> : <Component {...pageProps} />}
-            <ToastContainer
-              position="top-right"
-              autoClose={3000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="dark"
-            />
-          </Layout>
+          {isDashboardRoute ? (
+            loading ? (
+              <Loader />
+            ) : (
+              <Component {...pageProps} />
+            )
+          ) : (
+            <Layout>
+              {/* <DashboardSidebar> */}
+              {loading ? <Loader /> : <Component {...pageProps} />}
+              <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+              />
+              {/* </DashboardSidebar> */}
+            </Layout>
+          )}
 
-          {showFooter && <Footer />}
+          {showFooter && !isDashboardRoute && <Footer />}
         </ContextProvider>
       </Provider>
       {/* Same as */}

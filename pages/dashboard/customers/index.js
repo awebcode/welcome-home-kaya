@@ -1,17 +1,18 @@
+import DashboardLayout from '@/components/admin/dashboard/DashLayout';
 import AllUsers from '@/components/user/AllUsers';
 import Head from 'next/head';
 import React from 'react'
 
 const customers = () => {
   return (
-    <div>
+    <DashboardLayout>
       
       <Head>
         <title>Customers -WelcomeHomes</title>
         <meta name="description" content="Customers -WelcomeHomes" />
       </Head>
       <AllUsers />
-    </div>
+    </DashboardLayout>
   );
 }
 

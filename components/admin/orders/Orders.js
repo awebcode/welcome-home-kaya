@@ -28,7 +28,7 @@ const Orders = () => {
         <div className="flex justify-between items-end">
           <EditOutlined
             className="text-green-500 cursor-pointer"
-            onClick={() => Router.push(`/admin/orders/status/${2}`)}
+            onClick={() => Router.push(`/dashboard/orders/status/${2}`)}
           />
           <DeleteOutlined
             className="text-red-500 cursor-pointer"

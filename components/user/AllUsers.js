@@ -124,7 +124,7 @@ const AllUsers = () => {
       render: (text, record) => (
         <div className=" w-full flex">
           <EditOutlined
-            onClick={() => Router.push(`/admin/customers/edit/${record._id}`)}
+            onClick={() => Router.push(`/dashboard/customers/edit/${record._id}`)}
             className="cursor-pointer text-green-500"
           />
           <DeleteOutlined
@@ -132,7 +132,7 @@ const AllUsers = () => {
             className="cursor-pointer mx-2 text-red-500"
           />
           <span
-            onClick={() => Router.push(`/admin/customers/single/${record._id}`)}
+            onClick={() => Router.push(`/dashboard/customers/single/${record._id}`)}
             style={{ cursor: "pointer", color: "#1890ff" }}
           >
             <EyeOutlined className="cursor-pointer mx-2 text-green-500" />
