@@ -1,13 +1,15 @@
-const Orders = dynamic(() => import("@/components/orders/Orders"), {
-    ssr:false
+const Orders = dynamic(() => import("@/components/admin/orders/Orders"), {
+  ssr: false,
 });
-import dynamic from 'next/dynamic'
-import React from 'react'
+import dynamic from "next/dynamic";
+import React from "react";
 
 const App = () => {
   return (
-    <div><Orders/></div>
-  )
-}
+    <div>
+      <Orders />
+    </div>
+  );
+};
 
-export default App
+export default App;

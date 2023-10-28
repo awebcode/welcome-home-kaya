@@ -157,7 +157,7 @@ const Orders = () => {
   ];
 
   return (
-    <div className="p-4">
+    <div className="p-4 min-h-screen">
       <div className="flex justify-between items-center">
         <Input
           ref={searchInput}

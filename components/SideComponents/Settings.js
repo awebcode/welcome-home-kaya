@@ -32,51 +32,53 @@ const SettingsComponent = () => {
           toast.success("Settings Updated!")
 }
   return (
-    <div className="p-4 max-w-md mx-auto bg-white rounded shadow">
-      <Divider >Settings</Divider>
+    <div className="p-4 max-w-md mx-auto bg-white rounded  min-h-screen">
+      <div className="shadow-md">
+        <Divider>Settings</Divider>
 
-      <table className="w-full mb-4">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 border-b">Setting Name</th>
-            <th className="py-2 px-4 border-b">Value</th>
-            <th className="py-2 px-4 border-b">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {settings.map((setting) => (
-            <tr key={setting.id}>
-              <td className="py-2 px-4 border-b">{setting.name}</td>
-              <td className="py-2 px-4 border-b">
-                <input
-                  type="checkbox"
-                  checked={setting.value}
-                  onChange={() => handleCheckboxChange(setting.id)}
-                />
-              </td>
-              <td className="py-2 px-4 border-b">
-                <button
-                  className="mr-2 text-blue-500 hover:text-blue-700"
-                  onClick={() => handleEdit(setting.id)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="text-red-500 hover:text-red-700"
-                  onClick={() => handleDelete(setting.id)}
-                >
-                  Delete
-                </button>
-              </td>
+        <table className="w-full mb-4">
+          <thead>
+            <tr>
+              <th className="py-2 px-4 border-b">Setting Name</th>
+              <th className="py-2 px-4 border-b">Value</th>
+              <th className="py-2 px-4 border-b">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {settings.map((setting) => (
+              <tr key={setting.id}>
+                <td className="py-2 px-4 border-b">{setting.name}</td>
+                <td className="py-2 px-4 border-b">
+                  <input
+                    type="checkbox"
+                    checked={setting.value}
+                    onChange={() => handleCheckboxChange(setting.id)}
+                  />
+                </td>
+                <td className="py-2 px-4 border-b">
+                  <button
+                    className="mr-2 text-blue-500 hover:text-blue-700"
+                    onClick={() => handleEdit(setting.id)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="text-red-500 hover:text-red-700"
+                    onClick={() => handleDelete(setting.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      <div className="flex justify-center">
-        <button className="custom-btn w-full h-full" onClick={confirmUpdate}>
-          Save Settings
-        </button>
+        <div className="flex justify-center">
+          <button className="custom-btn w-full h-full" onClick={confirmUpdate}>
+            Save Settings
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -2,10 +2,10 @@ import React from "react";
 
 const FeedbackComponent = () => {
   return (
-    <div className="p-4 max-w-md mx-auto bg-white rounded shadow">
+    <div className="p-4 max-w-md mx-auto bg-white rounded shadow min-h-screen">
       <h1 className="text-2xl font-bold mb-4 text-center">Feedback</h1>
 
-      <div className="mb-4">
+      <div className="mb-4 ">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="feedbackInput"

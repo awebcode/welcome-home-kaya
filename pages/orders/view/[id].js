@@ -1,10 +1,12 @@
-import PreviewOrders from '@/components/orders/PreviewOrder'
-import React from 'react'
+import PreviewOrders from "@/components/admin/orders/PreviewOrder";
+import React from "react";
 
 const SingleOrder = () => {
   return (
-    <div><PreviewOrders/></div>
-  )
-}
+    <div>
+      <PreviewOrders />
+    </div>
+  );
+};
 
-export default SingleOrder
+export default SingleOrder;
