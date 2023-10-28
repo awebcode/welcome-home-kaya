@@ -10,6 +10,7 @@ import { FiSettings } from "react-icons/fi";
 import { PiUsers } from "react-icons/pi";
 import { MdOutlineMonetizationOn } from "react-icons/md";
 import { useState } from "react";
+import { Dashboard } from "@mui/icons-material";
 
 const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
   const router = useRouter();
@@ -38,7 +39,17 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
               <span className="text-[12px] md:text-[13px]">My Bag</span>
             </div>
           </Link>
-
+          <Divider />
+          <Link href="/dashboard">
+            <div
+              className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                "/dashboard"
+              )}`}
+            >
+              <Dashboard className="mb-2 text-[16px] md:text-[20px] text-center " />
+              <span className="text-[12px] md:text-[13px]">Dashboard</span>
+            </div>
+          </Link>
           <Divider />
           <Link href="/companies">
             <div

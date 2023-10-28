@@ -176,7 +176,9 @@ const Orders = () => {
           <Option value="Delivered">Delivered</Option>
         </Select>
       </div>
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />
+      <div className="bg-white">
+        <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />
+      </div>
     </div>
   );
 };

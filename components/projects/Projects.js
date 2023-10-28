@@ -278,11 +278,13 @@ const ProjectsComponent = () => {
           </FormControl>
         </div>
 
-        <Table
-          dataSource={searchedProjects}
-          columns={columns}
-          pagination={{ pageSize: 10 }}
-        />
+        <div className="bg-white">
+          <Table
+            dataSource={searchedProjects}
+            columns={columns}
+            pagination={{ pageSize: 10 }}
+          />
+        </div>
       </div>
     </div>
   );

@@ -190,7 +190,13 @@ const AllUsers = () => {
           </FormControl>
         </div>
 
-        <Table dataSource={sortedUsers} columns={columns} pagination={{ pageSize: 10 }} />
+        <div className="bg-white">
+          <Table
+            dataSource={sortedUsers}
+            columns={columns}
+            pagination={{ pageSize: 10 }}
+          />
+        </div>
       </div>
     </div>
   );

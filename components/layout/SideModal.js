@@ -9,6 +9,7 @@ import { PiWechatLogo } from "react-icons/pi";
 import { FiSettings } from "react-icons/fi";
 import { PiUsers } from "react-icons/pi";
 import { MdOutlineMonetizationOn } from "react-icons/md";
+import { Dashboard } from "@mui/icons-material";
 
 const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
   const router = useRouter();
@@ -82,7 +83,17 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">My Bag</span>
               </div>
             </Link>
-
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/dashboard" onClick={clickHandler}>
+              <div
+                className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                  "/dashboard"
+                )}`}
+              >
+                <Dashboard className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Dashboard</span>
+              </div>
+            </Link>
             <Divider className="bg-[#cbd5e1]" />
             <Link href="/companies" onClick={clickHandler}>
               <div

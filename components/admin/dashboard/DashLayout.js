@@ -42,10 +42,10 @@ const DashboardSidebar = ({ collapsed, setCollapsed }) => {
       <Collapse defaultActiveKey={["1"]}>
         <Panel header="Menu" key="1">
           <Menu mode="vertical" defaultSelectedKeys={["1"]} theme="light">
-            <Menu.Item key="1xx" icon={<HomeOutlined className="mr-2" />}>
+            <Menu.Item key="1" icon={<HomeOutlined className="mr-2" />}>
               <Link href="/">Home</Link>
             </Menu.Item>
-            <Menu.Item key="1x" icon={<DashboardOutlined className="mr-2" />}>
+            <Menu.Item key="4" icon={<DashboardOutlined className="mr-2" />}>
               <Link href="/dashboard">Dashboard</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<UserOutlined className="mr-2" />}>
@@ -59,7 +59,7 @@ const DashboardSidebar = ({ collapsed, setCollapsed }) => {
                 <Link href="/dashboard/projects">All Projects</Link>
               </Menu.Item>
             </SubMenu>
-            <Menu.Item key="1" icon={<UnorderedListOutlined className="mr-2" />}>
+            <Menu.Item key="6xx" icon={<UnorderedListOutlined className="mr-2" />}>
               <Link href="/dashboard/orders">Orders</Link>
             </Menu.Item>
             <SubMenu
