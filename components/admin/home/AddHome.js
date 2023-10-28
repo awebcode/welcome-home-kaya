@@ -119,6 +119,10 @@ const AddRoom = ({ setPage }) => {
       builder: details.builder,
       status: details.status,
       zip: details.zip,
+      project_size: details.project_size,
+      
+      city: details.city,
+      state: details.state,
       //project stack holder
       generalContractor: details.generalContractor,
       constractionManager: details.constractionManager,

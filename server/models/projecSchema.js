@@ -89,13 +89,16 @@ const projectSchema = new mongoose.Schema(
     bath: String,
     acress: String,
     so_ft: String,
-    zip:String,
+    zip: String,
+    project_size: String,
+    city:"",
+        state:"",
     //project stack holders
     generalContractor: String,
     constractionManager: String,
     projectManager: String,
     client: String,
-    documents:String,
+    documents: String,
     //project stack holders
     targetCompletationDate: String,
     completedAt: Date,

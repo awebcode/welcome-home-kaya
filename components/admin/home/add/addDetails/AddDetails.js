@@ -26,12 +26,16 @@ const AddDetails = () => {
         homeType,
         builder,
         status,
-        
+
         generalContractor,
         constractionManager,
         projectManager,
         client,
         documents,
+        project_size,
+        zip,
+        city,
+        state
       },
     },
     dispatch,
@@ -149,8 +153,35 @@ const AddDetails = () => {
       <InfoField
         mainProps={{
           name: "zip",
-          label: "Zip Code ($)*",
+          label: "Zip Code *",
           value: zip,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* city */}
+
+      <InfoField
+        mainProps={{
+          name: "city",
+          label: "City *",
+          value: city,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* // state */}
+      <InfoField
+        mainProps={{
+          name: "state",
+          label: "State *",
+          value: state,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      <InfoField
+        mainProps={{
+          name: "project_size",
+          label: "Project Size (Sq ft under AC)*",
+          value: project_size,
         }}
         optionalProps={{ rows: 4 }}
       />
