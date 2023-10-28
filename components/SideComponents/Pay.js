@@ -7,7 +7,7 @@ const Pay = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen w-[100vw]">
+    <div className="flex justify-center items-center min-h-screen w-[100vw]">
       <Form
         layout="vertical"
         name="payForm"

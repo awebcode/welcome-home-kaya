@@ -146,7 +146,7 @@ const AllUsers = () => {
     return <Loader />;
   }
   return (
-    <div className="flex w-[100%] p-4">
+    <div className="flex w-[100%] p-4 min-h-screen">
       {/* Left Side: Projects Table */}
       <div className="w-full p-3 md:p-6 overflow-x-auto" style={{ overflowX: "scroll" }}>
         <div className="flex justify-between items-center">

@@ -59,7 +59,7 @@ const BagComponent = () => {
 
 
   return (
-    <div className="flex flex-col lg:flex-row p-4">
+    <div className="flex flex-col lg:flex-row p-4 min-h-screen">
       {/* Left Side */}
       <div className="w-full lg:w-1/2 lg:pr-4 flex flex-col flex-wrap">
         <div className="flex justify-between items-center">
