@@ -61,43 +61,41 @@ const PreviewOrders = () => {
           filteredItems.map((order) => (
             <div key={order.id} className="w-full   p-2">
               <div className="bg-white flex gap-2 rounded-lg p-4 shadow-md">
-                <div className="flex justify-center orders-center">
+                <div className="flex justify-center orders-center h-32">
                   <img
                     src={order.image}
                     alt={order.title}
-                    className="w-24    md:w-60 h-[60%] md:h-full rounded-md mx-auto mb-2"
+                    className="w-full  object-center h-full   rounded-md mx-auto mb-2"
                   />
                 </div>
 
-                <div className="w-full mx-2">
+                <div className="w-full md:mx-2 h-32">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h3 className="text-xl font-bold  mb-2">{order.title}</h3>
-                      <p className="">{order.description}</p>
+                      <h3 className="text-lg font-bold mb-2">{order.title}</h3>
+                      <p className="text-xs">{order.description}</p>
                     </div>
-                    <h2 className="text-xl font-bold text-center mb-2">
+                    <h2 className="text-lg font-bold text-center mb-2">
                       ${order.totalAmount}
                     </h2>
                   </div>
-                  <Divider />
-                  <div className="flex justify-between my-6">
+                  {/* <Divider /> */}
+                  <div className="flex justify-between my-2">
                     <div>
-                      <div className="flex text-[10px] md:text-sm  my-2">
+                      <div className="flex text-[8px] md:text-[10px] my-2">
                         <b>Availability:</b>
-                        <span className="text-gray-500 mx-2">In Stock</span>
+                        <span className="text-gray-500 mx-1 md:mx-2">In Stock</span>
                       </div>
-
-                      <div className="flex text-[10px] md:text-sm  my-2">
+                      <div className="flex text-[8px] md:text-[10px] my-2">
                         <b>Lead Time:</b>
-                        <span className="text-gray-500 mx-2 ">3 weeks</span>
+                        <span className="text-gray-500 mx-1 md:mx-2 ">3 weeks</span>
                       </div>
-
-                      <div className="flex  my-2 text-[10px] md:text-sm">
+                      <div className="flex my-2 text-[8px] md:text-[10px]">
                         <b>Shipment:</b>
-                        <span className="text-gray-500 mx-2">1/3 weeks</span>
+                        <span className="text-gray-500 mx-1 md:mx-2">1/3 weeks</span>
                       </div>
                     </div>
-                    <span> Qty 1</span>
+                    <span className="text-sm"> Qty 1</span>
                   </div>
                 </div>
               </div>

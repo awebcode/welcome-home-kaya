@@ -91,57 +91,59 @@ const BagComponent = () => {
           filteredItems.map((item) => (
             <div key={item.id} className="w-full p-2">
               <div className="bg-white flex gap-2 rounded-lg p-4 shadow-md">
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center h-32">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-24  object-center md:w-60 h-[60%] md:h-full rounded-md mx-auto mb-2"
+                    className="w-full  object-center h-full   rounded-md mx-auto mb-2"
                   />
                 </div>
 
-                <div className="w-full mx-2">
+                <div className="w-full mx-1 md:mx-2 h-32">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                      <p>{item.description}</p>
+                      <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                      <p className="text-xs">{item.description}</p>
                     </div>
-                    <h2 className="text-xl font-bold text-center mb-2">
+                    <h2 className="text-lg font-bold text-center mb-2">
                       ${item.totalAmount}
                     </h2>
                   </div>
-                  <Divider />
-                  <div className="flex justify-between my-6">
+                  {/* <Divider /> */}
+                  <div className="flex justify-between my-2">
                     <div>
-                      <div className="flex text-[10px] md:text-sm my-2">
+                      <div className="flex text-[8px] md:text-[10px] my-2">
                         <b>Availability:</b>
-                        <span className="text-gray-500 mx-2">In Stock</span>
+                        <span className="text-gray-500 mx-1 md:mx-2">In Stock</span>
                       </div>
-                      <div className="flex text-[10px] md:text-sm my-2">
+                      <div className="flex text-[8px] md:text-[10px] my-2">
                         <b>Lead Time:</b>
-                        <span className="text-gray-500 mx-2 ">3 weeks</span>
+                        <span className="text-gray-500 mx-1 md:mx-2 ">3 weeks</span>
                       </div>
-                      <div className="flex my-2 text-[10px] md:text-sm">
+                      <div className="flex my-2 text-[8px] md:text-[10px]">
                         <b>Shipment:</b>
-                        <span className="text-gray-500 mx-2">1/3 weeks</span>
+                        <span className="text-gray-500 mx-1 md:mx-2">1/3 weeks</span>
                       </div>
                     </div>
                     <div className="flex items-center  p-2 rounded">
                       <button
                         onClick={() => handleQuantityChange(item.id, -1)}
-                        className="text-blue-500 focus:outline-none border p-1"
+                        className="text-blue-500 focus:outline-none text-[8px] md:text-[10px] border p-1"
                       >
                         -
                       </button>
-                      <span className="mx-2 border p-1">{item.quantity}</span>
+                      <span className="mx-2 border p-1 text-[8px] md:text-[10px]">
+                        {item.quantity}
+                      </span>
                       <button
                         onClick={() => handleQuantityChange(item.id, 1)}
-                        className="text-blue-500 focus:outline-none border p-1"
+                        className="text-blue-500 focus:outline-none border p-1 text-[8px] md:text-[10px]"
                       >
                         +
                       </button>
                       <button
                         onClick={() => handleRemoveItem(item.id)}
-                        className="text-red-500 ml-2"
+                        className="text-red-500 ml-2 text-[8px] md:text-[10px]"
                       >
                         <DeleteOutlined />
                       </button>

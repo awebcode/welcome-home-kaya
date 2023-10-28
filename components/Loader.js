@@ -3,8 +3,8 @@ import { PuffLoader } from "react-spinners";
 
 const Loader = () => {
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-50 bg-opacity-75 z-50">
-      <PuffLoader size={80} color="green"/>
+    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gradient-to-br from-blue-300 to-green-400 bg-opacity-95 z-50">
+      <PuffLoader size={100} color="black" />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
 import { Provider } from "react-redux";
 import store from "@/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadUser } from "@/redux/actions/userActions";
 import ContextProvider from "@/context/ContextProvider";
 import { getProjects } from "@/redux/actions/projectsActions";
@@ -25,13 +25,40 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/zoom";
 import Footer from "@/components/Footer";
+import { useRouter } from "next/router";
+import Loader from "@/components/Loader";
 
 export default function App({ Component, pageProps }) {
+ const router = useRouter();
+ const [loading, setLoading] = useState(false);
+const [showFooter, setShowFooter] = useState(false);
+  useEffect(() => {
+    const handleStart = () => setLoading(true);
+    const handleComplete = () => {
+      setLoading(false);
+      setTimeout(() => {
+        setShowFooter(true);
+      }, 3000); // Adjust the delay time as needed (in milliseconds)
+    };
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, [router]);
+
+  //redux load user and projects
   useEffect(() => {
     store.dispatch(loadUser());
     store.dispatch(getProjects());
     
   }, [store.dispatch]);
+
   return (
     <>
       <Head>
@@ -65,7 +92,7 @@ export default function App({ Component, pageProps }) {
         <ContextProvider>
           {/* <Topbar /> */}
           <Layout>
-            <Component {...pageProps} />
+            {loading ? <Loader /> : <Component {...pageProps} />}
             <ToastContainer
               position="top-right"
               autoClose={3000}
@@ -79,10 +106,10 @@ export default function App({ Component, pageProps }) {
               theme="dark"
             />
           </Layout>
-        </ContextProvider>
-        <Footer/>
-      </Provider>
 
+          {showFooter && <Footer />}
+        </ContextProvider>
+      </Provider>
       {/* Same as */}
     </>
   );
