@@ -12,6 +12,10 @@ import {
 } from "@tremor/react";
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import AreaChartC, { AreaChartComponent } from './chart/AreaChartC';
+import { BarChartComponent } from './chart/BarChart';
+import { DonutChartCustomTooltip } from './chart/DonutChart';
+
 const Dashboard = () => {
   const navigate = useRouter();
   const { users } = useSelector(s => s.user)
@@ -161,6 +165,18 @@ const Dashboard = () => {
               colors={["emerald", "red", "purple", "amber"]}
             />
           </Card>
+          {/* area chart */}
+          <div >
+            <AreaChartComponent />
+          </div>
+          {/* bar chart */}
+          <div className='my-5'>
+            <BarChartComponent />
+          </div>
+          {/* donut chart */}
+          <div>
+            <DonutChartCustomTooltip />
+          </div>
         </div>
       </div>
     </DashboardLayout>
