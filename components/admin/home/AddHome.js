@@ -128,6 +128,7 @@ const AddRoom = ({ setPage }) => {
       site_phone: details.site_phone,
       customer_contract: details.customer_contract,
       customer_phone: details.customer_phone,
+      customer_selection: details.customer_selection,
       order_trigger: details.order_trigger,
       order_trigger_stage: details.order_trigger_stage,
       drawings: details.drawings,
@@ -143,6 +144,7 @@ const AddRoom = ({ setPage }) => {
       homeType: details.homeType,
       builder: details.builder,
       status: details.status,
+      currentPhase: details.currentPhase,
       //project stack holder
       generalContractor: details.generalContractor,
       constractionManager: details.constractionManager,

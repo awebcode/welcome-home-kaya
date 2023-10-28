@@ -18,6 +18,7 @@ const initialState = {
     Count_of_Products_by_project: [],
     Order_Tracker: [],
     related_to_order: [],
+    currentPhase:"",
     bed: "",
     bath: "",
     soft: "",

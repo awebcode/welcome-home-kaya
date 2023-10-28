@@ -14,10 +14,7 @@ const projectSchema = new mongoose.Schema(
       type: [String],
       validate: (v) => Array.isArray(v) && v.length > 0,
     },
-    price: {
-      type: Number,
-      default: 0,
-    },
+    price: String,
     ratings: {
       type: Number,
       default: 0,
@@ -25,20 +22,20 @@ const projectSchema = new mongoose.Schema(
 
     currentPhase: {
       type: String,
-      default: "",
+      default: String,
     },
 
     homeType: {
       type: String,
-      default: "",
+      default: String,
     },
     builder: {
       type: String,
-      default: "",
+      default: String,
     },
     status: {
       type: String,
-      default: "",
+      default: String,
     },
 
     keyFeatures: [
@@ -57,18 +54,9 @@ const projectSchema = new mongoose.Schema(
     //     type: String,
     //   },
     // ],
-    cost: {
-      type: Number,
-      default: 0,
-    },
-    budget: {
-      type: Number,
-      default: 0,
-    },
-    spend: {
-      type: Number,
-      default: 0,
-    },
+    cost: String,
+    budget: String,
+    spend: String,
     propertyListingPrice: {
       type: Number,
       default: 0,
@@ -95,23 +83,24 @@ const projectSchema = new mongoose.Schema(
     so_ft: String,
     zip: String,
     project_size: String,
-    city: "",
-    state: "",
-    site_contract: "",
-    site_phone: "",
-    customer_contract: "",
-    customer_phone: "",
-    order_trigger: "",
-    order_trigger_stage: "",
-    drawings: "",
-    takeOfCompleted: "",
-    bucket: "",
+    city: String,
+    state: String,
+    site_contract: String,
+    site_phone: String,
+    customer_contract: String,
+    customer_selection:String,
+    customer_phone: String,
+    order_trigger: String,
+    order_trigger_stage: String,
+    drawings: String,
+    takeOfCompleted: String,
+    bucket: String,
     Count_of_Products_by_project: [],
     Order_Tracker: [],
     related_to_order: [],
-    b_vs_a: "",
-    spent_to_date:"",
-
+    b_vs_a: String,
+    spent_to_date:String,
+    
     //project stack holders
     generalContractor: String,
     constractionManager: String,

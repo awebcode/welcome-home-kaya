@@ -9,7 +9,9 @@ const BottomNav = dynamic(() => import("@/components/admin/BottomNav"), {
 const NewProject = () => {
   return (
     <DashboardLayout>
-      <BottomNav />
+      
+        <BottomNav />
+      
     </DashboardLayout>
   );
 }

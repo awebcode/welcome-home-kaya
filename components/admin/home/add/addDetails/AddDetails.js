@@ -40,7 +40,7 @@ const AddDetails = () => {
         zip,
         city,
         state,
-
+        currentPhase,
         site_contract,
         site_phone,
         customer_contract,
@@ -60,11 +60,12 @@ const AddDetails = () => {
         homeType,
         builder,
         status,
+        customer_selection,
       },
     },
     dispatch,
   } = useValue();
-  console.log("x",keyFeatures,Count_of_Products_by_project)
+  
   const [newKeyFeature, setNewKeyFeature] = useState("");
   const [newKeyProjectNotes, setNewkeyProjectNotes] = useState("");
   const [newCountOfProductsByProject, setNewCountOfProductsByProject] = useState("");
@@ -308,6 +309,15 @@ const AddDetails = () => {
         }}
         optionalProps={{ rows: 4 }}
       />
+      {/* currentPhase */}
+      <InfoField
+        mainProps={{
+          name: "currentPhase",
+          label: "Current Phase *",
+          value: currentPhase,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
       {/* site_contract */}
       <InfoField
         mainProps={{
@@ -317,6 +327,7 @@ const AddDetails = () => {
         }}
         optionalProps={{ rows: 4 }}
       />
+
       {/* site_phone */}
       <InfoField
         mainProps={{
@@ -341,6 +352,15 @@ const AddDetails = () => {
           name: "customer_phone",
           label: "Customer Phone *",
           value: customer_phone,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* customer_selection */}
+      <InfoField
+        mainProps={{
+          name: "customer_selection",
+          label: "Customer Selection *",
+          value: customer_selection,
         }}
         optionalProps={{ rows: 4 }}
       />
@@ -717,7 +737,7 @@ const AddDetails = () => {
           onChange={(e) => handleFeatureInput(e, setNewRelatedToOrder)}
           onKeyUp={(e) => handleRelatedToOrder(e)}
         />
-       
+
         <Button
           onClick={() => handleRelatedToOrder({ key: "Enter" }, "related_to_order")}
           className="h-full bg-blue-600 p-3 mx-4 text-white"

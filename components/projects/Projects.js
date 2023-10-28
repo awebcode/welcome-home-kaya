@@ -130,8 +130,8 @@ const ProjectsComponent = () => {
       spend,
       homeType,
       builder,
-     
-
+     customer_selection,
+currentPhase,
       generalContractor,
       constractionManager,
       projectManager,
@@ -159,6 +159,7 @@ const ProjectsComponent = () => {
         site_contract,
         site_phone,
         customer_contract,
+        customer_selection,
         customer_phone,
         order_trigger,
         order_trigger_stage,
@@ -166,6 +167,7 @@ const ProjectsComponent = () => {
         takeOfCompleted,
         bucket,
         Count_of_Products_by_project,
+        currentPhase,
         Order_Tracker,
         related_to_order,
         b_vs_a,
