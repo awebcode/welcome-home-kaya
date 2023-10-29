@@ -24,6 +24,7 @@ const initialState = {
     soft: "",
     acress: "",
     targetCompletation: "",
+    targetStartDate:"",
     cost: 0,
     budget: 0,
     propertyListingPrice: 0,

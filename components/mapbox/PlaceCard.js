@@ -49,9 +49,7 @@ const PlaceCard = ({
         <p className="text-gray-700 mb-2">
           {/* <b>Location:</b>*/} {location}{" "}
         </p>
-        <p className="text-gray-600 cursor-pointer my-1">
-          Oasis 3 Flex + fits 8 more models
-        </p>
+        <p className="text-gray-600 cursor-pointer my-1">{placeName}</p>
         {/* <Divider style={{ width: "80%" }} className="bg-gray-400" />{" "} */}
         {/* Ant Design Divider */}
         {/* <Link href={`/house/single/${id}`} className=" text-gray-600 cursor-pointer">

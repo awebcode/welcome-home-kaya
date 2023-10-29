@@ -88,7 +88,7 @@ const projectSchema = new mongoose.Schema(
     site_contract: String,
     site_phone: String,
     customer_contract: String,
-    customer_selection:String,
+    customer_selection: String,
     customer_phone: String,
     order_trigger: String,
     order_trigger_stage: String,
@@ -99,8 +99,8 @@ const projectSchema = new mongoose.Schema(
     Order_Tracker: [],
     related_to_order: [],
     b_vs_a: String,
-    spent_to_date:String,
-    
+    spent_to_date: String,
+
     //project stack holders
     generalContractor: String,
     constractionManager: String,
@@ -108,6 +108,7 @@ const projectSchema = new mongoose.Schema(
     client: String,
     documents: String,
     //project stack holders
+    targetStartDate: String,
     targetCompletationDate: String,
     actualCoDate: String,
     completedAt: Date,

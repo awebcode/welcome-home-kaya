@@ -16,7 +16,8 @@ import PlaceCard from "@/components/mapbox/PlaceCard";
 import { getAllProjects } from "@/context/function";
 import Geocoder from "../add/addLocation/GeoCoder";
 import { useRouter } from "next/router";
-
+import { LocationCity } from "@mui/icons-material";
+import { MdLocationPin } from "react-icons/md";
 const supercluster = new Supercluster({
   radius: 75,
   maxZoom: 20,
@@ -89,7 +90,7 @@ const ClusterMap = () => {
 
   return (
     <ReactMapGL
-      initialViewState={{ latitude: 40.7128, longitude: -74.006, zoom: 5 }}
+      initialViewState={{ latitude: 40.7128, longitude: -74.006, zoom: 6 }}
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
       mapStyle="mapbox://styles/mapbox/streets-v11"
       //mapbox://styles/mapbox/streets-v11
@@ -152,7 +153,7 @@ const ClusterMap = () => {
               placement="top"
               classes={{ tooltip: "custom-tooltip" }}
             >
-              <Avatar
+              {/* <Avatar
                 src={formatPrice(cluster.properties?.price)}
                 component={Paper}
                 elevation={2}
@@ -167,14 +168,24 @@ const ClusterMap = () => {
                 // }}
                 style={{
                   backgroundColor: "black",
-                  fontSize: "10px",
-                  padding: "2px",
+                  color:"white",
+                  fontSize: "8px",
+                  
                   marginTop: zoom === 12 || zoom > 12 ? "-50px" : "0px",
                   position: "relative",
+                  
                 }}
               >
                 {formatPrice(cluster.properties?.price)}
-              </Avatar>
+              </Avatar> */}
+              <MdLocationPin
+                className="text-slate-900 text-4xl updown-anim"
+                onClick={() => setPopupInfo(cluster.properties)}
+                onMouseOver={() => {
+                  setCardIsModalVisible(true);
+                  setPopupInfo(cluster.properties);
+                }}
+              />
             </Tooltip>
           </Marker>
         );

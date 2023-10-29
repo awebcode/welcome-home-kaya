@@ -26,6 +26,7 @@ const AddDetails = () => {
         soft,
         acress,
         targetCompletation,
+        targetStartDate,
         cost,
         budget,
         propertyListingPrice,
@@ -471,11 +472,21 @@ const AddDetails = () => {
         }}
         optionalProps={{ rows: 4 }}
       />
+      {/* target complettaiong date */}
       <InfoField
         mainProps={{
           name: "acress",
           label: "Acress (%)*",
           value: acress,
+        }}
+        optionalProps={{ rows: 4 }}
+      />
+      {/* target start date */}
+      <InfoField
+        mainProps={{
+          name: "targetStartDate",
+          label: "Target Start Date (1 January 2022) *",
+          value: targetStartDate,
         }}
         optionalProps={{ rows: 4 }}
       />

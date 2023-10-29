@@ -110,6 +110,7 @@ const AddRoom = ({ setPage }) => {
       so_ft: details.soft,
       acress: details.acress,
       targetCompletationDate: details.targetCompletation,
+      targetStartDate: details.targetStartDate,
       cost: details.cost,
       budget: details.budget,
       propertyListingPrice: details.propertyListingPrice,
@@ -175,12 +176,14 @@ const AddRoom = ({ setPage }) => {
         }
       };
 
-      handleUpdate();
-
+       handleUpdate();
+     Router.reload();
+     
       return;
     }
-
+    
     dispatchRedux(createNewProject(room));
+    Router.reload();
   };
   //cancel update
 
@@ -188,6 +191,7 @@ const AddRoom = ({ setPage }) => {
     if (updatedRoom) {
       Router.push("/projects");
       clearProject(dispatch, currentUser, addedImages, updatedRoom);
+
     } else {
       //  dispatch({ type: "UPDATE_SECTION", payload: 0 });
       clearProject(dispatch, currentUser, images);
