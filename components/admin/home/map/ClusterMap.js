@@ -179,6 +179,7 @@ const ClusterMap = () => {
                 {formatPrice(cluster.properties?.price)}
               </Avatar> */}
               <MdLocationPin
+                style={{ marginTop: zoom === 12 || zoom > 12 ? "-50px" : "0px" }}
                 className="text-slate-900 text-4xl updown-anim"
                 onClick={() => setPopupInfo(cluster.properties)}
                 onMouseOver={() => {
