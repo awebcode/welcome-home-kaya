@@ -24,7 +24,7 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
       <div
         className={` 
           
-          custom-scroll shadow-sm   w-20 py-14  top-0 bottom-0 fixed  overflow-y-scroll overflow-x-hidden`}
+          custom-scroll shadow-sm z-40   w-20 py-14  top-0 bottom-0 fixed  overflow-y-scroll overflow-x-hidden`}
       >
         <div className="flex flex-col items-center justify-center my-6">
           <Link href="/my_bag">
@@ -51,6 +51,17 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
             </div>
           </Link>
           <Divider />
+          <Link href="/projects">
+            <div
+              className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                "/projects"
+              )}`}
+            >
+              <ProjectOutlined className="mb-2 text-[16px] md:text-[20px] text-center " />
+              <span className="text-[12px] md:text-[13px]">Projects</span>
+            </div>
+          </Link>
+          {/* <Divider />
           <Link href="/companies">
             <div
               className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
@@ -60,19 +71,9 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
               <BsFillGridFill className="mb-2 text-[16px] md:text-[20px] text-center " />
               <span className="text-[12px] md:text-[13px]">Companies</span>
             </div>
-          </Link>
-          <Divider />
-          <Link href="/dashboard/projects">
-            <div
-              className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                "/dashboard/projects"
-              )}`}
-            >
-              <ProjectOutlined className="mb-2 text-[16px] md:text-[20px] text-center " />
-              <span className="text-[12px] md:text-[13px]">Projects</span>
-            </div>
-          </Link>
-          <Divider />
+          </Link> */}
+
+          {/* <Divider />
           <Link href="/dashboard/customers">
             <div
               className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
@@ -82,8 +83,8 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
               <PiUsers className="mb-2 text-[16px] md:text-[20px] text-center " />
               <span className="text-[12px] md:text-[13px]">Customers</span>
             </div>
-          </Link>
-          <Divider />
+          </Link> */}
+          {/* <Divider />
           <Link href="/dashboard/orders">
             <div
               className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
@@ -92,6 +93,17 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
             >
               <FaJediOrder className="mb-2 text-[16px] md:text-[20px] text-center " />
               <span className="text-[12px] md:text-[13px]">Orders</span>
+            </div>
+          </Link> */}
+          <Divider />
+          <Link href="/vendors">
+            <div
+              className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                "/vendors"
+              )}`}
+            >
+              <TbHomeDollar className="mb-2 text-[16px] md:text-[20px] text-center " />
+              <span className="text-[12px] md:text-[13px]">Vendors</span>
             </div>
           </Link>
           <Divider />
@@ -105,19 +117,8 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
               <span className="text-[12px] md:text-[13px]">Pay</span>
             </div>
           </Link>
-          <Divider />
-          <Link href="/vendors">
-            <div
-              className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                "/vendors"
-              )}`}
-            >
-              <TbHomeDollar className="mb-2 text-[16px] md:text-[20px] text-center " />
-              <span className="text-[12px] md:text-[13px]">Vendors</span>
-            </div>
-          </Link>
 
-          <Divider />
+          {/* <Divider />
           <Link href="/get_paid">
             <div
               className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
@@ -150,7 +151,7 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
               <PiWechatLogo className="mb-2 text-[16px] md:text-[20px] text-center " />
               <span className="text-[12px] md:text-[13px]">Feedbacks</span>
             </div>
-          </Link>
+          </Link> */}
           <Divider />
           <Link href="/user/profile">
             <div

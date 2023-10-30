@@ -75,6 +75,39 @@ div.ant-modal-content{
   background-color: #22c55e;
    /* Set the background color for the active option */
 }
+
+/* MyMenu.css */
+/* Hide default submenu arrow */
+.ant-menu-submenu-title .ant-menu-submenu-arrow {
+  display: none;
+}
+/* customMenuStyles.css */
+
+.ant-menu-submenu-title {
+  font-size: 12px; /* Adjust the font size as needed */
+}
+
+.ant-menu-item {
+  font-size: 12px; /* Adjust the font size as needed */
+}
+
+/* Plus icon for collapsed submenu (right side) */
+.ant-menu-submenu-title::after {
+  content: "+";
+  font-size: 14px; /* Adjust the font size as needed */
+  font-weight: bold; /* Optionally adjust font weight */
+  
+}
+
+/* Minus icon for expanded submenu (right side) */
+.ant-menu-submenu-open > .ant-menu-submenu-title::after {
+  content: "-";
+  font-size: 14px; /* Adjust the font size as needed */
+  font-weight: bold; /* Optionally adjust font weight */
+  
+}
+
+
 /* swiper */
 
 .swiper {
@@ -138,4 +171,5 @@ div.ant-modal-content{
   opacity: 1;
  
 }
+
 

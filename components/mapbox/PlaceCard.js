@@ -26,9 +26,11 @@ const PlaceCard = ({
       footer={null}
       centered
       width={350}
-      style={{ background: "black", margin: "10px" }} // Set an appropriate width for the modal
+      style={{ background: "black" }} // Set an appropriate width for the modal
     >
-      <div className="flex flex-col" onMouseLeave={onClose}>
+      <div className="flex flex-col">
+        {" "}
+        {/* //onMouseLeave={onClose} */}{" "}
         <div className="mb-2">
           <div className="mb-2">
             <Image

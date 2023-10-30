@@ -94,7 +94,7 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Dashboard</span>
               </div>
             </Link>
-            <Divider className="bg-[#cbd5e1]" />
+            {/* <Divider className="bg-[#cbd5e1]" />
             <Link href="/companies" onClick={clickHandler}>
               <div
                 className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
@@ -104,19 +104,19 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <BsFillGridFill className="mb-2 text-[32px] text-center " />
                 <span className="text-[16px]">Companies</span>
               </div>
-            </Link>
+            </Link> */}
             <Divider className="bg-[#cbd5e1]" />
-            <Link href="/dashboard/projects" onClick={clickHandler}>
+            <Link href="/projects" onClick={clickHandler}>
               <div
                 className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                  "/dashboard/projects"
+                  "/projects"
                 )}`}
               >
                 <ProjectOutlined className="mb-2 text-[32px] text-center " />
                 <span className="text-[16px]">Projects</span>
               </div>
             </Link>
-            <Divider className="bg-[#cbd5e1]" />
+            {/* <Divider className="bg-[#cbd5e1]" />
             <Link href="/dashboard/customers" onClick={clickHandler}>
               <div
                 className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
@@ -138,6 +138,17 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <FaJediOrder className="mb-2 text-[32px] text-center " />
                 <span className="text-[16px]">Orders</span>
               </div>
+            </Link> */}
+            <Divider className="bg-[#cbd5e1]" />
+            <Link href="/vendors" onClick={clickHandler}>
+              <div
+                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
+                  "/vendors"
+                )}`}
+              >
+                <TbHomeDollar className="mb-2 text-[32px] text-center " />
+                <span className="text-[16px]">Vendors</span>
+              </div>
             </Link>
             <Divider className="bg-[#cbd5e1]" />
             <Link href="/pay" onClick={clickHandler}>
@@ -150,19 +161,8 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <span className="text-[16px]">Pay</span>
               </div>
             </Link>
-            <Divider className="bg-[#cbd5e1]" />
-            <Link href="/vendors" onClick={clickHandler}>
-              <div
-                className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                  "/vendors"
-                )}`}
-              >
-                <TbHomeDollar className="mb-2 text-[32px] text-center " />
-                <span className="text-[16px]">Vendors</span>
-              </div>
-            </Link>
 
-            <Divider className="bg-[#cbd5e1]" />
+            {/* <Divider className="bg-[#cbd5e1]" />
             <Link href="/get_paid" onClick={clickHandler}>
               <div
                 className={`link flex flex-col justify-center items-center text-gray-900 ${isActive(
@@ -195,7 +195,7 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                 <PiWechatLogo className="mb-2 text-[32px] text-center " />
                 <span className="text-[16px]">Feedbacks</span>
               </div>
-            </Link>
+            </Link> */}
             <Divider className="bg-[#cbd5e1]" />
             <Link href="/user/profile" onClick={clickHandler}>
               <div

@@ -35,7 +35,7 @@ const SingleMain = () => {
     state: { location },
     mapRef
   } = useValue();
-  console.log("location", location,project);
+  
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;

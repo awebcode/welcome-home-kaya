@@ -69,49 +69,7 @@ const MapComponent = () => {
           name={hoveredPlace.name}
         />
       )}
-      <div className="flex flex-wrap  my-2  rounded-md">
-        {/* <div className="flex-grow">
-          <Map
-            style="mapbox://styles/mapbox/streets-v9"
-            containerStyle={{
-              height: "100vh",
-              width: "100vw",
-            }}
-            center={[viewport.longitude, viewport.latitude]}
-            zoom={[viewport.zoom]}
-            onMouseMove={(map, event) => {
-              const features = map.queryRenderedFeatures(event.point);
-
-              const matchingPlace = preBuiltPlaces.find((place) => {
-                return features.some(
-                  (feature) =>
-                    feature.properties.name?.toLowerCase() === place.name?.toLowerCase()
-                );
-              });
-
-              setHoveredPlace(matchingPlace || null);
-
-              if (matchingPlace) {
-                setCardIsModalVisible(true);
-              } else {
-                setCardIsModalVisible(false);
-              }
-            }}
-            onMouseLeave={() => setIsModalVisible(false)}
-          >
-            {preBuiltPlaces.map((place, index) => (
-              <Layer
-                key={index}
-                type="symbol"
-                id={`marker-${index}`}
-                layout={{ "icon-image": `marker-${index}` }}
-              >
-                <Feature coordinates={place.coordinates} />
-              </Layer>
-            ))}
-          </Map>
-        </div> */}
-      </div>
+      
       <ClusterMap />
     </>
   );

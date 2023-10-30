@@ -87,22 +87,43 @@ const ClusterMap = () => {
       return `${price}`;
     }
   }
+  //  isMobile
+  
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust the width as per your mobile threshold
+    };
+
+    // Initial call to set isMobile based on window width
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <ReactMapGL
       initialViewState={{ latitude: 40.7128, longitude: -74.006, zoom: 6 }}
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-      mapStyle="mapbox://styles/mapbox/streets-v11"
+      mapStyle="mapbox://styles/mapbox/streets-v12"
       //mapbox://styles/mapbox/streets-v11
       ref={mapRef}
       onZoomEnd={(e) => setZoom(Math.round(e.viewState.zoom))}
       style={{
-        height: "100vh",
-        width: router?.pathname?.includes("admin") ? "92vw" : "92vw",
+        minHeight: "100vh",
+        width: isMobile ? "100vw" : "93vw",
       }}
       containerStyle={{
-        height: "100vh",
-        width: "92vw",
+        minHeight: "100vh",
+        width: isMobile ? "100vw" : "93vw",
       }}
     >
       {clusters.map((cluster) => {
@@ -127,10 +148,7 @@ const ClusterMap = () => {
                     20
                   );
                   mapRef.current.flyTo({
-                    center: [
-                      longitude,
-                       latitude,
-                    ],
+                    center: [longitude, latitude],
                     zoom,
                     speed: 1,
                   });
@@ -180,7 +198,7 @@ const ClusterMap = () => {
               </Avatar> */}
               <MdLocationPin
                 style={{ marginTop: zoom === 12 || zoom > 12 ? "-50px" : "0px" }}
-                className="text-slate-900 text-4xl updown-anim"
+                className="text-slate-900 text-xl updown-anim"
                 onClick={() => setPopupInfo(cluster.properties)}
                 onMouseOver={() => {
                   setCardIsModalVisible(true);
