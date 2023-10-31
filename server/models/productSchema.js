@@ -14,6 +14,37 @@ const productSchema = new mongoose.Schema({
   category: { type: String, required: true },
   subcategory: { type: String, required: true },
   subSubcategory: { type: String },
+  numOfReviews: {
+    type: Number,
+    default: 0,
+  },
+  reviews: [
+    {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      rating: {
+        type: Number,
+        required: true,
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
+      createdAt: Date,
+    },
+  ],
+
+  ratings: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);

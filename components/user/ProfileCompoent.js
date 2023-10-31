@@ -39,7 +39,7 @@ const Profile = () => {
   }
   useEffect(() => {
     const isLoggedIn = JSON.parse(localStorage.getItem("user"));
-    if (!isAuthenticated && isLoggedIn === null) {
+    if (!isAuthenticated || isLoggedIn === null) {
       Router.push("/");
     }
   }, [isAuthenticated, Router]);

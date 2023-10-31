@@ -20,6 +20,7 @@ import {
   APPLY_COUPON_REQUEST,
   APPLY_COUPON_SUCCESS,
   APPLY_COUPON_FAIL,
+  
 } from "../constants/productConstants";
 import { Base_url } from "@/utils/base_url";
 
@@ -150,6 +151,7 @@ export const applyCoupon = (productId, couponCode) => async (dispatch) => {
     dispatch({ type: APPLY_COUPON_FAIL, payload: error.response?.data?.message });
   }
 };
+
 // RESET STATE
 export const resetProductState = () => async (dispatch) => {
   dispatch({ type: RESET_PRODUCT_STATE });

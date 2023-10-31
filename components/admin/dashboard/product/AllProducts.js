@@ -43,23 +43,36 @@ const AllProducts = () => {
 
   const columns = [
     {
+      title: "Id",
+      dataIndex: "_id",
+      key: "_id",
+      render: (x) => {
+        return <p>...{x.slice(19, 30)}</p>;
+      },
+    },
+    {
       title: "Title",
       dataIndex: "title",
       key: "title",
+      render: (v) => {
+        return <p>{v.slice(0, 50)}...</p>;
+      },
     },
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      render: (v) => {
+        return <p>{v.slice(0, 80)}...</p>;
+      },
     },
     {
       title: "Image",
       dataIndex: "images",
       key: "images",
       render: (v) => {
-        return <Avatar src={v[0]} />
-      }
-      
+        return <Avatar src={v[0]} />;
+      },
     },
     {
       title: "Price",
@@ -99,7 +112,7 @@ const AllProducts = () => {
           <EditOutlined
             onClick={() => {
               router.push(`/dashboard/products/edit/${record._id}`);
-              localStorage.setItem("executed","true");
+              // localStorage.setItem("executed", "true");
             }}
             className="cursor-pointer text-green-500"
           />

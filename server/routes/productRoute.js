@@ -1,6 +1,6 @@
 const express = require("express");
 const { isAuthenticatedUser, authorizeRoles } = require("../utils/auth");
-const { applyDiscountToProduct, createProduct, updateProduct, deleteProduct, getProductById, getAllProducts } = require("../controllers/productCtrl");
+const { applyDiscountToProduct, createProduct, updateProduct, deleteProduct, getProductById, getAllProducts, createProductReview, getProductReviews, deleteReview } = require("../controllers/productCtrl");
 const router = express.Router();
 
 
@@ -24,5 +24,15 @@ router.delete(
   deleteProduct
 );
 // Define the route
-router.put('/product/:productId/discount', applyDiscountToProduct);
+router.put('/product/:productId/discount',isAuthenticatedUser, applyDiscountToProduct);
+
+
+// Create or Update a Review
+router.post("/product/:productId/reviews", isAuthenticatedUser, createProductReview);
+
+// Get Reviews for a Product
+router.get("/product/:productId/reviews",  getProductReviews);
+
+// Delete a Review
+router.delete('/product/:productId/reviews/:reviewId',isAuthenticatedUser, deleteReview);
 module.exports = router;

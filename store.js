@@ -7,11 +7,13 @@ import productReducer from "./redux/reducers/productReducers";
 import cartReducer from "./redux/reducers/cartReducers";
 import orderReducer from "./redux/reducers/orderReducer";
 import menuCustomizeHReducer from "./redux/reducers/customHReducers";
+import reviewReducer from "./redux/reducers/reviewReducer";
 
 
 const reducer = combineReducers({
   user: userReducer,
   product: productReducer,
+  review:reviewReducer,
   project: projectReducer,
   cart: cartReducer,
   order: orderReducer,

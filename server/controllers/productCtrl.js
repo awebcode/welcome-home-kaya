@@ -187,3 +187,117 @@ exports.applyDiscountToProduct = async (req, res, next) => {
     next(error);
   }
 };
+
+
+//reviews *-*******************************
+// Create New Review or Update the review
+exports.createProductReview = async (req, res, next) => {
+  try {
+    const { rating, comment } = req.body;
+    console.log(req.body);
+    const review = {
+      user: req.user._id,
+      name: req.user.username,
+      rating: Number(rating),
+      createdAt: new Date(),
+      comment,
+    };
+
+    const product = await Product.findById(req.params.productId);
+
+    const isReviewed = product?.reviews?.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isReviewed) {
+      product.reviews.forEach((rev) => {
+        if (rev.user.toString() === req.user._id.toString())
+          (rev.rating = rating), (rev.comment = comment), (rev.createdAt = new Date());
+      });
+    } else {
+      product.reviews.push(review);
+      product.numOfReviews = product.reviews.length;
+      product.ratings = product.reviews.length;
+    }
+
+    let avg = 0;
+
+    product.reviews.forEach((rev) => {
+      avg += rev.rating;
+    });
+
+    product.ratings = avg / product.reviews.length;
+
+    await product.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      message: "Review saved successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+// Get All Reviews of a product
+exports.getProductReviews = async (req, res, next) => {
+  try {
+  
+   const product = await Product.findById(req.params.id).populate("reviews.user");
+
+   if (!product) {
+     return res.status(404).json({ message: "Product not found" });
+   }
+
+   res.status(200).json({
+     success: true,
+     reviews: product.reviews,
+   });
+ } catch (error) {
+  console.log(error)
+  next(error)
+ }
+}
+exports.deleteReview = async (req, res, next) => {
+  try {
+    const productId = req.params.productId;
+    const reviewId = req.params.reviewId;
+ console.log(req.params)
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return next(new ErrorHandler("Product Not Found", 404));
+    }
+
+    const updatedReviews = product.reviews.filter(
+      (review) => review._id.toString() !== reviewId.toString()
+    );
+
+    let newRatings = 0;
+    let numOfReviews = 0;
+
+    if (updatedReviews.length > 0) {
+      const totalRatings = updatedReviews.reduce((sum, review) => sum + review.rating, 0);
+      newRatings = totalRatings / updatedReviews.length;
+      numOfReviews = updatedReviews.length;
+    }
+
+    await Product.updateOne(
+      { _id: productId },
+      {
+        $set: {
+          ratings: newRatings,
+          numOfReviews: numOfReviews,
+          reviews: updatedReviews,
+        },
+      }
+    );
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+
+    next(error);
+  }
+};

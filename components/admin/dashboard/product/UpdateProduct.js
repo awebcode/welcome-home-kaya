@@ -74,14 +74,20 @@ const UpdateProduct = () => {
         subcategory: product.subcategory,
         subSubcategory: product.subSubcategory,
       });
+      dispatchContext({ type: "UPDATE_IMAGES", payload: product.images });
       setSelectedCategory(product.category);
       setSelectedSubcategory(product.subcategory);
     }
   }, [product]);
 
   const onFinish = (values) => {
-    dispatch(updateProduct(router.query.id, { ...values, images }));
+    const updatedValues = {
+      ...values,
+      images: images && images.length > 0 && images, // Only include images if they exist
+    };
+    dispatch(updateProduct(router.query.id, updatedValues));
   };
+
 
   useEffect(() => {
     if (isUpdated) {
