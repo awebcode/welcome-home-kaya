@@ -6,6 +6,8 @@ const notFoundError = require("./utils/notFound");
 const UserRoutes = require("./routes/userRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const getCustomHomeRoutes = require("./routes/customHRoutes/getcustomDataRoutes");
+
+const productRoutes = require("./routes/productRoute");
 // const commentRoutes = require("./routes/commentRoutes");
 // const followRoutes = require("./routes/followRoutes");
 // const likeRoutes = require("./routes/likeRoutes");
@@ -40,6 +42,10 @@ app.use("/api/v1", UserRoutes);
 app.use("/api/v1", projectRoutes);
 //custome house
 app.use("/api/v1", getCustomHomeRoutes);
+
+//product route
+
+app.use("/api/v1", productRoutes);
 
 // app.use("/api/v1", commentRoutes);
 // app.use("/api/v1", replyRoutes);

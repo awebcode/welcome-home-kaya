@@ -283,7 +283,7 @@ targetStartDate,
           </h2>
           <h2
             onClick={() => Router.push("/admin/home")}
-            className="text-2xl md:text-5xl font-thin mb-4 my-4 cursor-pointer"
+            className="text-2xl md:text-3xl font-thin mb-4 my-4 cursor-pointer"
           >
             +New
           </h2>

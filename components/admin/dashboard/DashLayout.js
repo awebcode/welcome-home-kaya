@@ -11,7 +11,7 @@ import {
   MenuFoldOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { Dashboard, Person } from "@mui/icons-material";
+import { Add, Dashboard, Person } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { FaBullseye } from "react-icons/fa";
 import { loadUser, logout } from "@/redux/actions/userActions";
@@ -33,6 +33,8 @@ const DashboardSidebar = ({ collapsed, setCollapsed }) => {
 
   return (
     <Sider
+     
+      
       theme="light"
       style={{ position: "fixed", top: 0, minHeight: "100vh", zIndex: 100 }}
       collapsible
@@ -59,33 +61,21 @@ const DashboardSidebar = ({ collapsed, setCollapsed }) => {
                 <Link href="/dashboard/projects">All Projects</Link>
               </Menu.Item>
             </SubMenu>
+
+            {/* customize create product */}
+
+            <SubMenu key="3iia" icon={<Add className="mr-2" />} title="Add Product">
+              <Menu.Item key="3.1" icon={<Add className="mr-2" />}>
+                <Link href="/dashboard/products/new">Create Product</Link>
+              </Menu.Item>
+              <Menu.Item key="3.2" icon={<UnorderedListOutlined className="mr-2" />}>
+                <Link href="/dashboard/products">All Products</Link>
+              </Menu.Item>
+            </SubMenu>
             <Menu.Item key="6xx" icon={<UnorderedListOutlined className="mr-2" />}>
               <Link href="/dashboard/orders">Orders</Link>
             </Menu.Item>
-            <SubMenu
-              key="4"
-              icon={<BulbOutlined className="mr-2" />}
-              title="Light Features"
-            >
-              <Menu.Item key="4.1" icon={<BulbOutlined className="mr-2" />}>
-                <Link href="/admin/feature/light/new">New Light Feature</Link>
-              </Menu.Item>
-              <Menu.Item key="4.2" icon={<BulbOutlined className="mr-2" />}>
-                <Link href="/admin/feature/light/all">All Light Feature</Link>
-              </Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="5"
-              icon={<BulbOutlined className="mr-2" />}
-              title="Roofing Features"
-            >
-              <Menu.Item key="5.1" icon={<BulbOutlined className="mr-2" />}>
-                <Link href="/admin/feature/roof/new">New Roof Feature</Link>
-              </Menu.Item>
-              <Menu.Item key="5.2" icon={<BulbOutlined className="mr-2" />}>
-                <Link href="/admin/feature/roof/all">All Roof Feature</Link>
-              </Menu.Item>
-            </SubMenu>
+
             <Menu.Item
               key="profile"
               icon={<Avatar src={user?.avatar ? user?.avatar : "/avatar.png"} />}

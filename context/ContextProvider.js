@@ -108,7 +108,7 @@ const ContextProvider = ({ children }) => {
        if (room) {
          dispatch({ type: "UPDATE_LOCATION", payload: room.location });
          dispatch({ type: "UPDATE_DETAILS", payload: room.details });
-         dispatch({ type: "UPDATE_IMAGES", payload: room.images });
+          dispatch({ type: "UPDATE_IMAGES", payload: room.images });
          dispatch({ type: "UPDATE_UPDATED_ROOM", payload: room.updatedRoom });
          dispatch({
            type: "UPDATE_DELETED_IMAGES",
