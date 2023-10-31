@@ -1,5 +1,12 @@
 import DashboardLayout from '@/components/admin/dashboard/DashLayout'
 import dynamic from 'next/dynamic'
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+// Import Swiper styles
+
+// import required modules
 
 
 const UpdateProduct = dynamic(() =>

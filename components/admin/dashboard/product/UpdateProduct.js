@@ -24,7 +24,6 @@ const UpdateProduct = () => {
     state: { images },
     dispatch: dispatchContext,
   } = useValue();
-  const [productImageas, setProductImages] = useState([]);
   const router = useRouter();
   const dispatch = useDispatch();
   const { updateLoading, isUpdated, error, product } = useSelector((s) => s.product);
@@ -36,18 +35,21 @@ const UpdateProduct = () => {
     setSelectedCategory(value);
     form.setFieldsValue({ subcategory: null, subSubcategory: null });
   };
- useEffect(() => {
-   const executed = JSON.parse(localStorage.getItem("executed"));
+  useEffect(() => {
+    const executed = JSON.parse(localStorage.getItem("executed"));
 
-   if (!executed) {
-     localStorage.setItem("executed", JSON.stringify(true));
-     setTimeout(() => {
-       window.location.reload();
-     }, 500);
-   }
- }, []);
+    if (!executed) {
+      localStorage.setItem("executed", JSON.stringify(true));
+      window.location.reload();
+    }
+    if (window.onclose) {
+      localStorage.removeItem("executed");
+    }
+    window.addEventListener("beforeunload", () => {
+      localStorage.removeItem("executed");
+    });
+  }, []);
 
-  
   const handleSubcategoryChange = (value) => {
     setSelectedSubcategory(value);
     form.setFieldsValue({ subSubcategory: null });
@@ -72,8 +74,6 @@ const UpdateProduct = () => {
         subcategory: product.subcategory,
         subSubcategory: product.subSubcategory,
       });
-      setProductImages(product?.images);
-      dispatchContext({ type: "UPDATE_IMAGES", payload: product?.images });
       setSelectedCategory(product.category);
       setSelectedSubcategory(product.subcategory);
     }
@@ -81,7 +81,6 @@ const UpdateProduct = () => {
 
   const onFinish = (values) => {
     dispatch(updateProduct(router.query.id, { ...values, images }));
-    
   };
 
   useEffect(() => {
@@ -252,10 +251,7 @@ const UpdateProduct = () => {
           {/* // add image */}
           <AddImages />
 
-          {productImageas &&
-            productImageas.map((v) => {
-              return <Image src={v} width={100} height={100} alt={v} />;
-            })}
+          
           <Form.Item>
             <Button
               loading={updateLoading}

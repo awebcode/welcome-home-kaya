@@ -20,6 +20,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     dispatch(getProducts());
+    localStorage.removeItem("executed");
   }, [dispatch]);
 
   const deleteHandler = (id) => {
@@ -53,11 +54,12 @@ const AllProducts = () => {
     },
     {
       title: "Image",
-      dataIndex: "image",
-      key: "image",
+      dataIndex: "images",
+      key: "images",
       render: (v) => {
-        return <Avatar src={v} />
+        return <Avatar src={v[0]} />
       }
+      
     },
     {
       title: "Price",
@@ -95,7 +97,10 @@ const AllProducts = () => {
       render: (text, record) => (
         <div className="flex w-full">
           <EditOutlined
-            onClick={() => {router.push(`/dashboard/products/edit/${record._id}`)}}
+            onClick={() => {
+              router.push(`/dashboard/products/edit/${record._id}`);
+              localStorage.setItem("executed","true");
+            }}
             className="cursor-pointer text-green-500"
           />
           <DeleteOutlined
@@ -137,8 +142,9 @@ const AllProducts = () => {
                   +New
                 </h2>
               </div>
-              <div className="bg-white">
+              <div className="bg-white w-full">
                 <Table
+                
                   dataSource={products}
                   columns={columns}
                   pagination={{ pageSize: 10 }}
