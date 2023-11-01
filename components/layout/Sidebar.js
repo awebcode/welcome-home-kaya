@@ -14,7 +14,7 @@ import { Dashboard } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
 const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
-  const { cartItmes } = useSelector(s => s.cart);
+  const { cartItems } = useSelector(s => s.cart);
   const router = useRouter();
 
   const isActive = (route) => {
@@ -35,7 +35,7 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
                 "/my_bag"
               )}`}
             >
-              <Badge count={cartItmes?.length}>
+              <Badge count={cartItems?.length}>
                 <ShoppingCartOutlined className="mb-2 text-[16px] md:text-[20px] text-center" />
               </Badge>
               <span className="text-[12px] md:text-[13px]">My Bag</span>
