@@ -19,8 +19,9 @@ const ProductDetails = () => {
   const { product } = useSelector((s) => s.product);
   const { reviews } = useSelector((s) => s.review);
   useEffect(() => {
-    dispatch(getOneProduct(id));
-    getProductReviews(id);
+    if(id)
+      dispatch(getOneProduct(id));
+     dispatch(getProductReviews(id));
   }, [id]);
 
   // Generate thumbnails
@@ -50,8 +51,8 @@ const ProductDetails = () => {
   //review
   const [open, setOpen] = useState(false);
   const submitReviewToggle = () => {
-    open ? setOpen(false) : setOpen(true);
-  };
+    setOpen(!open)
+  }
   //pagination for review
   const similarReviewPerPage = 2;
   const [activePageReview, setActivePageReview] = useState(1);
@@ -71,7 +72,7 @@ const ProductDetails = () => {
     <>
       {product ? (
         <div className="container mx-auto p-4 flex justify-between items-center flex-wrap md:flex-nowrap my-4">
-          <div className="md:min-w-[40vw] max-w-[90vw] mr-8 my-5">
+          <div className="md:min-w-[40vw] max-w-[98vw] mr-4 my-5 mx-auto">
             <ReactImageGallery
               thumbnailTitle={true}
               showBullets
@@ -130,7 +131,7 @@ const ProductDetails = () => {
               <h3 className="text-xl font-semibold mb-2">Description</h3>
               <p className="text-gray-800">{product.description}</p>
             </div>
-            <button className="custom-btn w-full h-full" onClick={submitReviewToggle}>
+            <button className="custom-btn w-full my-3 h-full" onClick={submitReviewToggle}>
               Submit Review
             </button>
           </div>
@@ -153,7 +154,7 @@ const ProductDetails = () => {
             <div className="reviews">
               {currentPageReviews &&
                 currentPageReviews.map((review) => (
-                  <ReviewCard key={review._id} review={review} />
+                  <ReviewCard key={review._id} review={review} setOpen={setOpen} />
                 ))}
             </div>
             {currentPageReviews && currentPageReviews.length < reviews.length && (

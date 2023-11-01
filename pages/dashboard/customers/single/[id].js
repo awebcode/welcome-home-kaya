@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const Profile = () => {
   const { id } = useRouter().query;
-  const { singleUserGetLoading, singleUser: user,error } = useSelector((state) => state.user);
+  const { singleUserGetLoading, singleUser: user,error,user:currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -63,7 +63,11 @@ const Profile = () => {
                 <p className="text-rose-500 inline text-sm mx-2">{user.role}</p>
               )}
             </div>
-            <Link href={`/admin/customers/edit/${user._id}`} className="text-blue-500">Update this user</Link>
+            {currentUser?.role === "admin" && (
+              <Link href={`/admin/customers/edit/${user._id}`} className="text-blue-500">
+                Update this user
+              </Link>
+            )}
           </>
         )}
       </Card>

@@ -12,7 +12,6 @@ exports.createProduct = async (req, res, next) => {
 
     // Check if the user has an admin role
     if (!user || user.role !== "admin") {
-     
       return next(
         new ErrorHandler("You are not authorized to perform this action.", 401)
       );
@@ -77,13 +76,12 @@ exports.getProductById = async (req, res, next) => {
   try {
     const isValidId = mongoose.Types.ObjectId.isValid(req.params.id);
     if (!isValidId) {
-        return next(new ErrorHandler("Invalid ID", 404));
-        
+      return next(new ErrorHandler("Invalid ID", 404));
     }
 
     const product = await Product.findById(req.params.id);
     if (!product) {
-        return next(new ErrorHandler("Product not found",404));
+      return next(new ErrorHandler("Product not found", 404));
     }
 
     res.status(200).json({ success: true, product });
@@ -92,12 +90,10 @@ exports.getProductById = async (req, res, next) => {
   }
 };
 
-
-
 // Update a Product
 exports.updateProduct = async (req, res, next) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     // Find the user
     const user = await User.findById(req.user.id);
 
@@ -188,13 +184,11 @@ exports.applyDiscountToProduct = async (req, res, next) => {
   }
 };
 
-
 //reviews *-*******************************
 // Create New Review or Update the review
 exports.createProductReview = async (req, res, next) => {
   try {
     const { rating, comment } = req.body;
-    console.log(req.body);
     const review = {
       user: req.user._id,
       name: req.user.username,
@@ -211,28 +205,37 @@ exports.createProductReview = async (req, res, next) => {
 
     if (isReviewed) {
       product.reviews.forEach((rev) => {
-        if (rev.user.toString() === req.user._id.toString())
-          (rev.rating = rating), (rev.comment = comment), (rev.createdAt = new Date());
+        if (rev.user.toString() === req.user._id.toString()) {
+          rev.rating = rating;
+          rev.comment = comment;
+          rev.createdAt = new Date();
+        }
       });
     } else {
       product.reviews.push(review);
       product.numOfReviews = product.reviews.length;
-      product.ratings = product.reviews.length;
+      product.ratings =
+        product.reviews.reduce((sum, review) => sum + review.rating, 0) /
+        product.reviews.length;
     }
 
-    let avg = 0;
-
-    product.reviews.forEach((rev) => {
-      avg += rev.rating;
-    });
-
-    product.ratings = avg / product.reviews.length;
-
     await product.save({ validateBeforeSave: false });
+
+    const updatedReview = isReviewed
+      ? product.reviews.find((rev) => rev.user.toString() === req.user._id.toString())
+      : review;
 
     res.status(200).json({
       success: true,
       message: "Review saved successfully",
+      review: {
+        _id: updatedReview._id,
+        user: { _id: req.user.id, username: req.user.username, avatar: req.user.avatar },
+
+        rating: updatedReview.rating,
+        createdAt: updatedReview.createdAt,
+        comment: updatedReview.comment,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -243,27 +246,30 @@ exports.createProductReview = async (req, res, next) => {
 // Get All Reviews of a product
 exports.getProductReviews = async (req, res, next) => {
   try {
-  
-   const product = await Product.findById(req.params.id).populate("reviews.user");
+    const isValidId = mongoose.Types.ObjectId.isValid(req.params.productId);
+    if (!isValidId) {
+      return next(new ErrorHandler("Invalid ID", 404));
+    }
+    const product = await Product.findById(req.params.productId).populate("reviews.user");
 
-   if (!product) {
-     return res.status(404).json({ message: "Product not found" });
-   }
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
 
-   res.status(200).json({
-     success: true,
-     reviews: product.reviews,
-   });
- } catch (error) {
-  console.log(error)
-  next(error)
- }
-}
+    res.status(200).json({
+      success: true,
+      reviews: product.reviews,
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
 exports.deleteReview = async (req, res, next) => {
   try {
     const productId = req.params.productId;
     const reviewId = req.params.reviewId;
- console.log(req.params)
+    console.log(req.params);
     const product = await Product.findById(productId);
 
     if (!product) {

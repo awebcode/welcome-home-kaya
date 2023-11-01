@@ -31,7 +31,7 @@ router.put('/product/:productId/discount',isAuthenticatedUser, applyDiscountToPr
 router.post("/product/:productId/reviews", isAuthenticatedUser, createProductReview);
 
 // Get Reviews for a Product
-router.get("/product/:productId/reviews",  getProductReviews);
+router.get("/product/reviews/:productId", isAuthenticatedUser, getProductReviews);
 
 // Delete a Review
 router.delete('/product/:productId/reviews/:reviewId',isAuthenticatedUser, deleteReview);

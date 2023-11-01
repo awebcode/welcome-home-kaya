@@ -21,6 +21,7 @@ const Dashboard = () => {
   const { users } = useSelector(s => s.user)
   const { projects } = useSelector((s) => s.project);
   const { orders } = useSelector((s) => s.order);
+   const { products } = useSelector((s) => s.product);
 
   // ismobile
 
@@ -128,6 +129,44 @@ const Dashboard = () => {
             />
           </Card>
         </div>
+        {/* Products */}
+        <div
+          className="cursor-pointer"
+          onClick={() => navigate.push("/dashboard/products")}
+        >
+          <Card className="mx-auto bg-white">
+            <BadgeDelta
+              className="float-right mx-1 my-1"
+              deltaType="moderateIncrease"
+              isIncreasePositive={true}
+              size={isMobile ? "xs" : "xl"}
+            >
+              Products {products?.length}
+            </BadgeDelta>
+
+            <Card className="max-w-xs block bg-white border-green-300">
+              <Text>Total Products</Text>
+              <Metric>{products && products.length}</Metric>
+            </Card>
+            <Divider style={{ fontSize: isMobile ? "20px" : "30px" }}>Products</Divider>
+            {/* Display the number of verified  products */}
+            {/*  */}
+
+            <Legend
+              className="mt-3"
+              categories={[
+                `RoughLumber: ${
+                  products?.filter((s) => s.category === "RoughLumber")?.length
+                }`,
+                `Window: ${products?.filter((s) => s.category === "Window")?.length}`,
+                `Light: ${products?.filter((s) => s.category === "Light")?.length}`,
+                `Doors: ${products?.filter((s) => s.category === "Doors")?.length}`,
+                `Siding: ${products?.filter((s) => s.category === "Siding")?.length}`,
+              ]}
+              colors={["emerald", "red", "purple", "amber"]}
+            />
+          </Card>
+        </div>
         {/* Orders */}
         <div
           className="cursor-pointer"
@@ -166,11 +205,11 @@ const Dashboard = () => {
             />
           </Card>
           {/* area chart */}
-          <div >
+          <div>
             <AreaChartComponent />
           </div>
           {/* bar chart */}
-          <div className='my-5'>
+          <div className="my-5">
             <BarChartComponent />
           </div>
           {/* donut chart */}

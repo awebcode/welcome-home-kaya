@@ -28,6 +28,7 @@ import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
 import Loader from "@/components/Loader";
 import DashboardSidebar from "@/components/admin/dashboard/DashLayout";
+import { getProducts } from "@/redux/actions/productActions";
 
 export default function App({ Component, pageProps }) {
  const router = useRouter();
@@ -58,6 +59,7 @@ const [showFooter, setShowFooter] = useState(false);
     store.dispatch(loadUser());
     store.dispatch(getProjects());
     store.dispatch(getUsers());
+    store.dispatch(getProducts());
   }, [store.dispatch]);
   //for dashboard layout
  const isDashboardRoute =

@@ -21,7 +21,7 @@ const Review = ({ open, setOpen, product }) => {
 
   useEffect(() => {
     const userReview = product?.reviews?.find(
-      (review) => review?.user === userData?.user?._id
+      (review) => review?.user === userData?._id
     );
     if (userReview) {
       setExistingReview(userReview);
@@ -45,9 +45,10 @@ const Review = ({ open, setOpen, product }) => {
     };
 
       const data = await dispatch(createProductReview(product._id, myForm));
-      console.log(data)
+      
     if (data?.success) {
-      toast.success("Review Submitted successfully!");
+        toast.success("Review Submitted successfully!");
+        setOpen(false)
     }
   };
 

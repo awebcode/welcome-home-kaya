@@ -34,7 +34,7 @@ export const createProductReview =
         config
       );
 
-      dispatch({ type: CREATE_PRODUCT_REVIEW_SUCCESS, payload: data });
+      dispatch({ type: CREATE_PRODUCT_REVIEW_SUCCESS, payload: data.review });
         return data;
     } catch (error) {
       dispatch({
@@ -49,9 +49,10 @@ export const getProductReviews = (productId) => async (dispatch) => {
   try {
     dispatch({ type: GET_PRODUCT_REVIEWS_REQUEST });
 
-    const { data } = await axios.get(`${Base_url}/product/${productId}/reviews`, {
+    const { data } = await axios.get(`${Base_url}/product/reviews/${productId}`, {
       withCredentials: true,
     });
+    console.log(data)
 
     dispatch({ type: GET_PRODUCT_REVIEWS_SUCCESS, payload: data.reviews });
   } catch (error) {

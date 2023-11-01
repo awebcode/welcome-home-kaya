@@ -7,55 +7,52 @@ const Pay = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen w-[100vw]">
-      <Form
-        layout="vertical"
-        name="payForm"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        className="bg-white p-8 border rounded-lg md:w-1/2 lg:w-1/3 shadow-md w-full"
-      >
-        <Form.Item
-          label="Card Number"
-          name="cardNumber"
-          rules={[{ required: true, message: "Please input your card number!" }]}
+    <div className="max-w-md mx-auto bg-white p-8  min-h-screen border-gray-300 rounded-lg ">
+      <div className="shadow-lg p-7">
+        <h2 className="text-3xl mb-4 font-bold text-gray-900">Bank Card</h2>
+        <Form
+          layout="vertical"
+          size="large"
+          name="bankCardForm"
+          initialValues={{ remember: true }}
+          cl
+          onFinish={onFinish}
         >
-          <Input
-            placeholder="1234 5678 9012 3456"
-            style={{ border: "1px solid green" }}
-          />
-        </Form.Item>
+          <Form.Item
+            name="cardNumber"
+            label="Card Number"
+            rules={[{ required: true, message: "Please enter your card number!" }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="Name on Card"
-          name="nameOnCard"
-          rules={[{ required: true, message: "Please input the name on your card!" }]}
-        >
-          <Input placeholder="John Doe" style={{ border: "1px solid green" }} />
-        </Form.Item>
+          <Form.Item
+            name="expiryDate"
+            label="Expiry Date"
+            rules={[{ required: true, message: "Please enter the expiry date!" }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="CVV"
-          name="cvv"
-          rules={[{ required: true, message: "Please input your CVV!" }]}
-        >
-          <Input placeholder="123" style={{ border: "1px solid green" }} />
-        </Form.Item>
+          <Form.Item
+            name="cvv"
+            label="CVV"
+            rules={[{ required: true, message: "Please enter the CVV!" }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="Expiration Date"
-          name="expirationDate"
-          rules={[{ required: true, message: "Please input the expiration date!" }]}
-        >
-          <Input placeholder="MM/YYYY" style={{ border: "1px solid green" }} />
-        </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block>
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
 
-        <Form.Item>
-          <Button  htmlType="submit" className="custom-btn w-full h-full">
-            Pay
-          </Button>
-        </Form.Item>
-      </Form>
+        <div className="my-4 border-t border-gray-300"></div>
+
+        {/* Additional Card Content */}
+      </div>
     </div>
   );
 };

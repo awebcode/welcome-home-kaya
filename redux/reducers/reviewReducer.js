@@ -29,12 +29,31 @@ const reviewReducer = (state = initialState, action) => {
         error: null,
       };
     case CREATE_PRODUCT_REVIEW_SUCCESS:
-      return {
-        ...state,
-        reviews: [...state.reviews, action.payload],
-        loading: false,
-        error: null,
-      };
+      const existingReviewIndex = state.reviews.findIndex(
+        (review) =>
+          review.user._id === action.payload.user._id
+          
+      );
+
+      if (existingReviewIndex !== -1) {
+        const updatedReviews = [...state.reviews];
+        updatedReviews[existingReviewIndex] = action.payload;
+
+        return {
+          ...state,
+          reviews: updatedReviews,
+          loading: false,
+          error: null,
+        };
+      } else {
+        return {
+          ...state,
+          reviews: [...state.reviews, action.payload],
+          loading: false,
+          error: null,
+        };
+      }
+
     case GET_PRODUCT_REVIEWS_SUCCESS:
       return {
         ...state,
