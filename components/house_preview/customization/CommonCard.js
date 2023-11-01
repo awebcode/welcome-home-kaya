@@ -159,7 +159,7 @@ const CommonCard = ({ router, title, project, products, setMinPrice, setMaxPrice
       >
         {displayedProducts &&
           displayedProducts.map((v, i) => {
-            return <CustomHouseCard data={v} project={project} />;
+            return <CustomHouseCard data={v} key={v._id} project={project} />;
           })}
       </div>
       {/* pagination */}
