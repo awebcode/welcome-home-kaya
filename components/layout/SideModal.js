@@ -10,8 +10,10 @@ import { FiSettings } from "react-icons/fi";
 import { PiUsers } from "react-icons/pi";
 import { MdOutlineMonetizationOn } from "react-icons/md";
 import { Dashboard } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
-const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
+const SidebarModal = ({ user, isModalOpen, setSidebarOpen, logoutHandler }) => {
+  const { cartItmes } = useSelector((s) => s.cart);
   const router = useRouter();
 
   const isActive = (route) => {
@@ -77,7 +79,7 @@ const SidebarModal = ({user, isModalOpen,setSidebarOpen,logoutHandler}) => {
                   "/my_bag"
                 )}`}
               >
-                <Badge count={6}>
+                <Badge count={cartItmes?.length}>
                   <ShoppingCartOutlined className="mb-2 text-[32px] text-center text-white" />
                 </Badge>
                 <span className="text-[16px]">My Bag</span>
