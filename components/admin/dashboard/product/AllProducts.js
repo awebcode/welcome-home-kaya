@@ -85,6 +85,11 @@ const AllProducts = () => {
       key: "discount",
     },
     {
+      title: "InStock",
+      dataIndex: "stock",
+      key: "stock",
+    },
+    {
       title: "Company Name",
       dataIndex: "companyName",
       key: "companyName",

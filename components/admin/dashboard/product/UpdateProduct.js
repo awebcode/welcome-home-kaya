@@ -68,6 +68,7 @@ const UpdateProduct = () => {
         title: product.title,
         description: product.description,
         price: product.price,
+        quantity: product.quantity,
         discount: product.discount,
         companyName: product.companyName,
         category: product.category,
@@ -96,11 +97,17 @@ const UpdateProduct = () => {
       router.push("/dashboard/products");
       dispatch(resetProductState());
       localStorage.removeItem("executed");
+setTimeout(() => {
+  router.reload();
+}, 3000);
+      
+
     }
     if (error) {
       toast.success(error);
       dispatch(clearProductErrors());
     }
+     
   }, [router, dispatch, error, isUpdated]);
   return (
     <div className="container mx-auto p-4 m-4">
@@ -119,7 +126,7 @@ const UpdateProduct = () => {
           <Form.Item
             label="Title"
             name="title"
-            rules={[{ required: true, message: "Please input the title!" }]}
+            // rules={[{ required: true, message: "Please input the title!" }]}
           >
             <Input
               placeholder="Enter product title"
@@ -129,7 +136,7 @@ const UpdateProduct = () => {
           <Form.Item
             label="Description"
             name="description"
-            rules={[{ required: true, message: "Please input the description!" }]}
+            // rules={[{ required: true, message: "Please input the description!" }]}
           >
             <Input.TextArea
               rows={4}
@@ -140,12 +147,11 @@ const UpdateProduct = () => {
           <Form.Item
             label="Price"
             name="price"
-            rules={[{ required: true, message: "Please input the price!" }]}
+            // rules={[{ required: true, message: "Please input the price!" }]}
           >
             <Input
               type="number"
-              min="0"
-              step="0.01"
+              min="1"
               placeholder="Enter product price"
               className="border border-green-400 p-2"
             />
@@ -153,20 +159,31 @@ const UpdateProduct = () => {
           <Form.Item
             label="Discount"
             name="discount"
-            rules={[{ required: true, message: "Please input the discount!" }]}
+            // rules={[{ required: true, message: "Please input the discount!" }]}
           >
             <Input
               type="number"
-              min="0"
-              max="100"
+              min="1"
               placeholder="Enter discount percentage"
+              className="border border-green-400 p-2"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Stock"
+            name="stock"
+            rules={[{ required: true, message: "Please input the stock!" }]}
+          >
+            <Input
+              type="number"
+              min="1"
+              placeholder="Enter Product Stock"
               className="border border-green-400 p-2"
             />
           </Form.Item>
           <Form.Item
             label="Company Name"
             name="companyName"
-            rules={[{ required: true, message: "Please input the company name!" }]}
+            // rules={[{ required: true, message: "Please input the company name!" }]}
           >
             <Input
               placeholder="Enter company name"
@@ -177,7 +194,7 @@ const UpdateProduct = () => {
           <Form.Item
             label="Category"
             name="category"
-            rules={[{ required: true, message: "Please select a category!" }]}
+            // rules={[{ required: true, message: "Please select a category!" }]}
           >
             <Select placeholder="Select a category" onChange={handleCategoryChange}>
               {categories.map((category) => (
@@ -190,7 +207,7 @@ const UpdateProduct = () => {
           <Form.Item
             label="Subcategory"
             name="subcategory"
-            rules={[{ required: true, message: "Please select a subcategory!" }]}
+            // rules={[{ required: true, message: "Please select a subcategory!" }]}
           >
             <Select
               placeholder="Select a subcategory"
@@ -257,7 +274,6 @@ const UpdateProduct = () => {
           {/* // add image */}
           <AddImages />
 
-          
           <Form.Item>
             <Button
               loading={updateLoading}

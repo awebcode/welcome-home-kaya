@@ -5,6 +5,11 @@ const productSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.ObjectId, ref: "User" },
   description: { type: String, required: true },
   price: { type: Number, required: true },
+  stock: {
+    type: Number,
+    required:[true,"Plese provide product stock!"],
+    default: 0,
+  },
   images: {
     type: [String],
     validate: (v) => Array.isArray(v) && v.length > 0,
@@ -45,7 +50,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-});
+},{timestamps:true});
 
 const Product = mongoose.model("Product", productSchema);
 

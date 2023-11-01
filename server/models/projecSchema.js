@@ -15,6 +15,10 @@ const projectSchema = new mongoose.Schema(
       validate: (v) => Array.isArray(v) && v.length > 0,
     },
     price: String,
+    quantity: {
+      type: Number,
+      default:0
+    },
     ratings: {
       type: Number,
       default: 0,

@@ -26,21 +26,43 @@ exports.createProduct = async (req, res, next) => {
 // Get All Products with Sorting, Pagination, Category Filter, Min and Max Price Filter, and Search
 exports.getAllProducts = async (req, res, next) => {
   try {
+
+    console.log(req.query);
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
     const sortOption = {};
+
     if (req.query.sortBy) {
-      sortOption[req.query.sortBy] = req.query.order === "desc" ? -1 : 1;
+      // Update sortOption based on the selected value from the frontend
+      switch (req.query.sortBy) {
+        case "createdAt":
+          sortOption.createdAt = req.query.order === "desc" ? -1 : 1;
+          break;
+        case "price":
+          sortOption.price = req.query.order === "desc" ? -1 : 1;
+          break;
+        case "category":
+          sortOption.category = req.query.order === "desc" ? -1 : 1;
+          break;
+        default:
+          // Handle other sorting options if needed
+          break;
+      }
     }
 
     const filterOptions = {};
 
     if (req.query.category) {
-      filterOptions.category = req.query.category;
-    }
+      filterOptions.$or = [
+        { category: req.query.category },
+        { subcategory: req.query.category },
+        { subSubcategory: req.query.category }
+      ]
+  }
 
+ 
     if (req.query.minPrice && req.query.maxPrice) {
       filterOptions.price = {
         $gte: parseFloat(req.query.minPrice),
@@ -61,9 +83,10 @@ exports.getAllProducts = async (req, res, next) => {
     }
 
     const products = await Product.find(filterOptions)
-      .sort(sortOption)
+      .sort(sortOption) //sortOption
       .limit(limit)
       .skip(skip);
+    
 
     res.status(200).json({ success: true, products });
   } catch (error) {
@@ -253,7 +276,7 @@ exports.getProductReviews = async (req, res, next) => {
     const product = await Product.findById(req.params.productId).populate("reviews.user");
 
     if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+      return next(new ErrorHandler("Product Not Found", 404));
     }
 
     res.status(200).json({

@@ -43,7 +43,7 @@ export const createNewProduct = (data) => async (dispatch) => {
 };
 
 //getAllProducts
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (category,minPrice,maxPrice,search,sort) => async (dispatch) => {
   try {
     dispatch({ type: GET_PRODUCTS_REQUEST });
 
@@ -52,7 +52,7 @@ export const getProducts = () => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.get(`${Base_url}/products`, config);
+    const { data } = await axios.get(`${Base_url}/products?category=${category || ""}&minPrice=${minPrice||0}&maxPrice=${maxPrice||1000000}&search=${search||""}&sortBy=${sort||""}`, config);
 
     dispatch({ type: GET_PRODUCTS_SUCCESS, payload: data.products });
   } catch (error) {

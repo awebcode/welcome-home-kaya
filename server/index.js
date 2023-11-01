@@ -8,6 +8,7 @@ const projectRoutes = require("./routes/projectRoutes");
 const getCustomHomeRoutes = require("./routes/customHRoutes/getcustomDataRoutes");
 
 const productRoutes = require("./routes/productRoute");
+const orderRoutes = require("./routes/orderRoutes");
 // const commentRoutes = require("./routes/commentRoutes");
 // const followRoutes = require("./routes/followRoutes");
 // const likeRoutes = require("./routes/likeRoutes");
@@ -46,7 +47,8 @@ app.use("/api/v1", getCustomHomeRoutes);
 //product route
 
 app.use("/api/v1", productRoutes);
-
+//orderRoutes
+app.use("/api/v1", orderRoutes);
 // app.use("/api/v1", commentRoutes);
 // app.use("/api/v1", replyRoutes);
 // app.use("/api/v1", likeRoutes);

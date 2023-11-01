@@ -1,58 +1,20 @@
 import React from "react";
-import { Layout, Menu } from "antd";
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  HomeOutlined,
-  AppstoreOutlined,
-  BookOutlined,
-  BarChartOutlined,
-  BulbOutlined,
-  CloudOutlined,
-  EnterOutlined,
-  PlusOutlined,
-  ToolOutlined,
-} from "@ant-design/icons";
-import {
-  Agriculture,
-  Bathroom,
-  Check,
-  CloseSharp,
-  Countertops,
-  DoorFront,
-  ElectricBoltRounded,
-  FireExtinguisher,
-  FireplaceOutlined,
-  FloodOutlined,
-  FoodBank,
-  Hardware,
-  Home,
-  HomeMini,
-  HomeWorkOutlined,
-  HouseSiding,
-  Hvac,
-  Kitchen,
-  Light,
-  Plumbing,
-  Roofing,
-  RoofingSharp,
-  SwitchAccessShortcut,
-  TimeToLeaveRounded,
-  Wallpaper,
-  Window,
-} from "@mui/icons-material";
-import { PiPaintBrushFill } from "react-icons/pi";
+import { Menu } from "antd";
 import { categories } from "@/components/admin/dashboard/product/categoriesData";
-const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
-
-const Menus = () => {
+const Menus = ({
+  setCurrentCategory,
+  currentCategory,
+  setMainCategory,
+  mainCategory,
+}) => {
+  console.log("maincategory", currentCategory);
   return (
     <>
       <Menu
         theme="light"
         mode="inline"
-        defaultSelectedKeys={["xxB"]}
+        defaultSelectedKeys={[""]}
         style={{ height: "100vh", overflowY: "scroll" }}
         className="custom-scroll"
       >
@@ -61,6 +23,11 @@ const Menus = () => {
             key={`category_${index * 6}`}
             icon={category.icon}
             title={category.name}
+            onTitleClick={() => {
+              setCurrentCategory(category.name);
+              setMainCategory(category.name);
+            }}
+            
           >
             {category.subcategories.map((subcategory, subIndex) => {
               return subcategory?.subSubcategories?.length > 0 ? (
@@ -68,15 +35,28 @@ const Menus = () => {
                   key={`subcategory_${subIndex * 5}`}
                   icon={subcategory.icon}
                   title={subcategory.name}
+                  onTitleClick={() => {
+                    setCurrentCategory(subcategory);
+                    // setMainCategory(category.name);
+                  }}
                 >
                   {subcategory?.subSubcategories?.map((subSubcategory, subSubIndex) => (
-                    <Menu.Item key={`subsubcategory_${subSubIndex + 23}`}>
+                    <Menu.Item
+                      onClick={() => setCurrentCategory(subSubcategory)}
+                      key={`subsubcategory_${subSubIndex + 23}`}
+                    >
                       {subSubcategory}
                     </Menu.Item>
                   ))}
                 </SubMenu>
               ) : (
-                <Menu.Item key={`subcategory_${subIndex}`}>{subcategory.name}</Menu.Item>
+                <Menu.Item
+                    onClick={() => { setCurrentCategory(subcategory.name)}}
+                  key={`subcategory_${subIndex}`}
+                >
+                  
+                  {subcategory.name}
+                </Menu.Item>
               );
             })}
           </SubMenu>

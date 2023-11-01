@@ -43,15 +43,20 @@ const NewProduct = () => {
 
   useEffect(() => {
     if (isCreated) {
-      dispatchContext({type:"UPDATE_IMAGES",payload:[]})
+      dispatchContext({ type: "UPDATE_IMAGES", payload: [] })
+      
       toast.success("Product Created successfully");
       router.push("/dashboard/products");
       dispatch(resetProductState());
+      setTimeout(() => {
+        router.reload()
+      }, 3000);
     }
     if (error) {
       toast.success(error);
       dispatch(clearProductErrors());
     }
+    
   }, [router, dispatch, error, isCreated]);
   return (
     <div className="container mx-auto p-4 m-4">
@@ -93,22 +98,34 @@ const NewProduct = () => {
           >
             <Input
               type="number"
-              min="0"
-              step="0.01"
+              min="1"
               placeholder="Enter product price"
               className="border border-green-400 p-2"
             />
           </Form.Item>
           <Form.Item
-            label="Discount"
+            label="Discount (%)"
             name="discount"
             rules={[{ required: true, message: "Please input the discount!" }]}
           >
             <Input
               type="number"
-              min="0"
-              max="100"
+              min="1"
               placeholder="Enter discount percentage"
+              className="border border-green-400 p-2"
+            />
+          </Form.Item>
+          
+          <Form.Item
+            label="Stock"
+            name="stock"
+            rules={[{ required: true, message: "Please input the stock!" }]}
+          >
+            <Input
+              type="number"
+              min="1"
+              
+              placeholder="Enter Product Stock"
               className="border border-green-400 p-2"
             />
           </Form.Item>

@@ -8,14 +8,16 @@ import cartReducer from "./redux/reducers/cartReducers";
 import orderReducer from "./redux/reducers/orderReducer";
 import menuCustomizeHReducer from "./redux/reducers/customHReducers";
 import reviewReducer from "./redux/reducers/reviewReducer";
+import wishlistReducer from "./redux/reducers/wishListReducer";
 
 
 const reducer = combineReducers({
   user: userReducer,
   product: productReducer,
-  review:reviewReducer,
+  review: reviewReducer,
   project: projectReducer,
   cart: cartReducer,
+  wishlist: wishlistReducer,
   order: orderReducer,
   menu: menuCustomizeHReducer,
 });

@@ -8,13 +8,34 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  scroll-behavior: smooth;
   
 }
 body {
   overflow-x: hidden !important;
   font-family: "Poppins";
+   scroll-behavior: smooth;
+}
+/* scroll bar */
+
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* Color of the scrollbar thumb */
   
 }
+
+
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar-track {
+  background-color: #f0f0f0; /* Color of the scrollbar track */
+  width: 2px !important; /* Adjust the width to your preference */
+}
+
 /* scrroll display none */
 .custom-scroll::-webkit-scrollbar {
   display: none !important;
