@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 
-const BagComponent = dynamic(() => import("@/components/SideComponents/BagComponent"), {
+const BagComponent = dynamic(() => import("@/components/my_bag/BagComponent"), {
   ssr:false
 });
 import Head from 'next/head';

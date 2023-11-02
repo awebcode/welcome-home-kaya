@@ -18,13 +18,13 @@ const initialState = {
     Count_of_Products_by_project: [],
     Order_Tracker: [],
     related_to_order: [],
-    currentPhase:"",
+    currentPhase: "",
     bed: "",
     bath: "",
     soft: "",
     acress: "",
     targetCompletation: "",
-    targetStartDate:"",
+    targetStartDate: "",
     cost: 0,
     budget: 0,
     propertyListingPrice: 0,
@@ -35,7 +35,7 @@ const initialState = {
     zip: "",
     city: "",
     state: "",
-    
+
     project_size: "",
     site_contract: "",
     site_phone: "",
@@ -54,7 +54,7 @@ const initialState = {
     homeType: "",
     builder: "",
     status: "",
-    
+
     generalContractor: "",
     constractionManager: "",
     projectManager: "",

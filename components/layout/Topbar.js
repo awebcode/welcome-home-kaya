@@ -116,10 +116,10 @@ const Topbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
         className="bg-white  p-2 md:p-4 flex justify-between items-center fixed top-0 left-0 right-0 custom-scroll"
       >
         <div
-          className="flex items-center cursor-pointer"
+          className="flex items-center cursor-pointer z-50"
           onClick={() => Router.push("/")}
         >
-          <span className="text-2xl md:text-5xl font-bold text-gray-900">
+          <span className="text-2xl md:text-5xl font-bold text-gray-900 cursor-pointer">
             <Image
               src={"/logo.png"}
               alt="welcome homes logo"
@@ -137,7 +137,7 @@ const Topbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
             className="hidden md:inline text-gray-900 cursor-pointer"
             onClick={toggleMenu}
           >
-            WelcomeHomes <FiChevronDown className="inline" />
+            {user?.username || "WelcomeHomes"} <FiChevronDown className="inline" />
           </span>
           <div className="visible md:hidden inline">
             {isSidebarOpen ? (

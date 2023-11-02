@@ -1,4 +1,3 @@
-import Layout from "@/components/layout/Layout";
 import "../styles/globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,7 +12,9 @@ import { getProjects } from "@/redux/actions/projectsActions";
 import "mapbox-gl/dist/mapbox-gl.css";
 //react image gallery
 import "react-image-gallery/styles/css/image-gallery.css";
-
+const Layout = dynamic(() => import("@/components/layout/Layout"), {
+  ssr: false,
+});
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -29,6 +30,7 @@ import { useRouter } from "next/router";
 import Loader from "@/components/Loader";
 import DashboardSidebar from "@/components/admin/dashboard/DashLayout";
 import { getProducts } from "@/redux/actions/productActions";
+import dynamic from "next/dynamic";
 
 export default function App({ Component, pageProps }) {
  const router = useRouter();

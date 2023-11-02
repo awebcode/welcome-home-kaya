@@ -198,8 +198,10 @@ import { Tabs, Divider, Select } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { removeFromCart, removeFromWishlist, updateCartItem, updateWishlistItem } from "@/redux/actions/cartActions";
+import { addToCart, addToWishlist, removeFromCart, removeFromWishlist, updateCartItem, updateWishlistItem } from "@/redux/actions/cartActions";
 import Custom404 from "../CustomNotfound";
+import { toast } from "react-toastify";
+import { AddCardOutlined, AddShoppingCartOutlined } from "@mui/icons-material";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -211,26 +213,60 @@ const BagComponent = () => {
   const { wishlistItems } = useSelector((s) => s.wishlist);
 
   const [selectedPhase, setSelectedPhase] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
-  const handleQuantityChange = (id, change, activeTab) => {
-    const items = activeTab === "cart" ? cartItems : wishlistItems;
-    const updatedItems = items.map((item) => {
-      if (item._id === id) {
-        const newQuantity = Math.max(0, Math.min(item.quantity + change, item.stock));
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    });
 
-    if (activeTab === "cart") {
-      dispatch(updateCartItem(updatedItems));
-    } else {
-      dispatch(updateWishlistItem(updatedItems));
+
+  const [activeTab, setActiveTab] = useState("cart"); // Initialize activeTab state with 'cart'
+
+  const handleTabChange = (key) => {
+    setActiveTab(key); // Update activeTab state when the tab changes
+  };
+  //cart quantity
+  const increaseQuantity = (item, quantity, stock) => {
+    const newQty = quantity + 1;
+    if (stock <= quantity) {
+      toast.warn("Cannot increase quantity beyond available stock");
+
+      return;
     }
+    dispatch(addToCart({ ...item, quantity: newQty }));
   };
 
+  const decreaseQuantity = (item, quantity) => {
+    const newQty = quantity - 1;
+    if (quantity === 1) {
+      toast.warn("Cannot decrease quantity below 1");
 
+      return;
+    }
+    dispatch(addToCart({ ...item, quantity: newQty }));
+  };
 
+  //wishlist quantity start
+  const addToCartHandler = (item) => {
+    dispatch(addToCart(item))
+    toast.success("Item Added to Cart!")
+    dispatch(removeFromWishlist(item._id));
+    setActiveTab("cart")
+  
+  }
+  const increaseWishlistQuantity = (item, quantity, stock) => {
+    const newQty = quantity + 1;
+    if (stock <= quantity) {
+      return;
+    }
+    dispatch(addToWishlist({ ...item, quantity: newQty }));
+  };
+
+  const decreaseWishlistQuantity = (item, quantity) => {
+    const newQty = quantity - 1;
+    if (1 >= quantity) {
+      return;
+    }
+    dispatch(addToWishlist({ ...item, quantity: newQty }));
+  };
+  //wishlist quantity start
   const handleRemoveItem = (id, activeTab) => {
     const items = activeTab === "cart" ? cartItems : wishlistItems;
     const updatedItems = items.filter((item) => item._id !== id);
@@ -239,29 +275,27 @@ const BagComponent = () => {
       dispatch(removeFromCart(id));
     } else {
       // Dispatch removeWishlistItem action with the item id
-       dispatch(removeFromWishlist(id));
+      dispatch(removeFromWishlist(id));
     }
   };
 
   const totalAmount = cartItems?.reduce(
     (total, item) =>
-      total +
-      parseFloat(item?.price*(item.discount/100)) *
-        item.quantity,
+      total + parseFloat(item?.price * (item.discount / 100)) * item.quantity,
     0
   );
-
+  console.log("total", totalAmount);
 
   const totalWishlistAmount = wishlistItems?.reduce(
     (total, item) =>
       total + parseFloat(item.price - item.price * (item.discount / 100)) * item.quantity,
     0
   );
-
+  console.log("quanttity", quantity);
   return (
     <div className="flex flex-col lg:flex-row p-4 min-h-screen">
       <div className="w-full lg:w-1/2 lg:pr-4 flex flex-col flex-wrap">
-        <Tabs defaultActiveKey="cart">
+        <Tabs activeKey={activeTab} onChange={handleTabChange}>
           <TabPane tab="Cart" key="cart">
             <div className="flex justify-between items-center">
               <h1 className="text-2xl md:text-5xl font-bold mx-2">My Cart</h1>
@@ -343,20 +377,23 @@ const BagComponent = () => {
                         </div>
                         <div className="flex items-center p-2 rounded">
                           <button
-                            onClick={() => handleQuantityChange(item._id, -1, "cart")}
+                            onClick={() => decreaseQuantity(item, item?.quantity)}
                             className="text-blue-500 focus:outline-none text-[8px] md:text-[10px] border p-1"
                           >
                             -
                           </button>
                           <span className="mx-2 border p-1 text-[8px] md:text-[10px]">
-                            {item.quantity}
+                            {item?.quantity}
                           </span>
                           <button
-                            onClick={() => handleQuantityChange(item._id, 1, "cart")}
+                            onClick={() =>
+                              increaseQuantity(item, item?.quantity, item?.stock)
+                            }
                             className="text-blue-500 focus:outline-none border p-1 text-[8px] md:text-[10px]"
                           >
                             +
                           </button>
+
                           <button
                             onClick={() => handleRemoveItem(item._id, "cart")}
                             className="text-red-500 ml-2 text-[8px] md:text-[10px]"
@@ -402,7 +439,15 @@ const BagComponent = () => {
                 <div key={item._id} className="w-full p-2">
                   <div className="bg-white flex gap-2 rounded-lg p-4 shadow-md">
                     {/* //  */}
-                    <div className="w-full p-2">
+
+                    <div className="w-full p-1 relative">
+                      <button
+                        onClick={() => addToCartHandler(item)}
+                        className="block absolute top-1  right-2 m-1"
+                      >
+                        <AddShoppingCartOutlined className="text-rose-500" />
+                      </button>
+
                       <div className="bg-white flex gap-2 rounded-lg p-4 shadow-md">
                         <div className="flex justify-center items-center h-32">
                           <img
@@ -453,20 +498,29 @@ const BagComponent = () => {
                             </div>
                             <div className="flex items-center  p-2 rounded">
                               <button
-                                onClick={() => handleQuantityChange(item._id, -1,"wishlist")}
+                                onClick={() =>
+                                  decreaseWishlistQuantity(item, item?.quantity)
+                                }
                                 className="text-blue-500 focus:outline-none text-[8px] md:text-[10px] border p-1"
                               >
                                 -
                               </button>
                               <span className="mx-2 border p-1 text-[8px] md:text-[10px]">
-                                {item.quantity}
+                                {item?.quantity}
                               </span>
                               <button
-                                onClick={() => handleQuantityChange(item._id, 1,"wishlist")}
+                                onClick={() =>
+                                  increaseWishlistQuantity(
+                                    item,
+                                    item?.quantity,
+                                    item?.stock
+                                  )
+                                }
                                 className="text-blue-500 focus:outline-none border p-1 text-[8px] md:text-[10px]"
                               >
                                 +
                               </button>
+
                               <button
                                 onClick={() => handleRemoveItem(item._id, "wishlist")}
                                 className="text-red-500 ml-2 text-[8px] md:text-[10px]"
@@ -494,46 +548,51 @@ const BagComponent = () => {
         </Tabs>
       </div>
       {/* ... Right Side ... */}
-      <div className="w-full lg:w-1/2 lg:pl-4 mt-4 lg:mt-0">
-        <div className="bg-white rounded-lg p-4 shadow-md">
-          <h2 className="text-2xl font-bold mb-4 text-gray-700">Order Summary</h2>
-          <Divider className="bg-gray-900" />
-          <div className="flex justify-between mb-2">
-            <span>Cart Subtotal</span>
-            <span>${totalAmount}</span>
+      {activeTab === "cart" ? (
+        <>
+          <div className="w-full lg:w-1/2 lg:pl-4 mt-4 lg:mt-0">
+            <div className="bg-white rounded-lg p-4 shadow-md">
+              <h2 className="text-2xl font-bold mb-4 text-gray-700">Order Summary</h2>
+              <Divider className="bg-gray-900" />
+              <div className="flex justify-between mb-2">
+                <span>Cart Subtotal</span>${totalAmount?.toFixed(2)}
+              </div>
+              <Divider />
+              <div className="flex justify-between mb-2">
+                <span>Shipping</span>
+                <span>$135</span>
+              </div>
+              <Divider />
+              <div className="flex justify-between mb-2">
+                <span>Tax</span>
+                <span>$2</span>
+              </div>
+              <Divider />
+              <div className="flex justify-between mb-2">
+                <span>Total Amount</span>
+                <span className="font-bold text-xl md:text-3xl">
+                  ${(totalAmount + 135 + 2)?.toFixed(2)}
+                </span>
+              </div>
+              <div className="flex justify-between mb-2">
+                <span>Ship To</span>
+                <span className="text-[12px]">
+                  {cartItems && cartItems[0]?.project?.address}
+                </span>
+              </div>
+              <Divider />
+              <button
+                onClick={() => Router.push("/my_bag/shipping")}
+                className="custom-btn h-full w-full"
+              >
+                Proceed to shipping
+              </button>
+            </div>
           </div>
-          <Divider />
-          <div className="flex justify-between mb-2">
-            <span>Shipping</span>
-            <span>$135</span>
-          </div>
-          <Divider />
-          <div className="flex justify-between mb-2">
-            <span>Tax</span>
-            <span>$2</span>
-          </div>
-          <Divider />
-          <div className="flex justify-between mb-2">
-            <span>Total Amount</span>
-            <span className="font-bold text-xl md:text-3xl">
-              ${totalAmount + 135 + 2}
-            </span>
-          </div>
-          <div className="flex justify-between mb-2">
-            <span>Ship To</span>
-            <span className="text-[12px]">
-              Edrington, 45 Wright Road, Rockville Centre, NY 11570
-            </span>
-          </div>
-          <Divider />
-          <button
-            onClick={() => Router.push("/projects")}
-            className="custom-btn h-full w-full"
-          >
-            View Projects
-          </button>
-        </div>
-      </div>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

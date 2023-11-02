@@ -26,7 +26,7 @@ const Sidebar = ({ user, isSidebarOpen, logoutHandler }) => {
       <div
         className={` 
           
-          custom-scroll shadow-sm z-40   w-20 py-14  top-0 bottom-0 fixed  overflow-y-scroll overflow-x-hidden`}
+          custom-scroll shadow-sm z-40   w-20 py-14  top-16 bottom-0 fixed  overflow-y-scroll overflow-x-hidden`}
       >
         <div className="flex flex-col items-center justify-center my-6">
           <Link href="/my_bag">

@@ -1,5 +1,5 @@
 // cartActions.js
-import { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_CART, REMOVE_FROM_WISHLIST, UPDATE_CART_ITEM, UPDATE_TOTAL_PRICE, UPDATE_WISHLIST_ITEM } from '../constants/cartConstants';
+import { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_CART, REMOVE_FROM_WISHLIST,SAVE_SHIPPING_INFO, UPDATE_CART_ITEM, UPDATE_TOTAL_PRICE, UPDATE_WISHLIST_ITEM } from '../constants/cartConstants';
 
 export const addToCart = (product) => ({
   type: ADD_TO_CART,
@@ -35,3 +35,14 @@ export const updateWishlistItem = (updatedItems) => ({
   type: UPDATE_WISHLIST_ITEM, // Define this constant if not already defined
   payload: updatedItems,
 });
+
+
+// SAVE SHIPPING INFO
+export const saveShippingInfo = (data) => async (dispatch) => {
+  dispatch({
+    type: SAVE_SHIPPING_INFO,
+    payload: data,
+  });
+
+  localStorage.setItem("shippingInfo", JSON.stringify(data));
+};

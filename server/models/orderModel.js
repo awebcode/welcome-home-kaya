@@ -2,6 +2,9 @@ const  mongoose  = require("mongoose");
 
 
 const orderSchema = new mongoose.Schema({
+  projectName:String,
+  address: String,
+  homeType:String,
   shippingInfo: {
     address: {
       type: String,

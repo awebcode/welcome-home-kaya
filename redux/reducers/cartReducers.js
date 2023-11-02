@@ -2,6 +2,7 @@
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
+  SAVE_SHIPPING_INFO,
   UPDATE_CART_ITEM,
   UPDATE_TOTAL_PRICE,
   UPDATE_WISHLIST_ITEM,
@@ -18,6 +19,10 @@ const initialState = {
         ? parseFloat(localStorage.getItem("totalPrice"))
         : 0
       : 0,
+  shippingInfo:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("shippingInfo")) || {}
+      : {},
 };
 
 const calculateTotalPrice = (cartItems) => {
@@ -27,15 +32,41 @@ const calculateTotalPrice = (cartItems) => {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const newItems = action.payload;
-      const updatedCart = [...state.cartItems, newItems];
-      const updatedTotalPrice = calculateTotalPrice(updatedCart);
+      const newItem = action.payload;
+      const existingItemIndex = state.cartItems.findIndex(
+        (item) => item._id === newItem._id
+      );
 
-      if (typeof window !== "undefined") {
-        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+      if (existingItemIndex !== -1) {
+        // Item with the same ID already exists, update its quantity
+
+        const updatedCart = state.cartItems.map((item, index) => {
+          if (index === existingItemIndex) {
+            return {
+              ...item,
+              quantity: newItem.quantity,
+            };
+          }
+          return item;
+        });
+        const updatedTotalPrice = calculateTotalPrice(updatedCart);
+
+        if (typeof window !== "undefined") {
+          localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+        }
+
+        return { ...state, cartItems: updatedCart, totalPrice: updatedTotalPrice };
+      } else {
+        // Item with the same ID doesn't exist, add it to the cart
+        const updatedCart = [...state.cartItems, newItem];
+        const updatedTotalPrice = calculateTotalPrice(updatedCart);
+
+        if (typeof window !== "undefined") {
+          localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+        }
+
+        return { ...state, cartItems: updatedCart, totalPrice: updatedTotalPrice };
       }
-
-      return { ...state, cartItems: updatedCart, totalPrice: updatedTotalPrice };
 
     case REMOVE_FROM_CART:
       const productId = action.payload;
@@ -91,9 +122,18 @@ const cartReducer = (state = initialState, action) => {
         wishlistItems: updatedWishlistItems,
         wishlistTotalPrice: updatedWishlistTotalPrice,
       };
+
+    case SAVE_SHIPPING_INFO:
+      return {
+        ...state,
+        shippingInfo: action.payload,
+      };
+
     default:
       return state;
   }
+
+
 };
 
 export default cartReducer;

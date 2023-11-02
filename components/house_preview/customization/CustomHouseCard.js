@@ -24,6 +24,7 @@ const CustomHouseCard = ({ data, project }) => {
       dispatch(
         addToWishlist({
           ...data,
+          quantity: 1,
           project: {
             _id: project?._id,
             title: project?.title,
@@ -46,11 +47,13 @@ const CustomHouseCard = ({ data, project }) => {
       toast.warn("Item Removed from cart!");
     } else {
       dispatch(updateTotalPrice(parseFloat(data?.price)));
+      console.log(project)
       dispatch(
         addToCart({
           ...data,
+          quantity: 1,
           project: {
-            _id: project?._id, 
+            _id: project?._id,
             title: project?.title,
             phase: project?.currentPhase,
             images: project?.images,

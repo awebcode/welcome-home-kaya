@@ -255,6 +255,7 @@ const AddRoom = ({ setPage }) => {
           <Button
             disabled={!showSubmit}
             variant="contained"
+            className="bg-blue-500 text-gray-800"
             endIcon={<Send />}
             onClick={handleSubmit}
           >

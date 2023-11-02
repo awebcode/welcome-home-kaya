@@ -1,5 +1,9 @@
 
-import MapComponent from '@/components/mapbox/Mapcomponent'
+import dynamic from 'next/dynamic';
+
+const MapComponent = dynamic(() => import("@/components/mapbox/Mapcomponent"), {
+  ssr:false
+});
 import Head from 'next/head'
 
 
