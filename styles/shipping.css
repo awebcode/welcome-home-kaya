@@ -11,7 +11,7 @@
 
 .MuiStepConnector-active,
 .MuiStepConnector-completed {
-  background-color: tomato;
+  background-color: rgb(171, 216, 7)200, 255, 0
 }
 /* checkout steps component style end */
 
@@ -40,7 +40,7 @@
 
 .confirmshippingAreaBox,
 .confirmCartItemsContainer {
-  margin: 2vmax;
+  margin: 1vmax;
 }
 
 .confirmshippingAreaBox > div {
@@ -82,6 +82,8 @@
 
 .confirmCartItemsContainer > div > img {
   width: 3vmax;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 .confirmCartItemsContainer > div > a {

@@ -203,12 +203,11 @@ import {
   addToWishlist,
   removeFromCart,
   removeFromWishlist,
-  updateCartItem,
-  updateWishlistItem,
+  
 } from "@/redux/actions/cartActions";
 import Custom404 from "../CustomNotfound";
 import { toast } from "react-toastify";
-import { AddCardOutlined, AddShoppingCartOutlined } from "@mui/icons-material";
+import {  AddShoppingCartOutlined } from "@mui/icons-material";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -216,7 +215,7 @@ const { Option } = Select;
 const BagComponent = () => {
   const dispatch = useDispatch();
   const Router = useRouter();
-  const { cartItems } = useSelector((s) => s.cart);
+  const { cartItems,totalPrice } = useSelector((s) => s.cart);
   const { wishlistItems } = useSelector((s) => s.wishlist);
 
   const [selectedPhase, setSelectedPhase] = useState(null);
@@ -298,7 +297,11 @@ const BagComponent = () => {
   console.log("quanttity", quantity);
   return (
     <div className="flex flex-col lg:flex-row p-4 min-h-screen">
-      <div className={`w-full ${cartItems?.length > 0?"lg:w-1/2":"lg:w-1/1"} lg:pr-4 flex flex-col flex-wrap`}>
+      <div
+        className={`w-full ${
+          cartItems?.length > 0 ? "lg:w-1/2" : "lg:w-1/1"
+        } lg:pr-4 flex flex-col flex-wrap`}
+      >
         <Tabs activeKey={activeTab} onChange={handleTabChange}>
           <TabPane tab="Cart" key="cart">
             <div className="flex justify-between items-center">
@@ -559,7 +562,7 @@ const BagComponent = () => {
               <h2 className="text-2xl font-bold mb-4 text-gray-700">Order Summary</h2>
               <Divider className="bg-gray-900" />
               <div className="flex justify-between mb-2">
-                <span>Cart Subtotal</span>${totalAmount?.toFixed(2)}
+                <span>Cart Subtotal</span>${totalPrice?.toFixed(2)}
               </div>
               <Divider />
               <div className="flex justify-between mb-2">
@@ -575,7 +578,7 @@ const BagComponent = () => {
               <div className="flex justify-between mb-2">
                 <span>Total Amount</span>
                 <span className="font-bold text-xl md:text-3xl">
-                  ${(totalAmount + 135 + 2)?.toFixed(2)}
+                  ${(totalPrice + 135 + 2)?.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between mb-2">
@@ -586,7 +589,20 @@ const BagComponent = () => {
               </div>
               <Divider />
               <button
-                onClick={() => Router.push("/my_bag/shipping")}
+                onClick={() => {
+                  Router.push("/my_bag/shipping");
+                
+                  typeof window !== "undefined" &&
+                    localStorage.setItem(
+                      "projectDetails",
+                      JSON.stringify({
+                        projectName: cartItems[0]?.project?.title,
+                        address: cartItems[0]?.project?.address,
+                        homeType: cartItems[0]?.project?.homeType,
+                      })
+                    );
+                
+                }}
                 className="custom-btn h-full w-full"
               >
                 Proceed to shipping

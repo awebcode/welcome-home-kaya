@@ -24,7 +24,7 @@ const orderSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-    pinCode: {
+    zipCode: {
       type: Number,
       required: true,
     },
@@ -52,9 +52,9 @@ const orderSchema = new mongoose.Schema({
         required: true,
       },
       product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "product",
-        required: true,
+        type: mongoose.Schema.ObjectId,
+        ref: "Product",
+        
       },
     },
   ],
@@ -63,16 +63,16 @@ const orderSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  paymentInfo: {
-    id: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      required: true,
-    },
-  },
+  // paymentInfo: {
+  //   id: {
+  //     type: String,
+  //     required: true,
+  //   },
+  //   status: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // },
   paidAt: {
     type: Date,
     required: true,
@@ -103,10 +103,7 @@ const orderSchema = new mongoose.Schema({
     default: "In Progress",
   },
   deliveredAt: Date,
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-});
+  
+},{timestamps:true});
 
 exports.orderModel = mongoose.model("order", orderSchema);

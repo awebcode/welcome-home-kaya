@@ -19,6 +19,9 @@ import {
   UPDATE_ORDER_REQUEST,
   UPDATE_ORDER_SUCCESS,
   RESET_ORDER_STATE,
+  UPDATE_ORDER_STATUS_FAIL,
+  UPDATE_ORDER_STATUS_REQUEST,
+  UPDATE_ORDER_STATUS_SUCCESS,
 } from "../constants/orderConstants";
 
 const initialState = {
@@ -42,6 +45,12 @@ const orderReducer = (state = initialState, action) => {
         error: null,
       };
     case UPDATE_ORDER_REQUEST:
+      return {
+        ...state,
+        updateLoading: true,
+        error: null,
+      };
+    case UPDATE_ORDER_STATUS_REQUEST:
       return {
         ...state,
         updateLoading: true,
@@ -83,6 +92,13 @@ const orderReducer = (state = initialState, action) => {
         isUpdated: true,
         error: null,
       };
+    case UPDATE_ORDER_STATUS_SUCCESS:
+      return {
+        ...state,
+        updateLoading: false,
+        error: null,
+        isUpdated: true,
+      };
     case DELETE_ORDER_SUCCESS:
       const deletedOrderId = action.payload;
       return {
@@ -102,8 +118,8 @@ const orderReducer = (state = initialState, action) => {
         isDeleted: false,
         isUpdated: false,
       };
-   
-//
+
+    //
     case GET_MY_ORDERS_ORDER_SUCCESS:
       return {
         ...state,
@@ -115,7 +131,7 @@ const orderReducer = (state = initialState, action) => {
         isUpdated: false,
       };
 
-    // 
+    //
 
     case GET_SINGLE_ORDER_SUCCESS:
       return {
@@ -131,6 +147,12 @@ const orderReducer = (state = initialState, action) => {
         error: action.payload,
       };
     case UPDATE_ORDER_FAIL:
+      return {
+        ...state,
+        updateLoading: false,
+        error: action.payload,
+      };
+    case UPDATE_ORDER_STATUS_FAIL:
       return {
         ...state,
         updateLoading: false,

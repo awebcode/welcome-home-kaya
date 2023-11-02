@@ -26,7 +26,15 @@ const initialState = {
 };
 
 const calculateTotalPrice = (cartItems) => {
-  return cartItems.reduce((total, item) => total + item.price, 0);
+  return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+};
+
+const updateLocalStorage = (cartItems) => {
+  const updatedTotalPrice = calculateTotalPrice(cartItems);
+  if (typeof window !== "undefined") {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem("totalPrice", updatedTotalPrice);
+  }
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -38,8 +46,6 @@ const cartReducer = (state = initialState, action) => {
       );
 
       if (existingItemIndex !== -1) {
-        // Item with the same ID already exists, update its quantity
-
         const updatedCart = state.cartItems.map((item, index) => {
           if (index === existingItemIndex) {
             return {
@@ -49,40 +55,31 @@ const cartReducer = (state = initialState, action) => {
           }
           return item;
         });
-        const updatedTotalPrice = calculateTotalPrice(updatedCart);
-
-        if (typeof window !== "undefined") {
-          localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-        }
-
-        return { ...state, cartItems: updatedCart, totalPrice: updatedTotalPrice };
+        updateLocalStorage(updatedCart);
+        return {
+          ...state,
+          cartItems: updatedCart,
+          totalPrice: calculateTotalPrice(updatedCart),
+        };
       } else {
-        // Item with the same ID doesn't exist, add it to the cart
         const updatedCart = [...state.cartItems, newItem];
-        const updatedTotalPrice = calculateTotalPrice(updatedCart);
-
-        if (typeof window !== "undefined") {
-          localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-        }
-
-        return { ...state, cartItems: updatedCart, totalPrice: updatedTotalPrice };
+        updateLocalStorage(updatedCart);
+        return {
+          ...state,
+          cartItems: updatedCart,
+          totalPrice: calculateTotalPrice(updatedCart),
+        };
       }
 
     case REMOVE_FROM_CART:
       const productId = action.payload;
       const updatedCartItems = state.cartItems.filter((item) => item._id !== productId);
-      const updatedTotalPriceAfterRemoval = calculateTotalPrice(updatedCartItems);
-
-      if (typeof window !== "undefined") {
-        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-      }
-
+      updateLocalStorage(updatedCartItems);
       return {
         ...state,
         cartItems: updatedCartItems,
-        totalPrice: updatedTotalPriceAfterRemoval,
+        totalPrice: calculateTotalPrice(updatedCartItems),
       };
-
     case UPDATE_TOTAL_PRICE:
       const newTotalPrice = action.payload;
 
@@ -91,9 +88,6 @@ const cartReducer = (state = initialState, action) => {
       }
 
       return { ...state, totalPrice: newTotalPrice };
-    
-
-    
     case SAVE_SHIPPING_INFO:
       return {
         ...state,
@@ -103,8 +97,6 @@ const cartReducer = (state = initialState, action) => {
     default:
       return state;
   }
-
-
 };
 
 export default cartReducer;

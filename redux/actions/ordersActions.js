@@ -157,6 +157,6 @@ export const resetOrderState = () => (dispatch) => {
 };
 
 // Clear create order error
-export const createOrderClearError = () => (dispatch) => {
+export const clearOrderClearError = () => (dispatch) => {
   dispatch({ type: CREATE_ORDER_CLEAR_ERROR });
 };

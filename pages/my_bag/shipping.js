@@ -22,7 +22,7 @@ const Shipping = () => {
   const [city, setCity] = useState(shippingInfo.city);
   const [state, setState] = useState(shippingInfo.state);
   const [country, setCountry] = useState(shippingInfo.country);
-  const [pinCode, setPinCode] = useState(shippingInfo.pinCode);
+  const [zipCode, setZipCode] = useState(shippingInfo.zipCode);
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
 
   const shippingSubmit = (e) => {
@@ -32,7 +32,7 @@ const Shipping = () => {
       toast.error("Phone Number should be 10 digits Long");
       return;
     }
-    dispatch(saveShippingInfo({ address, city, state, country, pinCode, phoneNo }));
+    dispatch(saveShippingInfo({ address, city, state, country, zipCode, phoneNo }));
     router.push("/my_bag/confirmOrder");
   };
 
@@ -75,10 +75,10 @@ const Shipping = () => {
               <PinDropIcon />
               <input
                 type="number"
-                placeholder="Pin Code"
+                placeholder="Zip Code"
                 required
-                value={pinCode}
-                onChange={(e) => setPinCode(e.target.value)}
+                value={zipCode}
+                onChange={(e) => setZipCode(e.target.value)}
               />
             </div>
 
@@ -138,7 +138,7 @@ const Shipping = () => {
               type="button"
               value="Back"
               onClick={() => router.back()}
-              className="custom-btn w-full cursor-pointer "
+              className="custom-btn w-full cursor-pointer my-2"
             />
           </form>
         </div>

@@ -13,9 +13,9 @@ const ConfirmOrder = () => {
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
-  const shippingCharges = subtotal > 1000 ? 0 : 200;
+  const shippingCharges = 135;
 
-  const tax = subtotal * 0.18;
+  const tax = 2;
 
   const totalPrice = subtotal + tax + shippingCharges;
 
@@ -44,7 +44,7 @@ const ConfirmOrder = () => {
             <div className="confirmshippingAreaBox">
               <div>
                 <p>Name:</p>
-                <span>{user?.name}</span>
+                <span>{user?.username}</span>
               </div>
               <div>
                 <p>Phone:</p>
@@ -62,11 +62,11 @@ const ConfirmOrder = () => {
               {cartItems &&
                 cartItems.map((item) => (
                   <div key={item.product}>
-                    <img src={item.image} alt="Product" />
-                    <Link href={`/house/single/${item.product}`}>{item.name}</Link>{" "}
+                    <img src={item?.images[0]} alt="Product" className="object-cover" />
+                    <Link href={`/house/single/${item.product}`}>{item.title}</Link>{" "}
                     <span>
-                      {item.quantity} X ₹{item.price} ={" "}
-                      <b>₹{item.price * item.quantity}</b>
+                      {item.quantity} X ${item.price} ={" "}
+                      <b>${item.price * item.quantity}</b>
                     </span>
                   </div>
                 ))}
@@ -80,15 +80,15 @@ const ConfirmOrder = () => {
             <div>
               <div>
                 <p>Subtotal:</p>
-                <span>₹{subtotal}</span>
+                <span>${subtotal}</span>
               </div>
               <div>
                 <p>Shipping Charges:</p>
-                <span>₹{shippingCharges}</span>
+                <span>${shippingCharges}</span>
               </div>
               <div>
-                <p>GST:</p>
-                <span>₹{tax}</span>
+                <p>Tax:</p>
+                <span>${tax}</span>
               </div>
             </div>
 
@@ -96,7 +96,7 @@ const ConfirmOrder = () => {
               <p>
                 <b>Total:</b>
               </p>
-              <span>₹{totalPrice}</span>
+              <span>${totalPrice}</span>
             </div>
 
             <button onClick={proceedToPayment}>Proceed To Payment</button>

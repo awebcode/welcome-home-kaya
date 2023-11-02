@@ -10,13 +10,15 @@ import {
   Divider,
   BadgeDelta,
 } from "@tremor/react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import AreaChartC, { AreaChartComponent } from './chart/AreaChartC';
 import { BarChartComponent } from './chart/BarChart';
 import { DonutChartCustomTooltip } from './chart/DonutChart';
+import { getOrders } from '@/redux/actions/ordersActions';
 
 const Dashboard = () => {
+  const dispatch=useDispatch()
   const navigate = useRouter();
   const { users } = useSelector(s => s.user)
   const { projects } = useSelector((s) => s.project);
@@ -41,6 +43,10 @@ const Dashboard = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  useEffect(() => {
+   dispatch(getOrders())
+  }, [dispatch])
+  
   return (
     <DashboardLayout>
       <div className="container my-5">
@@ -193,15 +199,18 @@ const Dashboard = () => {
             <Legend
               className="mt-3"
               categories={[
-                `Pending: ${orders?.filter((s) => s.status === "pending")?.length}`,
-                `Rejected: ${
-                  orders?.filter((s) => s.status === "rejected")?.length || 0
+                `In Progress: ${
+                  orders?.filter((s) => s.orderStatus === "In Progress")?.length
                 }`,
-                `Under Review: ${
-                  orders?.filter((s) => s.status === "under_review")?.length || 0
+
+                `Delivered: ${
+                  orders?.filter((s) => s.orderStatus === "Delivered")?.length || 0
+                }`,
+                `Cancelled: ${
+                  orders?.filter((s) => s.orderStatus === "Cancelled")?.length || 0
                 }`,
               ]}
-              colors={["emerald", "red", "purple", "amber"]}
+              colors={["purple", "emerald", "red"]}
             />
           </Card>
           {/* area chart */}

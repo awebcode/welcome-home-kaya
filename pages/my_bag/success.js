@@ -15,7 +15,7 @@ const OrderSuccessPage = () => {
             <span onClick={()=>router.back()}>Go Back</span>
           </Button>,
           <Button type="primary" key="go-to-orders">
-            <Link href="/orders">Go to Orders</Link>
+            <Link href="/orders/myorders">Go to Orders</Link>
           </Button>,
         ]}
       />

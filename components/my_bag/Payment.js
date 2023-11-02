@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Typography, Form, Input, Button, Divider } from "antd";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import { createNewOrder } from "@/redux/actions/ordersActions";
+import { clearOrderClearError, createNewOrder, resetOrderState } from "@/redux/actions/ordersActions";
 import CheckoutSteps from "./CheackOutSteps";
 
 const Payment = () => {
@@ -13,11 +13,14 @@ const Payment = () => {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-  const { error } = useSelector((state) => state.order);
+  const { error, createLoading,isCreated } = useSelector((state) => state.order);
 
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-
+  const projectDetails = JSON.parse(localStorage.getItem("projectDetails"));
   const order = {
+    projectName: projectDetails?.projectName,
+    address: projectDetails?.address,
+    homeType: projectDetails?.homeType,
     shippingInfo,
     orderItems: cartItems,
     itemsPrice: orderInfo.subtotal,
@@ -37,12 +40,29 @@ const Payment = () => {
       // Create a new order
       dispatch(createNewOrder(order));
 
-      router.push("/my_bag/success");
-      localStorage.removeItem("cartItems");
+     
+      
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
+useEffect(() => {
+  if (isCreated) {
+     toast.success("Order Submitted Success!")
+    router.push("/my_bag/success");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("cartItems");
+      localStorage.removeItem("totalPrice");
+      localStorage.removeItem("shippingInfo");
+      localStorage.removeItem("projectDetails");
+     }
+     dispatch(resetOrderState())
+  }
+   if (error) {
+     toast.error(error);
+     dispatch(clearOrderClearError());
+   }
+}, [isCreated,error,router])
 
   return (
     <Fragment>
@@ -101,16 +121,17 @@ const Payment = () => {
             />
           </Form.Item>
           <Button
+            loading={createLoading}
             type="primary"
             htmlType="submit"
             className="w-full py-2 font-semibold bg-green-500 hover:bg-green-600"
           >
-            {`Pay - $${orderInfo && orderInfo.totalPrice}`}
+            {createLoading ?"Order Submitting..." :`Pay - $${orderInfo && orderInfo.totalPrice}`} 
           </Button>
 
           <Button
             type="primary"
-             onClick={()=>router.back()}
+            onClick={() => router.back()}
             className="w-full my-2 font-semibold bg-green-500 hover:bg-green-600"
           >
             Back

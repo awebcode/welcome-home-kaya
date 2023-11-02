@@ -18,14 +18,20 @@ exports.createOrder = async (req, res, next) => {
       totalPrice,
       orderStatus,
       deliveredAt,
+      projectName,
+      address,
+      homeType
     } = req.body;
 
     const order = await orderModel.create({
+      projectName,
+      address,
+      homeType,
       shippingInfo,
       orderItems,
       user: req.user._id, // Assuming you have a middleware to authenticate the user
       paymentInfo,
-      paidAt,
+      paidAt:Date.now(), //paidAt when payment with any payment system
       itemsPrice,
       taxPrice,
       shippingPrice,
@@ -45,7 +51,26 @@ exports.createOrder = async (req, res, next) => {
 // @access  Private (Admin)
 exports.getAllOrders = async (req, res, next) => {
   try {
-    const orders = await orderModel.find({});
+    let orders = [];
+
+    if (req.user.role === "admin" ) {
+       orders = await orderModel
+         .find()
+         .populate("user", "email avatar username")
+         .select(
+           "projectName address shippingInfo.zipCode shippingInfo.phoneNo orderStatus totalPrice createdAt orderItems.images"
+         )
+         .sort({ createdAt: -1 });
+    } else {
+        orders = await orderModel
+          .find({ user: req.user.id })
+          .select(
+            "projectName address shippingInfo.zipCode shippingInfo.phoneNo orderStatus totalPrice createdAt orderItems"
+          )
+          .populate("user", "email avatar username")
+
+          .sort({ createdAt: -1 });
+     }
     res.status(200).json({ success: true, orders });
   } catch (error) {
     next(error);

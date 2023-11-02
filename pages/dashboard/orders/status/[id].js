@@ -1,7 +1,8 @@
+
 import dynamic from "next/dynamic";
 
-const ChangeOrderStatus = dynamic(
-  () => import("@/components/admin/orders/ChangeOStatus"),
+const UpdateOrderStatus = dynamic(
+  () => import("@/components/admin/orders/UpdorderStatus"),
   {
     ssr: false,
   }
@@ -11,7 +12,7 @@ import React from "react";
 const ChaneStatus = () => {
   return (
     <div>
-      <ChangeOrderStatus />
+      <UpdateOrderStatus />
     </div>
   );
 };
