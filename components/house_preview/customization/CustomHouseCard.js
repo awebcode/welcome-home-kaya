@@ -25,6 +25,7 @@ const CustomHouseCard = ({ data, project }) => {
         addToWishlist({
           ...data,
           quantity: 1,
+          price:data.price-data.price*(data.discount/100),
           project: {
             _id: project?._id,
             title: project?.title,
@@ -46,12 +47,13 @@ const CustomHouseCard = ({ data, project }) => {
       dispatch(removeFromCart(data._id));
       toast.warn("Item Removed from cart!");
     } else {
-      dispatch(updateTotalPrice(parseFloat(data?.price)));
+      // dispatch(updateTotalPrice(parseFloat(data?.price)));
       console.log(project)
       dispatch(
         addToCart({
           ...data,
           quantity: 1,
+          price: data.price - data.price * (data.discount / 100),
           project: {
             _id: project?._id,
             title: project?.title,
@@ -71,15 +73,15 @@ const CustomHouseCard = ({ data, project }) => {
   return (
     <div className="min-w-max rounded-s mx-auto bg-white shadow-lg rounded-md overflow-hidden my-2">
       <div
-        onClick={() => router.push(`/products/view/${data._id}`)}
-        className="relative h-32 rounded-md cursor-pointer"
+        // onClick={() => router.push(`/products/view/${data._id}`)}
+        className="relative h-32 rounded-md "
       >
         <Image src={data?.images[0]} alt={data?.title} layout="fill" objectFit="cover" />
       </div>
       <div className="p-4">
         <h2
-          onClick={() => router.push(`/products/view/${data._id}`)}
-          className="text-gray-900 text-sm font-bold cursor-pointer"
+          // onClick={() => router.push(`/products/view/${data._id}`)}
+          className="text-gray-900 text-sm font-bold "
         >
           {data?.title}
         </h2>

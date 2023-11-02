@@ -1,4 +1,9 @@
-import {  HomeOutlined, LogoutOutlined, ProjectOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  LogoutOutlined,
+  ProjectOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
 import { Avatar, Badge, Divider, Modal } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -17,14 +22,12 @@ const SidebarModal = ({ user, isModalOpen, setSidebarOpen, logoutHandler }) => {
   const router = useRouter();
 
   const isActive = (route) => {
-    
     return router.pathname === route ? "text-green-600" : "";
   };
   const clickHandler = () => {
-    
-    setSidebarOpen(false)
-  }
-  
+    setSidebarOpen(false);
+  };
+
   return (
     <>
       <Modal
@@ -130,17 +133,24 @@ const SidebarModal = ({ user, isModalOpen, setSidebarOpen, logoutHandler }) => {
               </div>
             </Link>
 
-            <Divider className="bg-[#cbd5e1]" />
-            <Link href="/dashboard/orders" onClick={clickHandler}>
+           */}
+            <Divider />
+            <Link
+              href={`${
+                user?.role === "admin" ? "/dashboard/orders" : "/orders/myorders"
+              }`}
+            >
               <div
                 className={`link link flex flex-col justify-center items-center text-gray-900 ${isActive(
-                  "/dashboard/orders"
+                  "/orders/myorders"
                 )}`}
               >
-                <FaJediOrder className="mb-2 text-[32px] text-center " />
-                <span className="text-[16px]">Orders</span>
+                <FaJediOrder className="mb-2 text-[16px] md:text-[20px] text-center " />
+                <span className="text-[12px] md:text-[13px]">
+                  {user?.role === "admin" ? "All Orders" : "My Orders"}
+                </span>
               </div>
-            </Link> */}
+            </Link>
             <Divider className="bg-[#cbd5e1]" />
             <Link href="/vendors" onClick={clickHandler}>
               <div

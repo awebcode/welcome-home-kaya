@@ -91,38 +91,9 @@ const cartReducer = (state = initialState, action) => {
       }
 
       return { ...state, totalPrice: newTotalPrice };
-    //update cart for cart component
+    
 
-    case UPDATE_CART_ITEM:
-      const updatedCartItemss = action.payload;
-      const updatedCartTotalPrice = calculateTotalPrice(updatedCartItemss);
-
-      if (typeof window !== "undefined") {
-        localStorage.setItem("cartItems", JSON.stringify(updatedCartItemss));
-        localStorage.setItem("totalPrice", updatedCartTotalPrice.toString());
-      }
-
-      return {
-        ...state,
-        cartItems: updatedCartItemss,
-        totalPrice: updatedCartTotalPrice,
-      };
-
-    case UPDATE_WISHLIST_ITEM:
-      const updatedWishlistItems = action.payload;
-      const updatedWishlistTotalPrice = calculateTotalPrice(updatedWishlistItems);
-
-      if (typeof window !== "undefined") {
-        localStorage.setItem("wishlistItems", JSON.stringify(updatedWishlistItems));
-        localStorage.setItem("wishlistTotalPrice", updatedWishlistTotalPrice.toString());
-      }
-
-      return {
-        ...state,
-        wishlistItems: updatedWishlistItems,
-        wishlistTotalPrice: updatedWishlistTotalPrice,
-      };
-
+    
     case SAVE_SHIPPING_INFO:
       return {
         ...state,

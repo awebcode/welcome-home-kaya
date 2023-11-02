@@ -145,93 +145,39 @@ export const categories = [
       },
     ],
   },
+  // MEP Roughing
 
   {
-    name: "Roof Plumbing",
-    icon: <RoofingSharp />,
-    subcategories: [
-      {
-        name: "Steam Generator",
-      },
-      {
-        name: "Shower Valve",
-      },
-
-      {
-        name: "P Trap",
-      },
-      {
-        name: "Freestanding Tub",
-      },
-      {
-        name: "Floor Filler Mount / Glue",
-      },
-      {
-        name: "Standard Tub",
-      },
-    ],
-  },
-  {
-    name: "Rough Electric",
+    name: "MEP Roughing",
     icon: <ElectricBoltRounded />,
     subcategories: [
       {
-        name: "Roof Floor Heat",
-        icon: <HeatPump />,
-        subSubcategories: ["Heated Flooring"],
-      },
-      {
-        name: "SmokeandCarbonMonoxideDetector",
+        name: "Rough Electric",
+        icon: <ElectricBoltRounded />,
+        subSubcategories: [
+          "Heated Flooring",
+          "SmokeandCarbonMonoxideDetector",
+          "220 volt",
+          "Generator",
+          "Electric Beheicle Charger",
+        ],
       },
 
       {
-        name: "220 volt",
-      },
-      {
-        name: "Generator",
-      },
-      {
-        name: "Electric Beheicle Charger",
-      },
-      {
-        name: "Lighting Fixures",
-        icon: <Light />,
+        name: "Roof Plumbing",
+        icon: <RoofingSharp />,
         subSubcategories: [
-          "Exterior Flood Light",
-          "Exterior sconce light",
-          "Interior Ceiling Light Fixture",
-          "Recessed Light",
-          "Transformer",
-          "Electric Bridge",
-          "Utility Light",
-          "Landscape Light",
-          "Chandelier",
-        ],
-      },
-      {
-        name: "Switches",
-        icon: <SwitchAccessShortcut />,
-        subSubcategories: [
-          "Outlet",
-          "Outlet Cover",
-          "Switch",
-          "Landscape Light",
-          "Switch Plate Standard",
-        ],
-      },
-      {
-        name: "HVAC Fixtures",
-        icon: <Hvac />,
-        subSubcategories: [
-          "Extraction Fan",
-          "Supply Register",
-          "Thermostat",
-          "Floor Boot",
-          "Wall/Ceiling Boot",
+          "Steam Generator",
+          "Shower Valve",
+          "P Trap",
+          "Freestanding Tub",
+          "Floor Filler Mount / Glue",
+          "Standard Tub",
         ],
       },
     ],
   },
+
   {
     name: "Plumbing Fixtures",
     icon: <Plumbing />,
@@ -279,6 +225,43 @@ export const categories = [
           "Towel Holder",
           "Mirror",
           "Shower Rod",
+        ],
+      },
+      {
+        name: "Lighting Fixures",
+        icon: <Light />,
+        subSubcategories: [
+          "Exterior Flood Light",
+          "Exterior sconce light",
+          "Interior Ceiling Light Fixture",
+          "Recessed Light",
+          "Transformer",
+          "Electric Bridge",
+          "Utility Light",
+          "Landscape Light",
+          "Chandelier",
+        ],
+      },
+      {
+        name: "Switches",
+        icon: <SwitchAccessShortcut />,
+        subSubcategories: [
+          "Outlet",
+          "Outlet Cover",
+          "Switch",
+          "Landscape Light",
+          "Switch Plate Standard",
+        ],
+      },
+      {
+        name: "HVAC Fixtures",
+        icon: <Hvac />,
+        subSubcategories: [
+          "Extraction Fan",
+          "Supply Register",
+          "Thermostat",
+          "Floor Boot",
+          "Wall/Ceiling Boot",
         ],
       },
     ],
@@ -390,11 +373,11 @@ export const categories = [
   {
     name: "Stairs And Railing",
 
-    icon: 
+    icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path d="M4 20h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h-2V4h-2v2h-2v2h-2v2h-2v2h-2v2h-2v2H6v2H4v2zm2-2h2v-2h2v-2h2v-2h2v-2h2v-2h2V6h-2V4h-2v2h-2v2h-2v2h-2v2h-2v2h-2v2zm2-4h2v-2h2v-2h2v-2h2V8h-2V6h-2v2h-2v2h-2v2zm0-4h2V6h2V4h-2v2h-2v2z" />
       </svg>
-    ,
+    ),
     subcategories: [
       { name: "Exterior Railing" },
       { name: "Hand Rails" },
@@ -404,7 +387,7 @@ export const categories = [
       },
       {
         name: "Stair Treads and lisers",
-        icon: 
+        icon: (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -413,7 +396,7 @@ export const categories = [
           >
             <path d="M4 20h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h-2V4h-2v2h-2v2h-2v2h-2v2h-2v2h-2v2H6v2H4v2zm2-2h2v-2h2v-2h2v-2h2v-2h2v-2h2V6h-2V4h-2v2h-2v2h-2v2h-2v2h-2v2h-2v2zm2-4h2v-2h2v-2h2v-2h2V8h-2V6h-2v2h-2v2h-2v2zm0-4h2V6h2V4h-2v2h-2v2z" />
           </svg>
-        ,
+        ),
         subSubcategories: ["Stair Tread", "Stair Riser"],
       },
     ],

@@ -4,9 +4,10 @@ import CustomHouseCard from "./CustomHouseCard";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "react-js-pagination";
 import { useMediaQuery } from "react-responsive";
+import Custom404 from "@/components/CustomNotfound";
 const { Option } = Select;
-const CommonCard = ({ router, title, project, products, setMinPrice, setMaxPrice,min,max,sortValue,setSearch,setSortValue }) => {
- const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+const CommonCard = ({ router, category,subCategory, project, products, setMinPrice, setMaxPrice, min, max, sortValue, setSearch, setSortValue }) => {
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const { cartItems, totalPrice } = useSelector((s) => s.cart);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   //filtering
@@ -26,39 +27,39 @@ const CommonCard = ({ router, title, project, products, setMinPrice, setMaxPrice
   const handleFilterModalCancel = () => {
     setIsFilterModalVisible(false);
   };
-//pagination
- const [activePage, setActivePage] = useState(1);
- const [recentOrdersActivePage, setRecentOrdersActivePage] = useState(1);
- const itemsPerPage = isMobile?4:3;
-   const startIndex = (activePage - 1) * itemsPerPage;
-   const endIndex = startIndex + itemsPerPage;
+  //pagination
+  const [activePage, setActivePage] = useState(1);
+  const [recentOrdersActivePage, setRecentOrdersActivePage] = useState(1);
+  const itemsPerPage = isMobile ? 4 : 3;
+  const startIndex = (activePage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
-   const displayedProducts = products?.slice(startIndex, endIndex);
+  const displayedProducts = products?.slice(startIndex, endIndex);
 
-   const handlePageChange = (pageNumber) => {
-     setActivePage(pageNumber);
-   };
+  const handlePageChange = (pageNumber) => {
+    setActivePage(pageNumber);
+  };
 
-   const recentOrdersStartIndex = (recentOrdersActivePage - 1) * itemsPerPage;
-   const recentOrdersEndIndex = recentOrdersStartIndex + itemsPerPage;
+  const recentOrdersStartIndex = (recentOrdersActivePage - 1) * itemsPerPage;
+  const recentOrdersEndIndex = recentOrdersStartIndex + itemsPerPage;
 
-   const displayedRecentOrders = shuffle(
-     products.slice(recentOrdersStartIndex, recentOrdersEndIndex)
-   );
+  const displayedRecentOrders = shuffle(
+    products.slice(recentOrdersStartIndex, recentOrdersEndIndex)
+  );
 
-   function shuffle(array) {
-     const shuffledArray = [...array];
-     for (let i = shuffledArray.length - 1; i > 0; i--) {
-       const j = Math.floor(Math.random() * (i + 1));
-       [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-     }
-     return shuffledArray;
-   }
+  function shuffle(array) {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray;
+  }
 
 
-   const handleRecentOrdersPageChange = (pageNumber) => {
-     setRecentOrdersActivePage(pageNumber);
-   };
+  const handleRecentOrdersPageChange = (pageNumber) => {
+    setRecentOrdersActivePage(pageNumber);
+  };
   return (
     <>
       <div className="flex justify-between items-center p-4 rounded-md bg-gray-200">
@@ -79,8 +80,8 @@ const CommonCard = ({ router, title, project, products, setMinPrice, setMaxPrice
       </div>
       <div className="flex justify-between items-center mb-4 w-full">
         <div className="flex flex-col">
-          <h1 className="font-bold text-xl mb-2">{title}</h1>
-          <p>Best seller (Shipping/Tax included)</p>
+          <h1 className="text-gray-900 font-medium text-sm md:text-xl mb-2">{category!==subCategory?category+" / "+subCategory:category}</h1>
+          <p>Best seller (Shipping / Tax included)</p>
         </div>
         <div className="w-36">
           {/* <Select onChange={(e)=>setPrice(e.target.value)} style={{ width: "100%" }} placeholder="Filter" h>
@@ -163,20 +164,27 @@ const CommonCard = ({ router, title, project, products, setMinPrice, setMaxPrice
           })}
       </div>
       {/* pagination */}
-      <div className="pagination-container">
-        <Pagination
-          activePage={activePage}
-          itemsCountPerPage={itemsPerPage}
-          totalItemsCount={products?.length}
-          pageRangeDisplayed={3}
-          onChange={handlePageChange}
-          itemClass="page-item"
-          linkClass="page-link"
-        />
-      </div>
+      {displayedProducts?.length > 0 ? (
+        <div className="pagination-container">
+          <Pagination
+            activePage={activePage}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={products?.length}
+            pageRangeDisplayed={3}
+            onChange={handlePageChange}
+            itemClass="page-item"
+            linkClass="page-link"
+          />
+        </div>
+      ) : (
+        <>
+          <h1 className="text-center text-3xl md:text-4xl p-4 text-gray-800 my-6">
+            404! No Items Found!
+          </h1>
+        </>
+      )}
       <div className="">
         <h1 className="font-bold text-3xl">Recent Orders</h1>
-
         <div
           style={{ overflowX: "scroll" }}
           className="flex justify-between items-center gap-1 flex-wrap md:flex-nowrap"
@@ -187,17 +195,25 @@ const CommonCard = ({ router, title, project, products, setMinPrice, setMaxPrice
             })}
         </div>
         {/* pagination */}
-        <div className="pagination-container">
-          <Pagination
-            activePage={recentOrdersActivePage}
-            itemsCountPerPage={itemsPerPage}
-            totalItemsCount={products?.length}
-            pageRangeDisplayed={3}
-            onChange={handleRecentOrdersPageChange}
-            itemClass="page-item"
-            linkClass="page-link"
-          />
-        </div>
+        {displayedRecentOrders?.length > 0 ? (
+          <div className="pagination-container">
+            <Pagination
+              activePage={recentOrdersActivePage}
+              itemsCountPerPage={itemsPerPage}
+              totalItemsCount={products?.length}
+              pageRangeDisplayed={3}
+              onChange={handleRecentOrdersPageChange}
+              itemClass="page-item"
+              linkClass="page-link"
+            />
+          </div>
+        ) : (
+          <>
+            <h1 className="text-center text-3xl md:text-4xl p-4 text-gray-800 my-6">
+              404! No Recent Items Found!
+            </h1>
+          </>
+        )}
       </div>
     </>
   );

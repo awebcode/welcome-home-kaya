@@ -3,9 +3,9 @@ import {
   CREATE_PRODUCT_FAIL,
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
-  DELETE_SINGLE_PRODUCT_FAIL,
-  DELETE_SINGLE_PRODUCT_REQUEST,
-  DELETE_SINGLE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAIL,
+  DELETE_PRODUCT_REQUEST,
+  DELETE_PRODUCT_SUCCESS,
   GET_PRODUCTS_FAIL,
   GET_PRODUCTS_REQUEST,
   GET_PRODUCTS_SUCCESS,
@@ -49,7 +49,7 @@ const productReducer = (state = initialState, action) => {
         updateLoading: true,
         error: null,
       };
-    case DELETE_SINGLE_PRODUCT_REQUEST:
+    case DELETE_PRODUCT_REQUEST:
       return {
         ...state,
         deleteLoading: true,
@@ -90,7 +90,7 @@ const productReducer = (state = initialState, action) => {
         isUpdated: true,
         error: null,
       };
-    case DELETE_SINGLE_PRODUCT_SUCCESS:
+    case DELETE_PRODUCT_SUCCESS:
       const deletedProductId = action.payload;
       return {
         ...state,
@@ -136,7 +136,7 @@ const productReducer = (state = initialState, action) => {
         updateLoading: false,
         error: action.payload,
       };
-    case DELETE_SINGLE_PRODUCT_FAIL:
+    case DELETE_PRODUCT_FAIL:
       return {
         ...state,
         deleteLoading: false,

@@ -149,7 +149,8 @@ console.log(collapsed)
               {/* {renderRightSidebarContent()} */}
 
               <CommonCard
-                title={mainCategory}
+                category={mainCategory}
+                subCategory={currentCategory}
                 router={router}
                 project={project}
                 products={products}

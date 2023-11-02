@@ -198,7 +198,14 @@ import { Tabs, Divider, Select } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { addToCart, addToWishlist, removeFromCart, removeFromWishlist, updateCartItem, updateWishlistItem } from "@/redux/actions/cartActions";
+import {
+  addToCart,
+  addToWishlist,
+  removeFromCart,
+  removeFromWishlist,
+  updateCartItem,
+  updateWishlistItem,
+} from "@/redux/actions/cartActions";
 import Custom404 from "../CustomNotfound";
 import { toast } from "react-toastify";
 import { AddCardOutlined, AddShoppingCartOutlined } from "@mui/icons-material";
@@ -214,8 +221,6 @@ const BagComponent = () => {
 
   const [selectedPhase, setSelectedPhase] = useState(null);
   const [quantity, setQuantity] = useState(1);
-
-
 
   const [activeTab, setActiveTab] = useState("cart"); // Initialize activeTab state with 'cart'
 
@@ -245,12 +250,11 @@ const BagComponent = () => {
 
   //wishlist quantity start
   const addToCartHandler = (item) => {
-    dispatch(addToCart(item))
-    toast.success("Item Added to Cart!")
+    dispatch(addToCart(item));
+    toast.success("Item Added to Cart!");
     dispatch(removeFromWishlist(item._id));
-    setActiveTab("cart")
-  
-  }
+    setActiveTab("cart");
+  };
   const increaseWishlistQuantity = (item, quantity, stock) => {
     const newQty = quantity + 1;
     if (stock <= quantity) {
@@ -294,7 +298,7 @@ const BagComponent = () => {
   console.log("quanttity", quantity);
   return (
     <div className="flex flex-col lg:flex-row p-4 min-h-screen">
-      <div className="w-full lg:w-1/2 lg:pr-4 flex flex-col flex-wrap">
+      <div className={`w-full ${cartItems?.length > 0?"lg:w-1/2":"lg:w-1/1"} lg:pr-4 flex flex-col flex-wrap`}>
         <Tabs activeKey={activeTab} onChange={handleTabChange}>
           <TabPane tab="Cart" key="cart">
             <div className="flex justify-between items-center">
@@ -548,7 +552,7 @@ const BagComponent = () => {
         </Tabs>
       </div>
       {/* ... Right Side ... */}
-      {activeTab === "cart" ? (
+      {activeTab === "cart" && cartItems?.length > 0 ? (
         <>
           <div className="w-full lg:w-1/2 lg:pl-4 mt-4 lg:mt-0">
             <div className="bg-white rounded-lg p-4 shadow-md">

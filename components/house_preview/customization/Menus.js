@@ -8,7 +8,6 @@ const Menus = ({
   setMainCategory,
   mainCategory,
 }) => {
-  console.log("maincategory", currentCategory);
   return (
     <>
       <Menu
@@ -36,11 +35,12 @@ const Menus = ({
                   icon={subcategory.icon}
                   title={subcategory.name}
                   onTitleClick={() => {
-                    setCurrentCategory(subcategory);
+                    setCurrentCategory(subcategory.name);
                     // setMainCategory(category.name);
                   }}
                 >
                   {subcategory?.subSubcategories?.map((subSubcategory, subSubIndex) => (
+                    // console.log("subsub",subSubcategory)
                     <Menu.Item
                       onClick={() => setCurrentCategory(subSubcategory)}
                       key={`subsubcategory_${subSubIndex + 23}`}
