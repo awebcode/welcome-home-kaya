@@ -256,11 +256,12 @@
 
 .shippingHeading {
   text-align: center;
+  font-size: 30px;
   color: rgba(0, 0, 0, 0.664);
   font: 400 1.3vmax "Roboto";
-  padding: 1.3vmax;
+  padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.205);
-  width: 50%;
+  width: 100%;
   margin: auto;
 }
 

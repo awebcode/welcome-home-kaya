@@ -213,10 +213,10 @@ const { TabPane } = Tabs;
 const { Option } = Select;
 
 const BagComponent = () => {
-  const {user}=useSelector(s=>s.user)
+  const { user } = useSelector((s) => s.user);
   const dispatch = useDispatch();
   const Router = useRouter();
-  const { cartItems,totalPrice } = useSelector((s) => s.cart);
+  const { cartItems, totalPrice } = useSelector((s) => s.cart);
   const { wishlistItems } = useSelector((s) => s.wishlist);
 
   const [selectedPhase, setSelectedPhase] = useState(null);
@@ -298,12 +298,14 @@ const BagComponent = () => {
   //proceed to shipping
   const checkLoginShipping = () => {
     if (!user?.email) {
-       Router.push("/user/login?shipping")
-      
+      Router.push({
+        pathname: "/user/login",
+        query: { shipping: true },
+      });
     } else {
-       Router.push("/my_bag/shipping");
+      Router.push("/my_bag/shipping");
     }
-  }
+  };
 
   return (
     <div className="flex flex-col lg:flex-row p-4 min-h-screen">
@@ -601,7 +603,7 @@ const BagComponent = () => {
               <button
                 onClick={() => {
                   checkLoginShipping();
-                
+
                   typeof window !== "undefined" &&
                     localStorage.setItem(
                       "projectDetails",
@@ -611,7 +613,6 @@ const BagComponent = () => {
                         homeType: cartItems[0]?.project?.homeType,
                       })
                     );
-                
                 }}
                 className="custom-btn h-full w-full"
               >

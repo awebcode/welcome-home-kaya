@@ -23,27 +23,28 @@ const LoginForm = () => {
   
   
 
-  useEffect(() => {
-    const { shipping } = router.query;
-    if (isAuthenticated && shipping) {
-      
-      return router.push("/my_bag");
-    }
-    if (isAuthenticated) {
-      router.push("/user/profile");
-    }
-    if (isRegistered) {
-      toast.success("Yea! Login successfull!");
-      dispatch(clearErrors());
-      
-    }
-    
+   useEffect(() => {
+     const { shipping } = router.query;
 
-    if (error) {
-      toast.warning(error);
-      dispatch(clearErrors());
-    }
-  }, [dispatch, router, isAuthenticated, isRegistered, error]);
+     if (isAuthenticated) {
+       if (shipping) {
+         router.push("/my_bag");
+       } else {
+         router.push("/user/profile");
+       }
+     }
+
+     if (isRegistered) {
+       toast.success("Yea! Login successfull!");
+       dispatch(clearErrors());
+     }
+
+     if (error) {
+       toast.warning(error);
+       dispatch(clearErrors());
+     }
+   }, [dispatch, router, isAuthenticated, isRegistered, error]);
+
 
   return (
     <div className="container min-h-[86vh] w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
