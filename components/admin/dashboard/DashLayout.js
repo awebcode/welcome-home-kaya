@@ -33,8 +33,6 @@ const DashboardSidebar = ({ collapsed, setCollapsed }) => {
 
   return (
     <Sider
-     
-      
       theme="light"
       style={{ position: "fixed", top: 0, minHeight: "100vh", zIndex: 100 }}
       collapsible
@@ -54,7 +52,7 @@ const DashboardSidebar = ({ collapsed, setCollapsed }) => {
               <Link href="/dashboard/customers">Customers</Link>
             </Menu.Item>
             <SubMenu key="3" icon={<ProjectOutlined className="mr-2" />} title="Projects">
-              <Menu.Item key="3.1" icon={<FaBullseye className="mr-2" />}>
+              <Menu.Item key="3.1" icon={<Add className="mr-2" />}>
                 <Link href="/dashboard/projects/new">Create Project</Link>
               </Menu.Item>
               <Menu.Item key="3.2" icon={<UnorderedListOutlined className="mr-2" />}>
