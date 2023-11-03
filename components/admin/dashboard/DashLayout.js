@@ -82,7 +82,7 @@ const DashboardSidebar = ({ collapsed, setCollapsed }) => {
             </Menu.Item>
             <Menu.Item
               key="logout"
-              icon={<LogoutOutlined className="mr-2" />}
+              icon={<LogoutOutlined className="mr-2 text-red-600" />}
               onClick={logoutHandler}
             >
               <Link href="#">Logout</Link>

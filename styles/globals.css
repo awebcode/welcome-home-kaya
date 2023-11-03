@@ -46,8 +46,9 @@ body {
 
   color: #ffffff; /* Equivalent to text-white */
   font-weight: 400; /* Equivalent to font-bold */
-  padding: 0.5rem 1rem; /* Equivalent to py-2 px-4 */
+  padding: 0.6rem; /* Equivalent to py-2 px-4 */
   border-radius: 0.375rem; /* Equivalent to rounded */
+  font-size: 16px !important;
 }
 
 .custom-btn:hover {
@@ -68,6 +69,7 @@ button.ant-btn.css-xu9wm8.ant-btn-primary
   border-radius: 0.375rem; /* Equivalent to rounded */
   height: 100%;
 }
+
 /* ant modal footer  cancel button */
  /* Add this CSS to your stylesheets */
 

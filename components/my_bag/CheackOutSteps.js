@@ -20,6 +20,7 @@ const CheckoutSteps = ({ activeStep }) => {
       ),
       icon: (
         <LocalShippingIcon
+          style={{ fontSize: "40px" }}
           className="cursor-pointer"
           onClick={() => router.push("/my_bag/shipping")}
         />
@@ -36,6 +37,7 @@ const CheckoutSteps = ({ activeStep }) => {
       ),
       icon: (
         <LibraryAddCheckIcon
+          style={{ fontSize: "40px" }}
           className="cursor-pointer"
           onClick={() => router.push("/my_bag/confirmOrder")}
         />
@@ -52,6 +54,7 @@ const CheckoutSteps = ({ activeStep }) => {
       ),
       icon: (
         <AccountBalanceIcon
+          style={{ fontSize: "40px" }}
           className="cursor-pointer"
           onClick={() => router.push("/my_bag/payment")}
         />
@@ -74,7 +77,8 @@ const CheckoutSteps = ({ activeStep }) => {
           >
             <StepLabel
               style={{
-                color: activeStep >= index ? "tomato" : "rgba(0, 0, 0, 0.649)",
+                color: activeStep >= index ? "#22c55e" : "rgba(0, 0, 0, 0.649)",
+                
               }}
               icon={item.icon}
             >

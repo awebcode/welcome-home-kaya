@@ -29,19 +29,18 @@ useEffect(() => {
   }
 }, [dispatch, router, error, isSentEmail]);
   return (
-    <div className="container w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
+    <div className="container min-h-[86vh] w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
       <Form
         form={form}
         layout="vertical"
-        className="w-full md:w-[70%]"
+        className="w-full md:w-[50%] shadow-2xl rounded-2xl p-3 md:p-6"
         onFinish={onFinish}
-        labelCol={{ span: 8 }}
         size="large"
       >
-        <h2 className="text-2xl md:text-5xl text-center font-bold mb-4 my-4">
-          Sent a email to reset
+        <h2 className="text-2xl md:text-4xl text-center text-gray-900 mb-4 my-4">
+          Sent a email to reset.
         </h2>
-        <Divider/>
+        <Divider />
         <Form.Item
           label="Email"
           name="email"
@@ -50,7 +49,10 @@ useEffect(() => {
             { type: "email", message: "Please enter a valid email!" },
           ]}
         >
-          <Input placeholder="Enter your email address"/>
+          <Input
+            placeholder="Enter your email address"
+            className="w-full bg-white rounded border  border-gray-400 focus:border-green-400 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-3 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
         </Form.Item>
 
         <Form.Item>
@@ -58,6 +60,7 @@ useEffect(() => {
             className="custom-btn w-full h-full"
             htmlType="submit"
             loading={loading}
+            style={{ padding: "14px", height: "100%" }}
           >
             Sent reset email
           </Button>

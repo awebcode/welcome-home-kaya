@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Form, Input, Button, Divider } from "antd";
+import { Form, Input,  Divider, Button } from "antd";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, loadUser, login } from "@/redux/actions/userActions";
@@ -20,8 +20,15 @@ const LoginForm = () => {
 
     
   };
+  
+  
 
   useEffect(() => {
+    const { shipping } = router.query;
+    if (isAuthenticated && shipping) {
+      
+      return router.push("/my_bag");
+    }
     if (isAuthenticated) {
       router.push("/user/profile");
     }
@@ -39,20 +46,20 @@ const LoginForm = () => {
   }, [dispatch, router, isAuthenticated, isRegistered, error]);
 
   return (
-    <div className="container w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
+    <div className="container min-h-[86vh] w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
       <Form
         form={form}
         layout="vertical"
-        className="w-full md:w-[70%]"
+        className="w-full md:w-[50%] shadow-2xl rounded-2xl p-3 md:p-6"
         onFinish={onFinish}
-        labelCol={{ span: 8 }}
+        
         size="large"
       >
-        <h2 className="text-2xl md:text-5xl text-center font-bold mb-4 my-4">
+        <h2 className="text-2xl md:text-3xl text-center text-gray-700 mb-4 my-4">
           Welcome Back👋
         </h2>
         <Divider className="bg-gray-300" />
-        <h2 className="text-2xl md:text-5xl text-center font-bold mb-4 my-4">
+        <h2 className="text-2xl md:text-4xl text-center text-gray-900 mb-4 my-4">
           Signin to your account.
         </h2>
 
@@ -61,7 +68,10 @@ const LoginForm = () => {
           name="email"
           rules={[{ required: true, message: "Please enter your username or email!" }]}
         >
-          <Input placeholder="Enter your username or email" />
+          <Input
+            placeholder="Enter your username or email"
+            className="w-full bg-white rounded border  border-gray-400 focus:border-green-400 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-3 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
         </Form.Item>
 
         <Form.Item
@@ -69,14 +79,19 @@ const LoginForm = () => {
           name="password"
           rules={[{ required: true, message: "Please enter your password!" }]}
         >
-          <Input.Password placeholder="Enter your password" />
+          <Input.Password
+            placeholder="Enter your password"
+            className="w-full bg-white rounded border  border-gray-400 focus:border-green-400 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-3 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
         </Form.Item>
 
         <Form.Item>
           <Button
-            className="custom-btn w-full h-full"
-            htmlType="submit"
+            className="custom-btn w-full h-full p-12 "
+           
             loading={loading}
+            htmlType="submit"
+            style={{padding:"14px",height:"100%"}}
           >
             Login
           </Button>

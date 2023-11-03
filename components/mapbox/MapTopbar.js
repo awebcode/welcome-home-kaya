@@ -49,7 +49,7 @@ const MapTopbar = ({ handleSearch }) => {
   
   return (
     <>
-      <div className="flex justify-between flex-wrap items-center p-2 my-2 mx-2 md:mx-4 rounded-md">
+      <div className="flex justify-between flex-wrap items-center p-2 my-1 mx-2 md:mx-4 rounded-md">
         <div className="mb-1 md:hidden m-[8px] p-2 w-full h-full">
           <Input.Search
             icon={<BsSearch className="p-3 w-full h-full" />}
@@ -89,7 +89,7 @@ const MapTopbar = ({ handleSearch }) => {
           </Button>
         </div>
 
-        <div className="w-full flex my-2 flex-wrap justify-between items-center hidden md:flex md:items-start">
+        <div className="w-full  my-2 flex-wrap justify-between items-center hidden md:flex md:items-start">
           <div className="mx-2 my-1">
             <Select
               defaultValue="Home Type"

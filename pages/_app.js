@@ -67,6 +67,11 @@ const [showFooter, setShowFooter] = useState(false);
  const isDashboardRoute =
    router.pathname.includes("/admin")||
    router.pathname.includes("/dashboard");
+  const noNeedFooter =
+    router.pathname === "/" ||
+    router.pathname === "my_bag" ||
+    router.pathname.includes("house/single") ||
+    router.pathname.includes("house/customization");
   return (
     <>
       <Head>
@@ -91,10 +96,7 @@ const [showFooter, setShowFooter] = useState(false);
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-          
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" />
       </Head>
       <Provider store={store}>
         <ContextProvider>
@@ -125,7 +127,7 @@ const [showFooter, setShowFooter] = useState(false);
             </Layout>
           )}
 
-          {showFooter && !isDashboardRoute && <Footer />}
+          {!loading && showFooter && !isDashboardRoute && !noNeedFooter && <Footer />}
         </ContextProvider>
       </Provider>
       {/* Same as */}

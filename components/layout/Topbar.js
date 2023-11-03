@@ -94,13 +94,13 @@ const Topbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
           >
             Orders
           </Menu.Item>
-          <Menu.Item
+          {/* <Menu.Item
             onClick={() => Router.push("/settings")}
             key="2"
             icon={<SettingOutlined />}
           >
             Settings
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key="3" onClick={() => logoutHandler()} icon={<LogoutOutlined />}>
             Logout
           </Menu.Item>

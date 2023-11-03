@@ -55,13 +55,12 @@ useEffect(()=>{
   }
 },[error,dispatch,router,isUpdated])
   return (
-    <div className="container w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
+    <div className="container min-h-[86vh] w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
       <Form
         form={form}
         layout="vertical"
-        className="w-full md:w-[70%]"
+        className="w-full md:w-[50%] shadow-2xl rounded-2xl p-3 md:p-6"
         onFinish={onFinish}
-        labelCol={{ span: 8 }}
         size="large"
         onValuesChange={handleFieldChange} // Track field changes
       >
@@ -69,26 +68,39 @@ useEffect(()=>{
           Update Your Information
         </h2>
         <Form.Item label="New Username" name="username">
-          <Input placeholder="Enter a new username!" />
+          <Input
+            placeholder="Enter a new username!"
+            className="w-full bg-white rounded border  border-gray-400 focus:border-green-400 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-3 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
         </Form.Item>
         <Form.Item label="Email" name="email">
-          <Input placeholder="Enter a new email!" />
+          <Input
+            placeholder="Enter a new email!"
+            className="w-full bg-white rounded border  border-gray-400 focus:border-green-400 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-3 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
         </Form.Item>
         <Form.Item label="Add Profile Bio" name="bio">
-          <Input.TextArea rows={4} placeholder="Enter a new bio!" />
+          <Input.TextArea
+            rows={4}
+            placeholder="Enter a new bio!"
+            className="w-full bg-white rounded border  border-gray-400 focus:border-green-400 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-3 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
         </Form.Item>
         <Form.Item label="Add Phone" name="phone">
-          <Input placeholder="Enter a new  phone!" />
+          <Input
+            placeholder="Enter a new  phone!"
+            className="w-full bg-white rounded border  border-gray-400 focus:border-green-400 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-3 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
         </Form.Item>
         <Form.Item
           label="Change Password"
           name="password"
-          rules={[
-            
-            { min: 6, message: "Password must be at least 6 characters!" },
-          ]} // Added password validation rules
+          rules={[{ min: 6, message: "Password must be at least 6 characters!" }]} // Added password validation rules
         >
-          <Input.Password placeholder="Enter a new password!" />
+          <Input.Password
+            placeholder="Enter a new password!"
+            className="w-full bg-white rounded border  border-gray-400 focus:border-green-400 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-3 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
         </Form.Item>
 
         <Form.Item>
@@ -97,6 +109,7 @@ useEffect(()=>{
             type="primary"
             htmlType="submit"
             loading={profileUpdateLoading}
+            style={{ padding: "14px", height: "100%" }}
           >
             {profileUpdateLoading ? "Updating..." : "Update Information"}
           </Button>

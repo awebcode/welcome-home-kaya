@@ -24,7 +24,7 @@ const Footer = () => {
 
     }
   return (
-    <div className="bg-gray-900 text-white py-8 my-6 px-6 font-thin font-mono  ">
+    <div className="bg-gray-900 text-white py-8 my-6 px-6 font-thin font-mono ">
       <div className="container mx-auto flex justify-between flex-wrap">
         <Divider className="bg-gray-600" />
         <div className="w-full sm:w-1/2 lg:w-1/5 mb-6">

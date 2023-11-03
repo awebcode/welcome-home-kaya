@@ -23,10 +23,10 @@ const Payment = () => {
     homeType: projectDetails?.homeType,
     shippingInfo,
     orderItems: cartItems,
-    itemsPrice: orderInfo.subtotal,
-    taxPrice: orderInfo.tax,
-    shippingPrice: orderInfo.shippingCharges,
-    totalPrice: orderInfo.totalPrice,
+    itemsPrice: orderInfo?.subtotal,
+    taxPrice: orderInfo?.tax,
+    shippingPrice: orderInfo?.shippingCharges,
+    totalPrice: orderInfo?.totalPrice,
   };
 
   const onFinish = async (values) => {
@@ -67,18 +67,19 @@ useEffect(() => {
   return (
     <Fragment>
       <CheckoutSteps activeStep={2} />
-      <div className="max-w-md mx-auto p-6 min-h-screen">
+      <div className="max-w-md mx-auto p-8 min-h-screen ">
         <Form
           layout="vertical"
           size="large"
           onFinish={onFinish}
-          className="shadow-lg rounded-md p-6"
+          className=" p-9 rounded-lg shadow-2xl"
         >
           <Typography className="mb-4 text-3xl text-gray-900 text-center">
             Card Info
           </Typography>
           <Divider className="bg-gray-300" />
           <Form.Item
+            label="Cart Number"
             name="cardNumber"
             rules={[
               {
@@ -93,6 +94,7 @@ useEffect(() => {
             />
           </Form.Item>
           <Form.Item
+            label="Expiry Date"
             name="expiryDate"
             rules={[
               {
@@ -107,6 +109,7 @@ useEffect(() => {
             />
           </Form.Item>
           <Form.Item
+            label="CVV"
             name="cvv"
             rules={[
               {
@@ -126,7 +129,9 @@ useEffect(() => {
             htmlType="submit"
             className="w-full py-2 font-semibold bg-green-500 hover:bg-green-600"
           >
-            {createLoading ?"Order Submitting..." :`Pay - $${orderInfo && orderInfo.totalPrice}`} 
+            {createLoading
+              ? "Order Submitting..."
+              : `Pay - $${orderInfo && orderInfo.totalPrice}`}
           </Button>
 
           <Button

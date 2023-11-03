@@ -120,11 +120,10 @@ const ClusterMap = () => {
       style={{
         minHeight: "100vh",
         width: isMobile ? "100vw" : "93vw",
+        borderRadius: "7px",
+        margin:isMobile?"":"0px 6px"
       }}
-      containerStyle={{
-        minHeight: "100vh",
-        width: isMobile ? "100vw" : "93vw",
-      }}
+     
     >
       {clusters.map((cluster) => {
         const { cluster: isCluster, point_count } = cluster.properties;

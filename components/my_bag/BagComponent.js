@@ -213,6 +213,7 @@ const { TabPane } = Tabs;
 const { Option } = Select;
 
 const BagComponent = () => {
+  const {user}=useSelector(s=>s.user)
   const dispatch = useDispatch();
   const Router = useRouter();
   const { cartItems,totalPrice } = useSelector((s) => s.cart);
@@ -294,7 +295,16 @@ const BagComponent = () => {
       total + parseFloat(item.price - item.price * (item.discount / 100)) * item.quantity,
     0
   );
-  console.log("quanttity", quantity);
+  //proceed to shipping
+  const checkLoginShipping = () => {
+    if (!user?.email) {
+       Router.push("/user/login?shipping")
+      
+    } else {
+       Router.push("/my_bag/shipping");
+    }
+  }
+
   return (
     <div className="flex flex-col lg:flex-row p-4 min-h-screen">
       <div
@@ -590,7 +600,7 @@ const BagComponent = () => {
               <Divider />
               <button
                 onClick={() => {
-                  Router.push("/my_bag/shipping");
+                  checkLoginShipping();
                 
                   typeof window !== "undefined" &&
                     localStorage.setItem(
