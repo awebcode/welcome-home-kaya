@@ -25,7 +25,7 @@ const GeocoderInput = () => {
     });
 
     ctrl.on("clear", () => dispatch({ type: "CLEAR_ADDRESS" }));
-  }, []);
+  }, [containerRef, dispatch, mapRef]);
   return null;
 };
 

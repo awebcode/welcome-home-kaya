@@ -62,7 +62,7 @@ const [showFooter, setShowFooter] = useState(false);
     store.dispatch(getProjects());
     store.dispatch(getUsers());
     store.dispatch(getProducts());
-  }, [store.dispatch]);
+  }, []);
   //for dashboard layout
  const isDashboardRoute =
    router.pathname.includes("/admin")||

@@ -20,9 +20,7 @@ const Review = ({ open, setOpen, product }) => {
   const [existingReview, setExistingReview] = useState(null);
 
   useEffect(() => {
-    const userReview = product?.reviews?.find(
-      (review) => review?.user === userData?._id
-    );
+    const userReview = product?.reviews?.find((review) => review?.user === userData?._id);
     if (userReview) {
       setExistingReview(userReview);
       setRating(userReview.rating);
@@ -32,7 +30,7 @@ const Review = ({ open, setOpen, product }) => {
       setRating(0);
       setComment("");
     }
-  }, [product?.reviews, userData?.user?._id]);
+  }, [product?.reviews, userData?._id]);
 
   const submitReviewToggle = () => {
     open ? setOpen(false) : setOpen(true);

@@ -32,7 +32,7 @@ const AddLocation = () => {
           });
         });
     }
-  }, []);
+  }, [dispatch,lat,lng]);
 
   const handleMarkerDragEnd = async (e) => {
     const { lng, lat } = e.lngLat;

@@ -22,10 +22,10 @@ const Profile = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error)
-      dispatch(clearErrors())
+      toast.error(error);
+      dispatch(clearErrors());
     }
-  },[error])
+  }, [dispatch,error]);
 
   if (singleUserGetLoading) {
     return <Loader />;

@@ -39,7 +39,7 @@ const ClusterMap = () => {
   useEffect(() => {
     // dispatchRedux(getProjects(dispatch))
     getAllProjects(dispatch);
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const points = filteredRooms?.map((project) => ({
