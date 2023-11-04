@@ -208,11 +208,14 @@ import {
 import Custom404 from "../CustomNotfound";
 import { toast } from "react-toastify";
 import {  AddShoppingCartOutlined } from "@mui/icons-material";
+import Image from "next/image";
+import MediaQuery from "react-responsive";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
 
 const BagComponent = () => {
+  const isMobile = MediaQuery({ query: "(max-width: 768px)" });
   const { user } = useSelector((s) => s.user);
   const dispatch = useDispatch();
   const Router = useRouter();
@@ -308,7 +311,7 @@ const BagComponent = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row p-4 min-h-screen">
+    <div className="flex flex-col lg:flex-row p-2 md:p-4 min-h-screen">
       <div
         className={`w-full ${
           cartItems?.length > 0 ? "lg:w-1/2" : "lg:w-1/1"
@@ -349,26 +352,32 @@ const BagComponent = () => {
             {cartItems?.length > 0 ? (
               cartItems.map((item) => (
                 <div key={item._id} className="w-full p-2">
-                  <div className="bg-white flex gap-2 rounded-lg p-4 shadow-md">
+                  <div className="bg-white flex justify-center items-center gap-1 md:gap-2 rounded-lg p-1 md:p-4 shadow-md">
                     {/* ...  ... */}
-                    <div className="flex justify-center items-center h-full md:h-32">
-                      <img
-                        src={item.images[0]}
-                        alt={item.title}
-                        className="w-full   h-full  object-cover object-center rounded-md mx-auto mb-2"
-                      />
+                    <div className="flex justify-center items-center h-full md:h-32 mx-auto">
+                      <figure>
+                        <Image
+                          height={isMobile ? 90 : 200}
+                          width={isMobile ? 70 : 200}
+                          layout="fixed"
+                          src={item.images[0]}
+                          alt={item.title}
+                          className="w-full   h-full  object-cover object-center rounded-md mx-auto"
+                        />
+                        {/* <figcaption>{item.title?.slice(0, 22)}</figcaption> */}
+                      </figure>
                     </div>
                     <div className="w-full mx-1 md:mx-2 h-full md:h-32">
                       <div className="flex justify-between items-center">
                         <div>
-                          <h3 className="text-lg font-bold mb-2">
-                            {item.title?.slice(0, 30) + "..."}
+                          <h3 className="text-sm md:text-lg font-bold mb-2">
+                            {item.title?.slice(0, 22)}
                           </h3>
-                          <p className="text-xs">
-                            {item.description?.slice(0, 50) + "..."}
+                          <p className="text-[7px[ md:text-sm">
+                            {item.description?.slice(0, 40) + "..."}
                           </p>
                         </div>
-                        <h2 className="text-lg font-bold text-center mb-2">
+                        <h2 className="text-sm md:text-lg font-bold text-center mb-2">
                           ${(item.price - item.price * (item.discount / 100)).toFixed(2)}
                         </h2>
                       </div>
@@ -467,27 +476,35 @@ const BagComponent = () => {
                         <AddShoppingCartOutlined className="text-rose-500" />
                       </button>
 
-                      <div className="bg-white flex gap-2 rounded-lg p-4 shadow-md">
-                        <div className="flex justify-center items-center h-full md:h-32">
-                          <img
-                            src={item.images[0]}
-                            alt={item.title}
-                            className="w-full   h-full object-cover object-center  rounded-md mx-auto mb-2"
-                          />
+                      <div className="bg-white flex justify-center items-center gap-2 rounded-lg p-4 shadow-md">
+                        <div className="flex justify-center items-center h-full md:h-32 mx-auto">
+                          <figure>
+                            <Image
+                              height={isMobile ? 90 : 200}
+                              width={isMobile ? 70 : 200}
+                              layout="fixed"
+                              src={item.images[0]}
+                              alt={item.title}
+                              className="w-full object-cover object-center  h-full   rounded-md mx-auto"
+                            />
+                            {/* <figcaption>{item.title?.slice(0, 22)}</figcaption> */}
+                          </figure>
                         </div>
-
                         <div className="w-full mx-1 md:mx-2 h-full md:h-32">
                           <div className="flex justify-between items-center">
                             <div>
-                              <h3 className="text-lg font-bold mb-2">
-                                {item.title?.slice(0, 20) + "..."}
+                              <h3 className="text-sm md:text-lg font-bold mb-2">
+                                {item.title?.slice(0, 22)}
                               </h3>
-                              <p className="text-xs">
-                                {item.description?.slice(0, 50) + "..."}
+                              <p className="text-[7px[ md:text-sm">
+                                {item.description?.slice(0, 40) + "..."}
                               </p>
                             </div>
-                            <h2 className="text-lg font-bold text-center mb-2">
-                              ${item.price}
+                            <h2 className="text-sm md:text-lg font-bold text-center mb-2">
+                              $
+                              {(item.price - item.price * (item.discount / 100)).toFixed(
+                                2
+                              )}
                             </h2>
                           </div>
                           <div className="flex justify-between my-2">
@@ -495,8 +512,9 @@ const BagComponent = () => {
                               <div className="flex text-[8px] md:text-[10px] my-2">
                                 <b>Availability:</b>
                                 <span className="text-gray-500 mx-1 md:mx-2">
+                                  {" "}
                                   {item?.quantity > 0 ? (
-                                    <p className="text-gray-900">In Stock</p>
+                                    <p className="text-green-500">In Stock</p>
                                   ) : (
                                     <p className="text-rose-500">Out of Stock</p>
                                   )}

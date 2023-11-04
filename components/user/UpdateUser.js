@@ -55,7 +55,7 @@ useEffect(()=>{
   }
 },[error,dispatch,router,isUpdated])
   return (
-    <div className="container min-h-[86vh] w-full px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
+    <div className="container min-h-[86vh] w-full px-2  md:px-44 md:m-5 flex justify-center items-center">
       <Form
         form={form}
         layout="vertical"

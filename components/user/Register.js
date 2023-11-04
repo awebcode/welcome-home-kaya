@@ -38,7 +38,7 @@ const RegisterForm = () => {
     }
   }, [dispatch, router, isAuthenticated, isRegistered, error]);
   return (
-    <div className="container w-full min-h-[86vh] px-2 m-2 md:px-44 md:m-5 flex justify-center items-center">
+    <div className="container w-full min-h-[86vh] px-2  md:px-44 md:m-5 flex justify-center items-center">
       <Form
         form={form}
         layout="vertical"
