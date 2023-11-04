@@ -65,7 +65,7 @@ useEffect(() => {
      dispatch(clearOrderClearError());
    }
 }, [isCreated,error,router])
-
+//upd
   return (
     <Fragment>
       <CheckoutSteps activeStep={2} />
