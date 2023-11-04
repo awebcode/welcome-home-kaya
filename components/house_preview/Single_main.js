@@ -73,7 +73,7 @@ const SingleMain = () => {
   return (
     <div className="flex justify-center p-3 md:p-8 flex-wrap gap-4">
       {/* Left Side */}
-       <div className="max-w-[94vw] md:max-w-[40vw] flex-col h-[80vh] flex justify-center items-center">
+      <div className="max-w-[94vw] md:max-w-[40vw] flex-col h-[80vh] flex justify-center items-center">
         <Swiper
           style={{
             "--swiper-navigation-color": "#fff",
@@ -125,8 +125,8 @@ const SingleMain = () => {
               />
             </SwiperSlide>
           ))}
-        </Swiper> 
-      {/* <div className="max-w-[90vw] md:max-w-[60%]">
+        </Swiper>
+        {/* <div className="max-w-[90vw] md:max-w-[60%]">
         <ReactImageGallery
           thumbnailTitle={true}
           showBullets
@@ -232,13 +232,13 @@ const SingleMain = () => {
         <div className="flex mx-1">
           <button
             onClick={() => router.push(`/house/customization/${project?._id}`)}
-            className="custom-btn mx-1 text-[14px] font-thin  p-1 cursor-pointer w-full"
+            className="custom-btn mx-1 text-[9px] md:text-[14px] font-thin  p-1 cursor-pointer w-full"
           >
-            Project approval workflow
+            Customization
           </button>{" "}
           <button
             onClick={() => router.push(`/house/details/${project?._id}`)}
-            className="custom-btn mx-1 text-[14px] font-thin  p-1 cursor-pointer w-full"
+            className="custom-btn mx-1 text-[9px] md:text-[14px] font-thin  p-1 cursor-pointer w-full"
           >
             Procure Materials
           </button>
