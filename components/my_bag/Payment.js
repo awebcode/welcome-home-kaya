@@ -55,8 +55,10 @@ useEffect(() => {
       localStorage.removeItem("totalPrice");
       localStorage.removeItem("shippingInfo");
       localStorage.removeItem("projectDetails");
+      window.location.reload()
      }
      dispatch(resetOrderState())
+    
   }
    if (error) {
      toast.error(error);
@@ -67,12 +69,12 @@ useEffect(() => {
   return (
     <Fragment>
       <CheckoutSteps activeStep={2} />
-      <div className="max-w-md mx-auto p-8 min-h-screen ">
+      <div className="max-w-md mx-auto p-2 md:p-8 min-h-screen ">
         <Form
           layout="vertical"
           size="large"
           onFinish={onFinish}
-          className=" p-9 rounded-lg shadow-2xl"
+          className=" p-2 md:p-9 rounded-lg shadow-sm md:shadow-2xl"
         >
           <Typography className="mb-4 text-3xl text-gray-900 text-center">
             Card Info
