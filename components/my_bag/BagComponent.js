@@ -351,14 +351,14 @@ const BagComponent = () => {
                 <div key={item._id} className="w-full p-2">
                   <div className="bg-white flex gap-2 rounded-lg p-4 shadow-md">
                     {/* ...  ... */}
-                    <div className="flex justify-center items-center h-32">
+                    <div className="flex justify-center items-center h-full md:h-32">
                       <img
                         src={item.images[0]}
                         alt={item.title}
-                        className="w-full   h-full   rounded-md mx-auto mb-2"
+                        className="w-full   h-full  object-cover object-center rounded-md mx-auto mb-2"
                       />
                     </div>
-                    <div className="w-full mx-1 md:mx-2 h-32">
+                    <div className="w-full mx-1 md:mx-2 h-full md:h-32">
                       <div className="flex justify-between items-center">
                         <div>
                           <h3 className="text-lg font-bold mb-2">
@@ -468,15 +468,15 @@ const BagComponent = () => {
                       </button>
 
                       <div className="bg-white flex gap-2 rounded-lg p-4 shadow-md">
-                        <div className="flex justify-center items-center h-32">
+                        <div className="flex justify-center items-center h-full md:h-32">
                           <img
                             src={item.images[0]}
                             alt={item.title}
-                            className="w-full   h-full   rounded-md mx-auto mb-2"
+                            className="w-full   h-full object-cover object-center  rounded-md mx-auto mb-2"
                           />
                         </div>
 
-                        <div className="w-full mx-1 md:mx-2 h-32">
+                        <div className="w-full mx-1 md:mx-2 h-full md:h-32">
                           <div className="flex justify-between items-center">
                             <div>
                               <h3 className="text-lg font-bold mb-2">
