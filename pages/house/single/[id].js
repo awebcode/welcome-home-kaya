@@ -5,8 +5,8 @@ import Loader from '@/components/Loader';
 import dynamic from 'next/dynamic'
 const SingleMain = dynamic(() => import("@/components/house_preview/Single_main"), {
   ssr: false,
-  loading:<Loader/>
- });
+  loading: () => <Loader />,
+});
 import React from 'react'
 
 

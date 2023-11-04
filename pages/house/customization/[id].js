@@ -6,7 +6,7 @@ const CustomizeHouse = dynamic(
   () => import("@/components/house_preview/customization/CustomizeHouse"),
   {
     ssr: false,
-    loading: <Loader />,
+    loading: () => <Loader />,
   }
 );
 import React from 'react'

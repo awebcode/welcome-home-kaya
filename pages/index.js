@@ -1,12 +1,12 @@
 
 import Loader from '@/components/Loader';
 import dynamic from 'next/dynamic';
+import Head from "next/head";
 
 const MapComponent = dynamic(() => import("@/components/mapbox/Mapcomponent"), {
   ssr: false,
-  loading: <Loader />,
+   loading:()=> <Loader/>,
 });
-import Head from 'next/head'
 
 
 
