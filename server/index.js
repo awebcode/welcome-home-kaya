@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 // Middleware for enabling CORS (Cross-Origin Resource Sharing)
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://welcome-home-kaya.vercel.app"],
+    origin: ["http://localhost:3000", "https://welcome-home-kaya.vercel.app","https://housebuilder.vercel.app"],
     credentials: true,
 
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
