@@ -38,7 +38,7 @@ const ReviewCard = ({ review, getReview, setOpen }) => {
   const canDeleteReview =
     userData?.role === "admin" ||
     userData?.role === "sub_admin" ||
-    review?._id === userData?._id;
+    review?.user?._id === userData?._id;
 
   const editReviewHandler = () => {
     setOpen(true);
