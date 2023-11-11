@@ -73,15 +73,15 @@ const CustomHouseCard = ({ data, project }) => {
   return (
     <div className="min-w-max rounded-s mx-auto bg-white shadow-lg rounded-md overflow-hidden my-2">
       <div
-        // onClick={() => router.push(`/products/view/${data._id}`)}
-        className="relative h-32 rounded-md "
+        onClick={() => router.push(`/products/view/${data._id}`)}
+        className="relative h-32 rounded-md cursor-pointer "
       >
         <Image src={data?.images[0]} alt={data?.title} layout="fill" objectFit="cover" />
       </div>
       <div className="p-4">
         <h2
-          // onClick={() => router.push(`/products/view/${data._id}`)}
-          className="text-gray-900 text-sm font-bold "
+          onClick={() => router.push(`/products/view/${data._id}`)}
+          className="text-gray-900 text-sm font-bold cursor-pointer"
         >
           {data?.title}
         </h2>
